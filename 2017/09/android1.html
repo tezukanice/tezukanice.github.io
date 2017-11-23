@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.cat.net//css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,国光," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="国光" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://image.3001.net/images/20171012/15077801618158.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="记录了第一个简易app开发中遇到的知识点，以及一些自己对代码的理解">
+<meta name="keywords" content="Android,国光">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个简易的APP">
+<meta property="og:url" content="http://www.sqlsec.com/2017/09/android1.html">
+<meta property="og:site_name" content="国光">
+<meta property="og:description" content="记录了第一个简易app开发中遇到的知识点，以及一些自己对代码的理解">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.3001.net/images/20170914/15053533895859.png">
+<meta property="og:image" content="http://image.3001.net/images/20170911/15051189668810.png">
+<meta property="og:updated_time" content="2017-09-30T03:56:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一个简易的APP">
+<meta name="twitter:description" content="记录了第一个简易app开发中遇到的知识点，以及一些自己对代码的理解">
+<meta name="twitter:image" content="http://image.3001.net/images/20170914/15053533895859.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.sqlsec.com/2017/09/android1.html"/>
+
+
+
+
+
+  <title>一个简易的APP | 国光</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">国光</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">安安静静写博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-hacker">
+          <a href="/categories/hacker/" rel="section">
+            
+            黑客
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-c">
+          <a href="/C" rel="section">
+            
+            C
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-android">
+          <a href="/categories/Android" rel="section">
+            
+            Android
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-python">
+          <a href="/categories/Python" rel="section">
+            
+            Python
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ctf">
+          <a href="/categories/CTF" rel="section">
+            
+            CTF
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-reverse">
+          <a href="/categories/Reverse" rel="section">
+            
+            逆向
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-others">
+          <a href="/categories/others/" rel="section">
+            
+            其他
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/categories/life" rel="section">
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-member">
+          <a href="/member" rel="section">
+            
+            作者墙
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.sqlsec.com/2017/09/android1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="国光">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://image.3001.net/images/20170929/15066688735308.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国光">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一个简易的APP</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-14T09:35:27+08:00">
+                2017-09-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye">浏览数</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://image.3001.net/images/20170914/15053533895859.png" alt=""><br>记录了第一个简易app开发中遇到的知识点，以及一些自己对代码的理解<br><a id="more"></a></p>
+<h1 id="APP-预览"><a href="#APP-预览" class="headerlink" title="APP 预览"></a>APP 预览</h1><p>首先这一次我们要做一个类似于问卷的app:<br><img src="http://image.3001.net/images/20170911/15051189668810.png" alt=""> </p>
+<h1 id="字符串资源-strings-xml"><a href="#字符串资源-strings-xml" class="headerlink" title="字符串资源 strings.xml"></a>字符串资源 strings.xml</h1><p>每个项目都包含一个名为strings.xml的默认字符串文件。<br>在项目的<code>app/res/values</code>目录下,<code>strings.xml</code>文件用户统一保存整个项目的字符串资源，然后方便我们查阅管理。</p>
+<h2 id="引用字符串资源"><a href="#引用字符串资源" class="headerlink" title="引用字符串资源"></a>引用字符串资源</h2><p><code>strings.xml</code><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"app_name"</span>&gt;</span>GeoQuiz<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"true_button"</span>&gt;</span>TRUE<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span></span></div></pre></td></tr></table></figure></p>
+<p>在具体的布局界面中引用字符串资源<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">LinearLayoutxmlns:android="http:</span>//<span class="attr">schemas.android.com</span>/<span class="attr">apk</span>/<span class="attr">res</span>/<span class="attr">android</span>"&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Button</span></span></div><div class="line"><span class="tag"> <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag"> <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag"> <span class="attr">android:text</span>=<span class="string">"@string/true_button"</span> /&gt;</span> </div><div class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这里这个布局中具体定义的<code>Button</code>这个组件通过<code>android:text=&quot;@string/true_button&quot;</code>就成功的调用了<code>strings.xml</code>文件中的<code>TRUE</code>,拿到了<code>TRUE</code>这个值。</p>
+<h1 id="设置事件监听器"><a href="#设置事件监听器" class="headerlink" title="设置事件监听器"></a>设置事件监听器</h1><h2 id="添加组件成员变量"><a href="#添加组件成员变量" class="headerlink" title="添加组件成员变量"></a>添加组件成员变量</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> android.widget.Button; </div><div class="line"><span class="keyword">private</span> Button mTrueButton;</div></pre></td></tr></table></figure>
+<h2 id="引用组件"><a href="#引用组件" class="headerlink" title="引用组件"></a>引用组件</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mTrueButton = (Button) findViewById(R.id.true_button);</div></pre></td></tr></table></figure>
+<p>这里先使用按钮的资源ID获取生成的对象，然后再进行<code>Button</code>类型的转换：<code>(Button) findViewById(R.id.true_button)</code>    </p>
+<h2 id="设置监听器"><a href="#设置监听器" class="headerlink" title="设置监听器"></a>设置监听器</h2><p>监听器通俗的来说就是用户单击这个按钮出发的响应事件，需要实现<code>View.OnClickListener</code>接口<br>先实现一个空的监听器事件：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mTrueButton = (Button) findViewById(R.id.true_button);</div><div class="line"> mTrueButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">    <span class="comment">//空的事件 这里暂时没有任何事件</span></div><div class="line">    &#125;</div><div class="line"> &#125;);</div></pre></td></tr></table></figure></p>
+<p>传入<code>setOnClickListener(OnClickListener)</code>方法的<code>参数</code>是一个监听器。该参数是<br>一个实现了<code>OnClickListener</code>接口的对象。  </p>
+<h1 id="创建提示消息"><a href="#创建提示消息" class="headerlink" title="创建提示消息"></a>创建提示消息</h1><p>弹出我们称为<code>toast</code>的提示消息。Android的<code>toast</code><br>是用来通知用户的<code>简短弹出消息</code>，用户无需输入或进行任何操作。</p>
+<h2 id="strings-xml文件完善"><a href="#strings-xml文件完善" class="headerlink" title="strings.xml文件完善"></a>strings.xml文件完善</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"correct_toast"</span>&gt;</span>Correct!<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"incorrect_toast"</span>&gt;</span>Incorrect!<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="调用成makeText-创建提示消息"><a href="#调用成makeText-创建提示消息" class="headerlink" title="调用成makeText 创建提示消息"></a>调用成makeText 创建提示消息</h2><p>这里面弹出的<code>toast</code>消息其实也就是完善了上面的按钮监听事件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mTrueButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">    Toast.makeText(QuizActivity.<span class="keyword">this</span>,R.string.correct_toast,Toast.LENGTH_SHORT).show();</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>这里的话，当用户点击这个<code>mTrueButton</code>按钮就会触发<code>.makeText(QuizActivity.this,R.string.correct_toast,Toast.LENGTH_SHORT).show()</code>这里就会调用<code>correct_toast</code>弹出<code>strings.xml</code>里面对应的<code>Correct!</code>消息。</p>
+<h1 id="创建新的问题类"><a href="#创建新的问题类" class="headerlink" title="创建新的问题类"></a>创建新的问题类</h1><p>到这里我们的APP只能进行单一的问题测试，当有很多个问题的时候，按照原来的方法去写就会很麻烦，效率也不高。所以这里我们创建一个<code>Quesion.java</code>类来单独的进行问题的整理。<br><code>Question.java</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Question</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mTextResId;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> mAnswerTrue;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Question</span><span class="params">(<span class="keyword">int</span> textResId, <span class="keyword">boolean</span> answerTrue)</span> </span>&#123;</div><div class="line">        mTextResId = textResId;</div><div class="line">        mAnswerTrue = answerTrue;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>成员变量<code>mTextResId</code>的作用是:<code>int</code>类型显示问题的内容<br>成员变量<code>mAnswerTrue</code>的作用是:<code>boolean</code>类型的，用来判断问题的对错</p>
+<h2 id="int-类型的疑问"><a href="#int-类型的疑问" class="headerlink" title="int 类型的疑问"></a>int 类型的疑问</h2><p>到这里小伙伴肯定有疑问了：成员变量<code>mTextResId</code>是<code>int</code>类型的，但是却用来显示问题的内容，说到内容这里我们第一时间肯定是想到了<code>String</code>类型.<br>哈哈，我也有这个疑问，还好书的作者这里给了一个很详细的解释:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">变量mTextResId用来保存地理知识</div><div class="line">问题字符串的资源ID。资源ID总是int类型，所以这里设置它为int而不是String类型</div></pre></td></tr></table></figure></p>
+<h2 id="生成获取方法与设置方法"><a href="#生成获取方法与设置方法" class="headerlink" title="生成获取方法与设置方法"></a>生成获取方法与设置方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getTextResId</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> mTextResId;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTextResId</span><span class="params">(<span class="keyword">int</span> textResId)</span> </span>&#123;</div><div class="line">    mTextResId = textResId;</div><div class="line">&#125; </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAnswerTrue</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> mAnswerTrue;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAnswerTrue</span><span class="params">(<span class="keyword">boolean</span> answerTrue)</span> </span>&#123;</div><div class="line">    mAnswerTrue = answerTrue;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="新增按钮以及文本视图调整"><a href="#新增按钮以及文本视图调整" class="headerlink" title="新增按钮以及文本视图调整"></a>新增按钮以及文本视图调整</h2><p><code>activity_quiz.xml</code><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">TextView</span> </span></div><div class="line"><span class="tag"> <span class="attr">android:id</span>=<span class="string">"@+id/question_text_view"</span></span></div><div class="line"><span class="tag"> <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag"> <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag"> <span class="attr">android:padding</span>=<span class="string">"24dp"</span></span></div><div class="line"><span class="tag"> /&gt;</span> </div><div class="line"> <span class="tag">&lt;<span class="name">Button</span></span></div><div class="line"><span class="tag"> <span class="attr">android:id</span>=<span class="string">"@+id/next_button"</span></span></div><div class="line"><span class="tag"> <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag"> <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag"> <span class="attr">android:text</span>=<span class="string">"@string/next_button"</span> /&gt;</span></div></pre></td></tr></table></figure></p>
+<p><code>strings.xml</code><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"next_button"</span>&gt;</span>NEXT<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这里删除了<code>TextView</code>的<code>android:text</code>属性定义。取消了硬编码地理知识问题。<br>为<code>TextView</code>新增<code>android:id</code>属性。<code>TextView</code>组件需要资源<code>ID</code>。<br>新增了<code>Button</code>按钮对应了<code>strings.xml</code>文件里面的<code>NEXT</code>的值。</p>
+<h2 id="完善-strings-xml-问题字符串"><a href="#完善-strings-xml-问题字符串" class="headerlink" title="完善 strings.xml 问题字符串"></a>完善 strings.xml 问题字符串</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"question_xss"</span>&gt;</span>DOM XSS属于反射型XSS<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"question_sql"</span>&gt;</span>XSS 注入不属于HTTP头注入<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="增加问题对象数组"><a href="#增加问题对象数组" class="headerlink" title="增加问题对象数组"></a>增加问题对象数组</h2><p><code>QuizActivity.java</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuizActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Button mTrueButton;</div><div class="line">    <span class="keyword">private</span> Button mFalseButton;</div><div class="line">    <span class="keyword">private</span> Button mNextButton;</div><div class="line">    <span class="keyword">private</span> TextView mQuestionTextView;</div><div class="line"><span class="keyword">private</span> Question[] mQuestionBank = <span class="keyword">new</span> Question[] &#123;</div><div class="line">    <span class="keyword">new</span> Question(R.string.question_xss, <span class="keyword">true</span>),</div><div class="line">    <span class="keyword">new</span> Question(R.string.question_sql, <span class="keyword">false</span>),</div><div class="line"> &#125;;</div><div class="line"> <span class="keyword">private</span> <span class="keyword">int</span> mCurrentIndex = <span class="number">0</span>;</div></pre></td></tr></table></figure></p>
+<p>通过多次调用<code>Question</code>类的构造方法，创建了<code>Question</code>对象数组</p>
+<h2 id="TextView-显示问题内容"><a href="#TextView-显示问题内容" class="headerlink" title="TextView 显示问题内容"></a>TextView 显示问题内容</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">   mQuestionTextView = (TextView) findViewById(R.id.question_text_view);</div><div class="line">   <span class="keyword">int</span> question = mQuestionBank[mCurrentIndex].getTextResId();</div><div class="line">   mQuestionTextView.setText(question);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里首先去<code>R.id.question_text_view</code>找到<code>text_view</code>的值，然后转换为<code>TextView</code>类型，用<code>int</code>类型的<code>question</code>去拿到当前问题数组中的值，然后用<code>setText(question)</code>拿到<code>textview</code>的值，赋值给<code>mQuestionTextView</code>。</p>
+<h2 id="为-next-按钮设置监听事件"><a href="#为-next-按钮设置监听事件" class="headerlink" title="为 next 按钮设置监听事件"></a>为 next 按钮设置监听事件</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">mNextButton = (Button) findViewById(R.id.next_button);</div><div class="line">mNextButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">    mCurrentIndex = (mCurrentIndex + <span class="number">1</span>) % mQuestionBank.length;</div><div class="line">    <span class="keyword">int</span> question = mQuestionBank[mCurrentIndex].getTextResId();</div><div class="line">    mQuestionTextView.setText(question);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这里的主要的事件类型是<code>mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;</code>  这样的话就拿到了核心代码就是<code>mCurrentIndex + 1</code>，这里实现了问题数组往下一个切换。</p>
+<h2 id="封装-updateQuestion-封公共代码"><a href="#封装-updateQuestion-封公共代码" class="headerlink" title="封装 updateQuestion() 封公共代码"></a>封装 updateQuestion() 封公共代码</h2><p>为什么要封装代码，因为我们一开始定义<code>mQuestionTextView</code>的时候就使用了如下的代码:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mQuestionTextView = (TextView) findViewById(R.id.question_text_view);</div><div class="line"><span class="keyword">int</span> question = mQuestionBank[mCurrentIndex].getTextResId();</div><div class="line">mQuestionTextView.setText(question);</div></pre></td></tr></table></figure></p>
+<p>当我们 为 <code>next</code> 按钮触发监听事件的时候也写到了如下的代码:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">    mCurrentIndex = (mCurrentIndex + <span class="number">1</span>) % mQuestionBank.length;</div><div class="line">    <span class="keyword">int</span> question = mQuestionBank[mCurrentIndex].getTextResId();</div><div class="line">    mQuestionTextView.setText(question);</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>这里就出现了重复的去写一段代码了，这显然不是一个合格的程序员所做的事情，所以这里得想办法把这块重复代码进行封装一下：<br>定义一个<code>updateQuestion()</code>方法:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">updateQuestion</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> question = mQuestionBank[mCurrentIndex].getTextResId();</div><div class="line">    mQuestionTextView.setText(question);</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>然后可以直接使用<code>updateQuestion();</code>来简化上面的操作。</p>
+<h1 id="对答案进行判断"><a href="#对答案进行判断" class="headerlink" title="对答案进行判断"></a>对答案进行判断</h1><p>增加方法<code>checkAnswer(boolean)</code>，用于判断答案的正确与否：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">updateQuestion</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> question = mQuestionBank[mCurrentIndex].getTextResId();</div><div class="line">    mQuestionTextView.setText(question);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkAnswer</span><span class="params">(<span class="keyword">boolean</span> userPressedTrue)</span> </span>&#123;</div><div class="line">    <span class="keyword">boolean</span> answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();</div><div class="line">    <span class="keyword">int</span> messageResId = <span class="number">0</span>;</div><div class="line">    <span class="keyword">if</span> (userPressedTrue == answerIsTrue) &#123;</div><div class="line">        messageResId = R.string.correct_toast;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        messageResId = R.string.incorrect_toast;</div><div class="line">    &#125;</div><div class="line">    Toast.makeText(<span class="keyword">this</span>, messageResId, Toast.LENGTH_SHORT).show();</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>进行答案正确的基本的逻辑判断，当答案正确的时候，直接使用<code>toast</code>来弹出<code>R.string.correct_toast</code>的值；答案错误的时候，使用<code>toast</code>来弹出<code>R.string.incorrect_toas</code>的值。</p>
+<h2 id="为按钮设置-cheakAnswer-事件"><a href="#为按钮设置-cheakAnswer-事件" class="headerlink" title="为按钮设置 cheakAnswer 事件"></a>为按钮设置 cheakAnswer 事件</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">mTrueButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">    checkAnswer(<span class="keyword">true</span>);</div><div class="line">&#125; </div><div class="line">mFalseButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">    checkAnswer(<span class="keyword">false</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="第2章挑战练习"><a href="#第2章挑战练习" class="headerlink" title="第2章挑战练习"></a>第2章挑战练习</h1><h2 id="为-TextView-添加监听器"><a href="#为-TextView-添加监听器" class="headerlink" title="为 TextView 添加监听器"></a>为 TextView 添加监听器</h2><p><code>NEXT</code>按钮不错，但如果用户单击应用的<code>TextView</code>文字区域（地理知识问题），也可以跳转<br>到下一道题，用户体验应该会更好。你来试一试。<br>这里面思路就是为<code>mQuestionTextView</code>对象也设置一个监听事件，然后功能上的代码和<code>next</code>按钮几乎是一样的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">mQuestionTextView.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</div><div class="line">           <span class="meta">@Override</span></div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</div><div class="line">               mCurrentIndex = (mCurrentIndex + <span class="number">1</span>) % mQuestionBank.length;</div><div class="line">               mIsCheater = <span class="keyword">false</span>;</div><div class="line">               updateQuestion();</div><div class="line">           &#125;</div><div class="line">       &#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="添加后退按钮"><a href="#添加后退按钮" class="headerlink" title="添加后退按钮"></a>添加后退按钮</h2><p>为GeoQuiz应用新增后退按钮，用户单击时，可以显示上一道测试题目。<br>这里首先布局文件xml文件添加个 与 <code>next</code>按钮一样的 <code>Button</code>组件即可，这里不再叙述，下面写出 关键功能是 <code>java</code>代码，其实关键点就在于<code>mCurrentIndex = (mCurrentIndex - 1) % mQuestionBank.length;</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">mPrevButton = (Button) findViewById(R.id.prev_button);</div><div class="line">       mPrevButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</div><div class="line">           <span class="meta">@Override</span></div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</div><div class="line">               mCurrentIndex = (mCurrentIndex - <span class="number">1</span>) % mQuestionBank.length;</div><div class="line">               updateQuestion();</div><div class="line">           &#125;</div><div class="line">       &#125;);</div></pre></td></tr></table></figure></p>
+<h1 id="为按钮添加图标"><a href="#为按钮添加图标" class="headerlink" title="为按钮添加图标"></a>为按钮添加图标</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">Button</span></span></div><div class="line"><span class="tag"> <span class="attr">android:id</span>=<span class="string">"@+id/next_button"</span></span></div><div class="line"><span class="tag"> <span class="attr">android:drawableRight</span>=<span class="string">"@drawable/arrow_right"</span></span></div><div class="line"><span class="tag"> <span class="attr">android:drawablePadding</span>=<span class="string">"4dp"</span></span></div><div class="line"><span class="tag"> /&gt;</span></div></pre></td></tr></table></figure>
+<p>这里<code>drawableRight</code>就是将 图标添加到 按钮的 左边部分，反之要添加到 右面部分 只需要 改为：<code>drawableLeft</code>,这样图标就添加到左边了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://image.3001.net/images/20171103/15097023327128.png" alt="国光 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>听说打赏我的人，都挖到了0day。</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/国光/" rel="tag"># 国光</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/android2.html" rel="next" title="Android 开发初体验">
+                <i class="fa fa-chevron-left"></i> Android 开发初体验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/android3.html" rel="prev" title="第二个Activity">
+                第二个Activity <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTU5Ny82MTY1"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://image.3001.net/images/20170929/15066688735308.jpg"
+               alt="国光" />
+          <p class="site-author-name" itemprop="name">国光</p>
+           
+              <p class="site-description motion-element" itemprop="description">宁静致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5728586656" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.github.com/tezukanice/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/guo-guang-94/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-tags"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ggsec.cn/" title="Demon" target="_blank">Demon</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://secretwiki.org/" title="Secretwiki" target="_blank">Secretwiki</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://bestwing.me/" title="SWing" target="_blank">SWing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn" title="Szrzvdny|墨是人性" target="_blank">Szrzvdny|墨是人性</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#APP-预览"><span class="nav-number">1.</span> <span class="nav-text">APP 预览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串资源-strings-xml"><span class="nav-number">2.</span> <span class="nav-text">字符串资源 strings.xml</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引用字符串资源"><span class="nav-number">2.1.</span> <span class="nav-text">引用字符串资源</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置事件监听器"><span class="nav-number">3.</span> <span class="nav-text">设置事件监听器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加组件成员变量"><span class="nav-number">3.1.</span> <span class="nav-text">添加组件成员变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用组件"><span class="nav-number">3.2.</span> <span class="nav-text">引用组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置监听器"><span class="nav-number">3.3.</span> <span class="nav-text">设置监听器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建提示消息"><span class="nav-number">4.</span> <span class="nav-text">创建提示消息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#strings-xml文件完善"><span class="nav-number">4.1.</span> <span class="nav-text">strings.xml文件完善</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用成makeText-创建提示消息"><span class="nav-number">4.2.</span> <span class="nav-text">调用成makeText 创建提示消息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建新的问题类"><span class="nav-number">5.</span> <span class="nav-text">创建新的问题类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#int-类型的疑问"><span class="nav-number">5.1.</span> <span class="nav-text">int 类型的疑问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成获取方法与设置方法"><span class="nav-number">5.2.</span> <span class="nav-text">生成获取方法与设置方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新增按钮以及文本视图调整"><span class="nav-number">5.3.</span> <span class="nav-text">新增按钮以及文本视图调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完善-strings-xml-问题字符串"><span class="nav-number">5.4.</span> <span class="nav-text">完善 strings.xml 问题字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加问题对象数组"><span class="nav-number">5.5.</span> <span class="nav-text">增加问题对象数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TextView-显示问题内容"><span class="nav-number">5.6.</span> <span class="nav-text">TextView 显示问题内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为-next-按钮设置监听事件"><span class="nav-number">5.7.</span> <span class="nav-text">为 next 按钮设置监听事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装-updateQuestion-封公共代码"><span class="nav-number">5.8.</span> <span class="nav-text">封装 updateQuestion() 封公共代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对答案进行判断"><span class="nav-number">6.</span> <span class="nav-text">对答案进行判断</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为按钮设置-cheakAnswer-事件"><span class="nav-number">6.1.</span> <span class="nav-text">为按钮设置 cheakAnswer 事件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章挑战练习"><span class="nav-number">7.</span> <span class="nav-text">第2章挑战练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为-TextView-添加监听器"><span class="nav-number">7.1.</span> <span class="nav-text">为 TextView 添加监听器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加后退按钮"><span class="nav-number">7.2.</span> <span class="nav-text">添加后退按钮</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为按钮添加图标"><span class="nav-number">8.</span> <span class="nav-text">为按钮添加图标</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">国光</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">阅读数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="//oxhwlgrce.bkt.clouddn.com/jquery2.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

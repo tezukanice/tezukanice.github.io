@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.cat.net//css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,国光," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="国光" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://image.3001.net/images/20171012/15077801618158.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="记录了不同的activity的数据传递以及界面的切换">
+<meta name="keywords" content="Android,国光">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第二个Activity">
+<meta property="og:url" content="http://www.sqlsec.com/2017/09/android3.html">
+<meta property="og:site_name" content="国光">
+<meta property="og:description" content="记录了不同的activity的数据传递以及界面的切换">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.3001.net/images/20170929/15066771056239.png">
+<meta property="og:image" content="http://image.3001.net/images/20170917/15056516967285.png">
+<meta property="og:image" content="http://image.3001.net/images/20170917/15056517242897.png">
+<meta property="og:image" content="http://image.3001.net/images/20170917/15056523254490.png">
+<meta property="og:image" content="http://image.3001.net/images/20170925/15063232845158.png">
+<meta property="og:image" content="http://image.3001.net/images/20170917/15056528995174.png">
+<meta property="og:image" content="http://image.3001.net/images/20170917/15056531993602.png">
+<meta property="og:image" content="http://image.3001.net/images/20170917/15056533582092.png">
+<meta property="og:image" content="http://image.3001.net/images/20170925/15063256456259.png">
+<meta property="og:image" content="http://image.3001.net/images/20170925/15063266591805.png">
+<meta property="og:updated_time" content="2017-09-30T03:56:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第二个Activity">
+<meta name="twitter:description" content="记录了不同的activity的数据传递以及界面的切换">
+<meta name="twitter:image" content="http://image.3001.net/images/20170929/15066771056239.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.sqlsec.com/2017/09/android3.html"/>
+
+
+
+
+
+  <title>第二个Activity | 国光</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">国光</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">安安静静写博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-hacker">
+          <a href="/categories/hacker/" rel="section">
+            
+            黑客
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-c">
+          <a href="/C" rel="section">
+            
+            C
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-android">
+          <a href="/categories/Android" rel="section">
+            
+            Android
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-python">
+          <a href="/categories/Python" rel="section">
+            
+            Python
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ctf">
+          <a href="/categories/CTF" rel="section">
+            
+            CTF
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-reverse">
+          <a href="/categories/Reverse" rel="section">
+            
+            逆向
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-others">
+          <a href="/categories/others/" rel="section">
+            
+            其他
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/categories/life" rel="section">
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-member">
+          <a href="/member" rel="section">
+            
+            作者墙
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.sqlsec.com/2017/09/android3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="国光">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://image.3001.net/images/20170929/15066688735308.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国光">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第二个Activity</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-25T00:00:00+08:00">
+                2017-09-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye">浏览数</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://image.3001.net/images/20170929/15066771056239.png" alt=""><br>记录了不同的activity的数据传递以及界面的切换<br><a id="more"></a></p>
+<h1 id="app需求"><a href="#app需求" class="headerlink" title="app需求"></a>app需求</h1><p>为GeoQuiz应用增加第二个activity。activity控制着当前屏幕界面，新增加的activity<br>将增加第二个用户界面，方便用户查看当前问题的答案，如图所示:<br><img src="http://image.3001.net/images/20170917/15056516967285.png" alt=""><br><img src="http://image.3001.net/images/20170917/15056517242897.png" alt="">  </p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><ul>
+<li>创建新的activity及配套布局</li>
+<li>从一个activity中启动另一个activity</li>
+<li>在父activity（启动方）与子activity（被启动方）间传递数据</li>
+</ul>
+<h1 id="创建第二个-activity"><a href="#创建第二个-activity" class="headerlink" title="创建第二个 activity"></a>创建第二个 activity</h1><h2 id="完善-strings-xml"><a href="#完善-strings-xml" class="headerlink" title="完善 strings.xml"></a>完善 strings.xml</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"prev_button"</span>&gt;</span>上一题<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"warning_text"</span>&gt;</span>你真的要这么做吗？<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"show_answer_button"</span>&gt;</span>偷看问题答案<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"judgement_toast"</span>&gt;</span>偷看答案不是好孩子<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"cheat_button"</span>&gt;</span>偷看<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="创建-CheatActivity-类"><a href="#创建-CheatActivity-类" class="headerlink" title="创建 CheatActivity 类"></a>创建 CheatActivity 类</h2><p>新建<code>activity</code>向导完成后，Android Studio应该已经打开了<code>layout</code>目录中的<code>activity_cheat.xml</code>。</p>
+<h2 id="activity-cheat-xml"><a href="#activity-cheat-xml" class="headerlink" title="activity_cheat.xml"></a>activity_cheat.xml</h2><p>下面是<code>activity_cheat.xml</code>的布局配置文件,2个<code>Textview</code>和一个<code>Buton</code><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">LinearLayout</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"368dp"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"495dp"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:gravity</span>=<span class="string">"center"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></span></div><div class="line"><span class="tag">        <span class="attr">tools:layout_editor_absoluteX</span>=<span class="string">"8dp"</span></span></div><div class="line"><span class="tag">        <span class="attr">tools:layout_editor_absoluteY</span>=<span class="string">"-96dp"</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/textView"</span></span></div><div class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag">            <span class="attr">android:padding</span>=<span class="string">"24dp"</span></span></div><div class="line"><span class="tag">            <span class="attr">android:text</span>=<span class="string">"@string/warning_text"</span>/&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/answer_text_view"</span></span></div><div class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag">            <span class="attr">android:padding</span>=<span class="string">"24dp"</span></span></div><div class="line"><span class="tag">            <span class="attr">tools:text</span>=<span class="string">"Answer"</span>/&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">Button</span></span></div><div class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/show_answer_button"</span></span></div><div class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag">            <span class="attr">android:text</span>=<span class="string">"@string/show_answer_button"</span></span></div><div class="line"><span class="tag">            /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这里第二个<code>TextView</code>这里使用了:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:id="@+id/answer_text_view"</div></pre></td></tr></table></figure></p>
+<p>这个命名空间方便显示了 <code>对</code> 或者 <code>错</code><br><strong>效果预览</strong><br><img src="http://image.3001.net/images/20170917/15056523254490.png" alt=""></p>
+<h2 id="AndroidManifest-xml"><a href="#AndroidManifest-xml" class="headerlink" title="AndroidManifest.xml"></a>AndroidManifest.xml</h2><p>创建<code>QuizActivity</code>时，因使用了新建应用向导，向导已自动完成声明工作。同样，新建<code>activity</code>向导也自动声明了<code>CheatActivity</code><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".CheatActivity"</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这个时候<code>manifest</code>配置应该自动完成了文件中的<code>CheatActivity</code>声明。<br><img src="http://image.3001.net/images/20170925/15063232845158.png" alt=""><br>可以看到在这个<code>mainfest</code>的配置文件中包含了2个<code>activity</code>，其中默认启动的<code>Activity</code>的是:<code>QuizActivity</code>  </p>
+<h2 id="主页面添加-偷看-按钮"><a href="#主页面添加-偷看-按钮" class="headerlink" title="主页面添加 偷看 按钮"></a>主页面添加 偷看 按钮</h2><p>完善 <code>activity_quiz.xml</code>文件<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">Button</span></span></div><div class="line"><span class="tag"> <span class="attr">android:id</span>=<span class="string">"@+id/cheat_button"</span></span></div><div class="line"><span class="tag"> <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag"> <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag"> <span class="attr">android:layout_gravity</span>=<span class="string">"bottom|center"</span></span></div><div class="line"><span class="tag"> <span class="attr">android:text</span>=<span class="string">"@string/cheat_button"</span> /&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>效果如下</strong><br><img src="http://image.3001.net/images/20170917/15056528995174.png" alt=""></p>
+<h1 id="启动第二个-activity"><a href="#启动第二个-activity" class="headerlink" title="启动第二个 activity"></a>启动第二个 activity</h1><h2 id="添加-Cheat-偷看按钮的变量"><a href="#添加-Cheat-偷看按钮的变量" class="headerlink" title="添加 Cheat 偷看按钮的变量"></a>添加 Cheat 偷看按钮的变量</h2><p><code>QuizActivity.java</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Button mCheatButton;</div><div class="line"></div><div class="line">mCheatButton = (Button)findViewById(R.id.cheat_button);</div><div class="line"> mCheatButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">        <span class="comment">// Start CheatActivity</span></div><div class="line">    &#125;</div><div class="line"> &#125;);</div></pre></td></tr></table></figure></p>
+<p>这里创建了<code>mCheatButton</code>这个对象，并设置了一个空的监听事件</p>
+<h2 id="启动-activity"><a href="#启动-activity" class="headerlink" title="启动 activity"></a>启动 activity</h2><p>调用请求发送给了操作系统的<code>ActivityManager</code>。<code>ActivityManager</code>负责创建<br><code>Activity</code>实例并调用其<code>onCreate(...)</code>方法。<code>activity</code>的启动示意图如图所示:<br><img src="http://image.3001.net/images/20170917/15056531993602.png" alt=""></p>
+<h2 id="基于-intent-的通信"><a href="#基于-intent-的通信" class="headerlink" title="基于 intent 的通信"></a>基于 intent 的通信</h2><p><code>intent</code>对象是<code>component</code>用来与操作系统通信的一种媒介工具。<code>intent</code>是一种多用途通信工具。<code>Intent</code>类提供了多个构造方法，以满足不同的使用需求。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Intent</span><span class="params">(Context packageContext, Class&lt;?&gt; cls)</span></span></div></pre></td></tr></table></figure></p>
+<p><code>Class</code>类型参数告诉<code>ActivityManager</code>应该启动哪个<code>activity</code>；<code>Context</code>参数告<br>诉<code>ActivityManager</code>在哪里可以找到它，如图所示:<br><img src="http://image.3001.net/images/20170917/15056533582092.png" alt=""><br>可以看出<code>ActivityManager</code>该启动哪个<code>Activity</code>是由<code>startActivity(...)</code>这个方法中的<code>Intent</code>这个参数来决定的，这个演示图片里面这里<code>Intent</code>参数 告诉了<code>ActivityManager</code>该启动<code>CheatActivity</code>这个界面了。</p>
+<h2 id="设置-mCheatButton-监听器"><a href="#设置-mCheatButton-监听器" class="headerlink" title="设置 mCheatButton 监听器"></a>设置 mCheatButton 监听器</h2><p>创建包含<code>CheatActivity</code>类的<code>Intent</code>实例，然后将其传<br>入<code>startActivity(Intent)</code>方法<br><code>QuizActivity.java</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">mCheatButton = (Button) findViewById(R.id.cheat_button);</div><div class="line">        mCheatButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">                Intent i = <span class="keyword">new</span> Intent(QuizActivity.<span class="keyword">this</span>, CheatActivity.class);</div><div class="line">                startActivity(i);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure></p>
+<p>在启动<code>activity</code>前，<code>ActivityManager</code>会检查确认指定的Class是否已在配置文件中声明。如<br>已完成声明，则启动<code>activity</code>，应用正常运行。反之，则抛出<code>ActivityNotFoundException</code>异常，<br>可能会导致应用崩溃。  </p>
+<h1 id="activity-间的数据传递"><a href="#activity-间的数据传递" class="headerlink" title="activity 间的数据传递"></a>activity 间的数据传递</h1><p>现在已经有了2个<code>Activity</code>了现在看下他们之间的关系图:<br><img src="http://image.3001.net/images/20170925/15063256456259.png" alt=""><br>接下来考虑如何处理主页面跳转到偷看答案的页面之间传递的数据:<br><code>CheatActivity</code>启动后，<code>QuizActivity</code>会通知它当前问题的答案。<br>用户知道答案后，单击后退键回到<code>QuizActivity</code>，<code>CheatActivity</code>随即会被销毁。在销毁<br>前的瞬间，它会将用户<code>是否作弊</code>的数据传递给<code>QuizActivity</code>。</p>
+<h2 id="使用-intent-extra"><a href="#使用-intent-extra" class="headerlink" title="使用 intent extra"></a>使用 intent extra</h2><p>为通知<code>CheatActivity</code>当前问题的答案，需将以下语句的返回值传递给它：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mQuestionBank[mCurrentIndex].isAnswerTrue()</div></pre></td></tr></table></figure></p>
+<p>该值将作为<code>extra</code>信息，附加在传入<code>startActivity(Intent)</code>方法的Intent上发送出去。<br><code>extra</code>信息可以是任意数据，它包含在<code>Intent</code>中，由启动方<code>activity</code>发送出去。<br><img src="http://image.3001.net/images/20170925/15063266591805.png" alt=""><br>在<code>CheatActivity.java</code>中，为<code>extra</code>数据信息新增键值对中的键<br><code>CheatActivity.java</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CheatActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String EXTRA_ANSWER_IS_TRUE =</div><div class="line">            <span class="string">"com.sqlsec.gg.geoquiz.answer_is_true"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>CheatActivity</code>处理<code>extra</code>信息,而在<code>newIntent(...)</code>方法中封装这些逻辑<br><code>CheatActivity.java</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Intent <span class="title">newIntent</span><span class="params">(Context packageContext, <span class="keyword">boolean</span> answerIsTrue)</span> </span>&#123;</div><div class="line">    Intent i = <span class="keyword">new</span> Intent(packageContext, CheatActivity.class);</div><div class="line">    intent.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);</div><div class="line">    <span class="keyword">return</span> i;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>boolean</code>类型的<code>answerIsTrue</code><br>以及<br><code>EXTRA_ANSWER_IS_TRUE</code>常量 放入<code>intent</code>供解析,简化了操作。</p>
+<h2 id="用一个extra启动"><a href="#用一个extra启动" class="headerlink" title="用一个extra启动"></a>用一个extra启动</h2><p><code>QuizActivity.java</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">mCheatButton = (Button) findViewById(R.id.cheat_button);</div><div class="line">       mCheatButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">           <span class="meta">@Override</span></div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">               <span class="keyword">boolean</span> answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();</div><div class="line">               Intent i = CheatActivity.newIntent(QuizActivity.<span class="keyword">this</span>, answerIsTrue);</div><div class="line">               startActivity(i);</div><div class="line">           &#125;</div><div class="line">       &#125;);</div><div class="line">       updateQuestion();</div></pre></td></tr></table></figure></p>
+<p>这里面如果要添加多个<code>extra</code>的话，就在<code>newIntent()</code>方法中添加多个参数。<br>要从<code>extra</code>获取数据，会用到下面的方法:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">getBooleanExtra</span><span class="params">(String name, <span class="keyword">boolean</span> defaultValue)</span></span></div></pre></td></tr></table></figure></p>
+<p>第一个参数是extra的名字。getBooleanExtra(…)方法的第二个参数是指定默认值（默认<br>答案），它在无法获得有效键值时使用。</p>
+<h2 id="获取-extra-信息"><a href="#获取-extra-信息" class="headerlink" title="获取 extra 信息"></a>获取 extra 信息</h2><p>下面是编码实现从<code>extra</code>获取信息，存入成员变量。<br><code>CheatActivity.java</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CheatActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String EXTRA_ANSWER_IS_TRUE =</div><div class="line">            <span class="string">"com.sqlsec.gg.geoquiz.answer_is_true"</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> mAnswerIsTrue;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_cheat);</div><div class="line">        mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, <span class="keyword">false</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="启用作弊模式"><a href="#启用作弊模式" class="headerlink" title="启用作弊模式"></a>启用作弊模式</h2><p>在<code>CheatActivity.java</code>代码中，单击<code>SHOW ANSWER</code>按钮后获取到答案并将这个结果显示在<code>TextView</code>上面。<br><code>CheatActivity.java</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> TextView mAnswerTextView;</div><div class="line"><span class="keyword">private</span> Button mShowAnswer;</div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_cheat);</div><div class="line">        mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, <span class="keyword">false</span>);</div><div class="line">        mAnswerTextView = (TextView) findViewById(R.id.answer_text_view);</div><div class="line">        mShowAnswerButton = (Button) findViewById(R.id.show_answer_button);</div><div class="line">        mShowAnswerButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">                <span class="keyword">if</span> (mAnswerIsTrue) &#123;</div><div class="line">                    mAnswerTextView.setText(R.string.true_button);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    mAnswerTextView.setText(R.string.false_button);</div><div class="line">                &#125;</div><div class="line">                setAnswerShownResult(<span class="keyword">true</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>这里面的<code>mAnswerTextView.setText(R.string.true_button);</code>方法使用了<code>TextView.setText(int)</code>方法用来设置<code>TextView</code>要显示的文字，这里是通过资源ID来调试该方法的。</p>
+<h2 id="从-activity-获取返回结果"><a href="#从-activity-获取返回结果" class="headerlink" title="从 activity 获取返回结果"></a>从 activity 获取返回结果</h2><p>现在的需求是当用用户偷看过答案后将用户是否偷看过答案的情况通知给<code>QuizActivity</code>。下面来解决这个问题。<br>在<code>QuizActivity.java</code>中调用<code>startActivityForResult()</code>方法<br><code>QuizActivity.java</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> REQUEST_CODE_CHEAT = <span class="number">0</span>;</div><div class="line"></div><div class="line">        mCheatButton = (Button) findViewById(R.id.cheat_button);</div><div class="line">        mCheatButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">                <span class="keyword">boolean</span> answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();</div><div class="line">                Intent intent = CheatActivity.newIntent(QuizActivity.<span class="keyword">this</span>, answerIsTrue);</div><div class="line">                <span class="comment">/*startActivity(intent);*/</span></div><div class="line">                startActivityForResult(intent, REQUEST_CODE_CHEAT);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure></p>
+<p><code>mCheatButton</code>这个按钮的监听器由<code>startActivity(intent)</code>变为了<code>startActivityForResult(intent,REQUEST_CODE_CHEAT)</code>;<br>现在为<code>extra</code>增加常量，再创建一个私有方法，用来创建<code>intent</code>，附加<code>extra</code>并设置结果值。然后在<code>SHOW ANSWER</code>按钮的监听器代码中调用该方法，设置结果值的方法如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String EXTRA_ANSWER_SHOWN =</div><div class="line">            <span class="string">"com.sqlsec.gg.geoquiz.answer_shown"</span>;</div><div class="line">    mShowAnswerButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">          <span class="meta">@Override</span></div><div class="line">          <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">            <span class="keyword">if</span> (mAnswerIsTrue) &#123;</div><div class="line">                mAnswerTextView.setText(R.string.true_button);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                mAnswerTextView.setText(R.string.false_button);</div><div class="line">            &#125;</div><div class="line">                setAnswerShownResult(<span class="keyword">true</span>);</div><div class="line">            &#125;</div><div class="line">          &#125;);</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setAnswerShownResult</span><span class="params">(<span class="keyword">boolean</span> isAnswerShown)</span> </span>&#123;</div><div class="line">        Intent data = <span class="keyword">new</span> Intent();</div><div class="line">        data.putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown);</div><div class="line">        setResult(RESULT_OK, data);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>新增一个成员变量保持<code>CheatActivity</code>回传的值，然后覆盖<code>onActivityResult()</code>方法获取它。<br><code>QuizActivity.java</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> mIsCheater;</div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onActivityResult</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode, Intent data)</span> </span>&#123;</div><div class="line">      <span class="keyword">if</span> (resultCode != Activity.RESULT_OK) &#123;</div><div class="line">          <span class="keyword">return</span>;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (requestCode == REQUEST_CODE_CHEAT) &#123;</div><div class="line">          <span class="keyword">if</span> (data == <span class="keyword">null</span>) &#123;</div><div class="line">              <span class="keyword">return</span>;</div><div class="line">          &#125;</div><div class="line">          mIsCheater = CheatActivity.wasAnswerShown(data);</div><div class="line">      &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="后期的调整"><a href="#后期的调整" class="headerlink" title="后期的调整"></a>后期的调整</h1><h2 id="toast-消息处理"><a href="#toast-消息处理" class="headerlink" title="toast 消息处理"></a>toast 消息处理</h2><p>现在已经可以基于<code>mIsCheater</code>变量的值了，现在得改变之前<code>toast</code>的值信息:<br><code>QuizActivity.java</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> messageResId = <span class="number">0</span>;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (mIsCheater) &#123;</div><div class="line">            messageResId = R.string.judgement_toast;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">if</span> (userPressTrue == answerIsTrue) &#123;</div><div class="line">                messageResId = R.string.correct_toast;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                messageResId = R.string.incorrect_toast;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        Toast.makeText(<span class="keyword">this</span>,messageResId,Toast.LENGTH_SHORT).show();</div><div class="line"></div><div class="line">        ...</div><div class="line"></div><div class="line">        mNextButton = (Button) findViewById(R.id.next_button);</div><div class="line">        mNextButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</div><div class="line">                mCurrentIndex = (mCurrentIndex + <span class="number">1</span>) % mQuestionBank.length;</div><div class="line">                <span class="comment">/*int question = mQuestionBank[mCurrentIndex].getTextResId();</span></div><div class="line"><span class="comment">                mQuestionTextView.setText(question);*/</span></div><div class="line">                mIsCheater = <span class="keyword">false</span>;</div><div class="line">                updateQuestion();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="activity-的管理"><a href="#activity-的管理" class="headerlink" title="activity 的管理"></a>activity 的管理</h2><p><code>ActivityManager</code>维护着一个非特定应用独享的回退栈，所有的应用的<code>activity</code>都共享这个回退栈，包括安卓的启动器，这也就是为什么<code>ActivityManager</code>被设计成操作系统级的<code>activity</code>管理器来负责启动应用<code>activity</code>的原因之一。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://image.3001.net/images/20171103/15097023327128.png" alt="国光 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>听说打赏我的人，都挖到了0day。</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/国光/" rel="tag"># 国光</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/android1.html" rel="next" title="一个简易的APP">
+                <i class="fa fa-chevron-left"></i> 一个简易的APP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/pystart.html" rel="prev" title="Python代码扫盲">
+                Python代码扫盲 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTU5Ny82MTY1"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://image.3001.net/images/20170929/15066688735308.jpg"
+               alt="国光" />
+          <p class="site-author-name" itemprop="name">国光</p>
+           
+              <p class="site-description motion-element" itemprop="description">宁静致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5728586656" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.github.com/tezukanice/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/guo-guang-94/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-tags"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ggsec.cn/" title="Demon" target="_blank">Demon</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://secretwiki.org/" title="Secretwiki" target="_blank">Secretwiki</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://bestwing.me/" title="SWing" target="_blank">SWing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn" title="Szrzvdny|墨是人性" target="_blank">Szrzvdny|墨是人性</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#app需求"><span class="nav-number">1.</span> <span class="nav-text">app需求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建第二个-activity"><span class="nav-number">3.</span> <span class="nav-text">创建第二个 activity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#完善-strings-xml"><span class="nav-number">3.1.</span> <span class="nav-text">完善 strings.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-CheatActivity-类"><span class="nav-number">3.2.</span> <span class="nav-text">创建 CheatActivity 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#activity-cheat-xml"><span class="nav-number">3.3.</span> <span class="nav-text">activity_cheat.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AndroidManifest-xml"><span class="nav-number">3.4.</span> <span class="nav-text">AndroidManifest.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主页面添加-偷看-按钮"><span class="nav-number">3.5.</span> <span class="nav-text">主页面添加 偷看 按钮</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动第二个-activity"><span class="nav-number">4.</span> <span class="nav-text">启动第二个 activity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加-Cheat-偷看按钮的变量"><span class="nav-number">4.1.</span> <span class="nav-text">添加 Cheat 偷看按钮的变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-activity"><span class="nav-number">4.2.</span> <span class="nav-text">启动 activity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于-intent-的通信"><span class="nav-number">4.3.</span> <span class="nav-text">基于 intent 的通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-mCheatButton-监听器"><span class="nav-number">4.4.</span> <span class="nav-text">设置 mCheatButton 监听器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#activity-间的数据传递"><span class="nav-number">5.</span> <span class="nav-text">activity 间的数据传递</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-intent-extra"><span class="nav-number">5.1.</span> <span class="nav-text">使用 intent extra</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用一个extra启动"><span class="nav-number">5.2.</span> <span class="nav-text">用一个extra启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取-extra-信息"><span class="nav-number">5.3.</span> <span class="nav-text">获取 extra 信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启用作弊模式"><span class="nav-number">5.4.</span> <span class="nav-text">启用作弊模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从-activity-获取返回结果"><span class="nav-number">5.5.</span> <span class="nav-text">从 activity 获取返回结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后期的调整"><span class="nav-number">6.</span> <span class="nav-text">后期的调整</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#toast-消息处理"><span class="nav-number">6.1.</span> <span class="nav-text">toast 消息处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#activity-的管理"><span class="nav-number">6.2.</span> <span class="nav-text">activity 的管理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">国光</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">阅读数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="//oxhwlgrce.bkt.clouddn.com/jquery2.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/11/nnuwifi.html</loc>
+    <lastmod>2017-11-24T02:14:39.207Z</lastmod>
+    <data>
+        <display>
+        <title>一次对南师大的校园网认证系统的逻辑漏洞测试</title>
+        <pubTime>2017-11-18T07:35:27.000Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>渗透测试</tag>
+         
+        <tag>逻辑漏洞</tag>
+         
+         
+           
+             
+              <breadCrumb title="hacker" url="http://www.sqlsec.com/categories/hacker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/11/pe.html</loc>
+    <lastmod>2017-11-04T10:11:01.595Z</lastmod>
+    <data>
+        <display>
+        <title>PE文件格式</title>
+        <pubTime>2017-11-04T03:35:27.000Z</pubTime>
+        
+        <tag>sky</tag>
+         
+        <tag>逆向</tag>
+         
+         
+           
+             
+              <breadCrumb title="Reverse" url="http://www.sqlsec.com/categories/Reverse/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/11/ascii.html</loc>
+    <lastmod>2017-11-04T09:27:04.186Z</lastmod>
+    <data>
+        <display>
+        <title>编码的故事</title>
+        <pubTime>2017-11-04T02:35:27.000Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>密码学</tag>
+         
+        <tag>编码</tag>
+         
+         
+           
+             
+              <breadCrumb title="CTF" url="http://www.sqlsec.com/categories/CTF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/11/bitwise.html</loc>
+    <lastmod>2017-11-03T10:01:26.000Z</lastmod>
+    <data>
+        <display>
+        <title>国光的第一个逆向题</title>
+        <pubTime>2017-11-03T02:35:27.000Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>逆向</tag>
+         
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Reverse" url="http://www.sqlsec.com/categories/Reverse/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/10/resetpass.html</loc>
+    <lastmod>2017-10-27T02:49:49.478Z</lastmod>
+    <data>
+        <display>
+        <title>用户密码重置找回10种常见姿势</title>
+        <pubTime>2017-10-25T21:35:58.751Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>密码找回</tag>
+         
+         
+           
+             
+              <breadCrumb title="hacker" url="http://www.sqlsec.com/categories/hacker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/10/android6.html</loc>
+    <lastmod>2017-10-12T09:07:22.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用布局与组件创建用户界面</title>
+        <pubTime>2017-10-13T02:35:27.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+        <tag>国光</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://www.sqlsec.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/10/android5.html</loc>
+    <lastmod>2017-10-12T07:25:16.000Z</lastmod>
+    <data>
+        <display>
+        <title>UI fragment与fragment 管理器</title>
+        <pubTime>2017-10-13T01:35:27.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+        <tag>国光</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://www.sqlsec.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/10/network1.html</loc>
+    <lastmod>2017-10-11T22:41:02.000Z</lastmod>
+    <data>
+        <display>
+        <title>网络基础知识</title>
+        <pubTime>2017-10-12T07:35:27.000Z</pubTime>
+        
+        <tag>网络协议</tag>
+         
+        <tag>Heathen</tag>
+         
+         
+           
+             
+              <breadCrumb title="hacker" url="http://www.sqlsec.com/categories/hacker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/10/80862.html</loc>
+    <lastmod>2017-10-11T22:00:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>8086寄存器CPU工作原理02</title>
+        <pubTime>2017-10-12T05:35:27.000Z</pubTime>
+        
+        <tag>汇编</tag>
+         
+        <tag>IDLER</tag>
+         
+         
+           
+             
+              <breadCrumb title="Reverse" url="http://www.sqlsec.com/categories/Reverse/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/10/80861.html</loc>
+    <lastmod>2017-10-11T21:59:14.000Z</lastmod>
+    <data>
+        <display>
+        <title>8086寄存器CPU工作原理01</title>
+        <pubTime>2017-10-12T01:35:27.000Z</pubTime>
+        
+        <tag>汇编</tag>
+         
+        <tag>IDLER</tag>
+         
+         
+           
+             
+              <breadCrumb title="Reverse" url="http://www.sqlsec.com/categories/Reverse/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/09/android4.html</loc>
+    <lastmod>2017-10-11T19:47:13.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android学习之 fragment</title>
+        <pubTime>2017-09-29T03:11:11.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+        <tag>国光</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://www.sqlsec.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2016/10/diykali.html</loc>
+    <lastmod>2017-09-30T03:59:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>开启你的kali linux DIY之旅(基于kali linux2016.2)</title>
+        <pubTime>2016-10-04T09:19:40.000Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>diy</tag>
+         
+        <tag>Kali Linux</tag>
+         
+         
+           
+             
+              <breadCrumb title="hacker" url="http://www.sqlsec.com/categories/hacker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2016/10/web.html</loc>
+    <lastmod>2017-09-30T03:59:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>信息收集之网站镜像克隆</title>
+        <pubTime>2016-10-04T09:19:40.000Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>Kali Linux</tag>
+         
+        <tag>渗透测试</tag>
+         
+        <tag>信息收集</tag>
+         
+         
+           
+             
+              <breadCrumb title="hacker" url="http://www.sqlsec.com/categories/hacker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2016/09/xxnet.html</loc>
+    <lastmod>2017-09-30T03:59:19.000Z</lastmod>
+    <data>
+        <display>
+        <title>xx-net科学上网简明使用教程</title>
+        <pubTime>2016-09-03T09:19:40.000Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>科学上网</tag>
+         
+         
+           
+             
+              <breadCrumb title="others" url="http://www.sqlsec.com/categories/others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2016/10/wifi.html</loc>
+    <lastmod>2017-09-30T03:59:12.000Z</lastmod>
+    <data>
+        <display>
+        <title>无线安全之破解WPA/WPA2 加密ＷiFi</title>
+        <pubTime>2016-10-14T09:19:40.000Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>Kali Linux</tag>
+         
+        <tag>wifi破解</tag>
+         
+        <tag>无线安全</tag>
+         
+         
+           
+             
+              <breadCrumb title="hacker" url="http://www.sqlsec.com/categories/hacker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/03/deepin.html</loc>
+    <lastmod>2017-09-30T03:58:57.000Z</lastmod>
+    <data>
+        <display>
+        <title>国光大力推荐(安利)Deepin15.4</title>
+        <pubTime>2017-03-19T03:11:11.000Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>Deepin Linux</tag>
+         
+        <tag>diy</tag>
+         
+         
+           
+             
+              <breadCrumb title="others" url="http://www.sqlsec.com/categories/others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/03/dpmsf.html</loc>
+    <lastmod>2017-09-30T03:58:48.000Z</lastmod>
+    <data>
+        <display>
+        <title>Deepin Linux下的Metasploit安装及优化</title>
+        <pubTime>2017-03-23T09:55:55.000Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>Metasploit</tag>
+         
+        <tag>神器</tag>
+         
+         
+           
+             
+              <breadCrumb title="others" url="http://www.sqlsec.com/categories/others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/02/pentester.html</loc>
+    <lastmod>2017-09-30T03:58:28.000Z</lastmod>
+    <data>
+        <display>
+        <title>Pentester中的XSS详解</title>
+        <pubTime>2017-02-14T16:00:00.000Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>xss</tag>
+         
+         
+           
+             
+              <breadCrumb title="hacker" url="http://www.sqlsec.com/categories/hacker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/07/hexo.html</loc>
+    <lastmod>2017-09-30T03:58:03.000Z</lastmod>
+    <data>
+        <display>
+        <title>Hexo博客配置笔记</title>
+        <pubTime>2017-07-19T03:54:19.000Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>Hexo</tag>
+         
+        <tag>笔记</tag>
+         
+         
+           
+             
+              <breadCrumb title="others" url="http://www.sqlsec.com/categories/others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/07/masscan.html</loc>
+    <lastmod>2017-09-30T03:57:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>利用Masscan批量生成IP地址表</title>
+        <pubTime>2017-07-20T06:56:50.911Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>IP</tag>
+         
+        <tag>Masscan</tag>
+         
+        <tag>脚本</tag>
+         
+         
+           
+             
+              <breadCrumb title="hacker" url="http://www.sqlsec.com/categories/hacker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/07/macapache.html</loc>
+    <lastmod>2017-09-30T03:57:49.000Z</lastmod>
+    <data>
+        <display>
+        <title>Mac OS下开启自带的apache服务</title>
+        <pubTime>2017-07-21T07:23:25.325Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>MacOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="others" url="http://www.sqlsec.com/categories/others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/07/nmap.html</loc>
+    <lastmod>2017-09-30T03:57:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>nmap不老的神器</title>
+        <pubTime>2017-07-24T22:50:50.612Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>nmap</tag>
+         
+         
+           
+             
+              <breadCrumb title="hacker" url="http://www.sqlsec.com/categories/hacker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/08/smtp.html</loc>
+    <lastmod>2017-09-30T03:57:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>SMTP协议25端口渗透测试记录</title>
+        <pubTime>2017-08-06T07:34:26.044Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>端口渗透</tag>
+         
+        <tag>SMTP</tag>
+         
+        <tag>邮件伪造</tag>
+         
+         
+           
+             
+              <breadCrumb title="黑客" url="http://www.sqlsec.com/categories/%E9%BB%91%E5%AE%A2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/08/officecve.html</loc>
+    <lastmod>2017-09-30T03:56:51.000Z</lastmod>
+    <data>
+        <display>
+        <title>Office CVE-2017-8570远程代码执行漏洞复现</title>
+        <pubTime>2017-08-13T06:41:15.000Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>漏洞</tag>
+         
+        <tag>CSRF</tag>
+         
+         
+           
+             
+              <breadCrumb title="黑客" url="http://www.sqlsec.com/categories/%E9%BB%91%E5%AE%A2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/09/android1.html</loc>
+    <lastmod>2017-09-30T03:56:42.000Z</lastmod>
+    <data>
+        <display>
+        <title>一个简易的APP</title>
+        <pubTime>2017-09-14T01:35:27.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+        <tag>国光</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://www.sqlsec.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/09/pystart.html</loc>
+    <lastmod>2017-09-30T03:56:22.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python代码扫盲</title>
+        <pubTime>2017-09-29T01:35:27.000Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://www.sqlsec.com/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/09/android3.html</loc>
+    <lastmod>2017-09-30T03:56:16.000Z</lastmod>
+    <data>
+        <display>
+        <title>第二个Activity</title>
+        <pubTime>2017-09-24T16:00:00.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+        <tag>国光</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://www.sqlsec.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/09/CTFinfo.html</loc>
+    <lastmod>2017-09-30T03:55:45.000Z</lastmod>
+    <data>
+        <display>
+        <title>CTF新手指南</title>
+        <pubTime>2017-09-30T00:37:27.000Z</pubTime>
+        
+        <tag>CTF</tag>
+         
+        <tag>sky</tag>
+         
+         
+           
+             
+              <breadCrumb title="CTF" url="http://www.sqlsec.com/categories/CTF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/09/pyrandom.html</loc>
+    <lastmod>2017-09-30T03:53:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python模块学习之random</title>
+        <pubTime>2017-09-29T07:35:27.000Z</pubTime>
+        
+        <tag>国光</tag>
+         
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://www.sqlsec.com/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/09/android2.html</loc>
+    <lastmod>2017-09-14T09:32:57.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android 开发初体验</title>
+        <pubTime>2017-09-14T01:27:03.335Z</pubTime>
+        
+        <tag>Android</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://www.sqlsec.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/08/postcsrf.html</loc>
+    <lastmod>2017-08-06T15:43:13.000Z</lastmod>
+    <data>
+        <display>
+        <title>POST型CSRF简单复现</title>
+        <pubTime>2017-08-06T15:41:15.000Z</pubTime>
+        
+        <tag>漏洞</tag>
+         
+        <tag>CSRF</tag>
+         
+         
+           
+             
+              <breadCrumb title="黑客" url="http://www.sqlsec.com/categories/%E9%BB%91%E5%AE%A2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2016/11/pentestbox.html</loc>
+    <lastmod>2017-07-23T02:20:14.000Z</lastmod>
+    <data>
+        <display>
+        <title>PentestBox简明使用教程</title>
+        <pubTime>2016-11-29T09:19:40.000Z</pubTime>
+        
+        <tag>PentestBox</tag>
+         
+        <tag>渗透测试</tag>
+         
+         
+           
+             
+              <breadCrumb title="hacker" url="http://www.sqlsec.com/categories/hacker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.sqlsec.com/2017/01/docker.html</loc>
+    <lastmod>2017-07-19T01:59:49.000Z</lastmod>
+    <data>
+        <display>
+        <title>Docker入门简明教程</title>
+        <pubTime>2017-01-14T09:19:40.000Z</pubTime>
+        
+        <tag>docker</tag>
+         
+        <tag>虚拟化</tag>
+         
+        <tag>运维</tag>
+         
+         
+           
+             
+              <breadCrumb title="others" url="http://www.sqlsec.com/categories/others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+</urlset>

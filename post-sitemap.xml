@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>http://www.sqlsec.com</loc>
+        <changefreq>daily</changefreq>
+        <priority>1</priority>
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/11/nnuwifi.html</loc>
+        <lastmod>2017-11-24T02:14:39.207Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/11/pe.html</loc>
+        <lastmod>2017-11-04T10:11:01.595Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/11/ascii.html</loc>
+        <lastmod>2017-11-04T09:27:04.186Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/11/bitwise.html</loc>
+        <lastmod>2017-11-03T10:01:26.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/10/resetpass.html</loc>
+        <lastmod>2017-10-27T02:49:49.478Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/10/android6.html</loc>
+        <lastmod>2017-10-12T09:07:22.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/10/android5.html</loc>
+        <lastmod>2017-10-12T07:25:16.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/10/network1.html</loc>
+        <lastmod>2017-10-11T22:41:02.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/10/80862.html</loc>
+        <lastmod>2017-10-11T22:00:41.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/10/80861.html</loc>
+        <lastmod>2017-10-11T21:59:14.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/09/android4.html</loc>
+        <lastmod>2017-10-11T19:47:13.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2016/10/diykali.html</loc>
+        <lastmod>2017-09-30T03:59:30.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2016/10/web.html</loc>
+        <lastmod>2017-09-30T03:59:24.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2016/09/xxnet.html</loc>
+        <lastmod>2017-09-30T03:59:19.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2016/10/wifi.html</loc>
+        <lastmod>2017-09-30T03:59:12.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/03/deepin.html</loc>
+        <lastmod>2017-09-30T03:58:57.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/03/dpmsf.html</loc>
+        <lastmod>2017-09-30T03:58:48.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/02/pentester.html</loc>
+        <lastmod>2017-09-30T03:58:28.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/07/hexo.html</loc>
+        <lastmod>2017-09-30T03:58:03.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/07/masscan.html</loc>
+        <lastmod>2017-09-30T03:57:56.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/07/macapache.html</loc>
+        <lastmod>2017-09-30T03:57:49.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/07/nmap.html</loc>
+        <lastmod>2017-09-30T03:57:41.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/08/smtp.html</loc>
+        <lastmod>2017-09-30T03:57:27.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/08/officecve.html</loc>
+        <lastmod>2017-09-30T03:56:51.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/09/android1.html</loc>
+        <lastmod>2017-09-30T03:56:42.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/09/pystart.html</loc>
+        <lastmod>2017-09-30T03:56:22.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/09/android3.html</loc>
+        <lastmod>2017-09-30T03:56:16.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/09/CTFinfo.html</loc>
+        <lastmod>2017-09-30T03:55:45.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/09/pyrandom.html</loc>
+        <lastmod>2017-09-30T03:53:23.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/09/android2.html</loc>
+        <lastmod>2017-09-14T09:32:57.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/08/postcsrf.html</loc>
+        <lastmod>2017-08-06T15:43:13.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2016/11/pentestbox.html</loc>
+        <lastmod>2017-07-23T02:20:14.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/2017/01/docker.html</loc>
+        <lastmod>2017-07-19T01:59:49.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+</urlset>
+<!-- XML Sitemap generated by Hexo SEO Friendly Sitemap Generator -->

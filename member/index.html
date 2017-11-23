@@ -1,0 +1,414 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="http://oxhwlgrce.bkt.clouddn.com/style2.css" rel="stylesheet" type="text/css"> 
+<link rel="icon" href="http://oxhwlgrce.bkt.clouddn.com/favicon.ico" type="image/x-icon"/>
+<link type="text/css" href="http://oxhwlgrce.bkt.clouddn.com/jhfx.css" rel="stylesheet">
+<style type="text/css" adt="123">
+</style>
+<script type="text/javascript" src="http://oxhwlgrce.bkt.clouddn.com/jquery.min.js"></script>
+<script type="text/javascript" src="http://oxhwlgrce.bkt.clouddn.com/example.js"></script>
+
+  <title> 国光博客作者墙</title>
+  <script type="text/javascript">
+  </script>
+  <style type="text/css">
+    body{
+		margin:0px;
+		padding:0px;
+		font-size:18px;
+		background-image:url(http://image.3001.net/images/20171011/15077014766722.jpg);height="100%";width="100%";
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+	}
+	
+
+    #div1{
+		width:950px;
+		height:550px;
+		position:absolute;
+		top:50%;
+		left:50%;
+		/**/
+		transform:translate(-50%,-50%);
+		margin-left:42px;
+		margin-top:60px;
+	}
+	
+	img{
+		border-radius:50%;
+		border:2px solid green;
+		width:150px;
+		height:150px;
+		/*变化的规则*/
+		transition:all 7s;
+		margin-left:10px;
+		margin-top:30px;
+		
+	}
+	img:hover{
+		/*变化的动作*/
+		transform:rotate(360deg);
+	}
+    
+	#divimg1{
+	   width:200px;
+	   height:400px;
+	  // border:1px solid red;
+	   float:left;
+	   padding-right:30px;
+	   margin:0 auto;
+	   
+	}
+	
+	#divimg1{
+	   width:200px;
+	   height:400px;
+	   //border:1px solid white;
+	   float:left;
+	   padding-right:30px;
+	   margin:0 auto;
+	   
+	   
+
+	}
+	#divimg2{
+	   width:200px;
+	   height:400px;
+	   //border:1px solid white;
+	   float:left;
+	   padding-right:30px;
+	   margin:0 auto;
+	}
+	#divimg3{
+	   width:200px;
+	   height:400px;
+	   //border:1px solid white;
+	   float:left;
+	   padding-right:30px;
+	   margin:0 auto;
+	}
+	#divimg4{
+	   width:200px;
+	   height:400px;
+	   //border:1px solid white;
+	   float:left;
+	   padding-right:30px;
+	   margin:0 auto;
+	}
+	#divimg5{
+	   width:200px;
+	   height:400px;
+	  // border:1px solid white;
+	   float:left;
+	   padding-right:30px;
+	   margin:0 auto;
+	}
+	#divimg6{
+	   width:200px;
+	   height:400px;
+	  // border:1px solid white;
+	   float:left;
+	   padding-right:30px;
+	   margin:0 auto;
+	}
+    
+	#header{
+	  width:950px;
+	  height:70px;
+	  background-color:silver;
+      margin:0 auto;
+	  text-align:center;
+	  font-size:30px;
+	  margin-top:10px;
+	  
+	}
+	.1{
+	  text-align:center;
+      
+	   
+	}
+
+	#fonts{
+	  
+	  
+	   text-align:center;
+	   margin:0 auto;
+	   padding-top:20px;
+	
+	}
+	
+  </style>
+ <script>//console.log('a')
+</script><script>doAdblock();
+function doAdblock(){
+    (function() {
+        function A() {}
+        A.prototype = {
+            rules: {
+                'pps_pps': {
+                    'find': /^http:\/\/www\.iqiyi\.com\/player\/cupid\/common\/pps_flvplay_s\.swf/,
+                    'replace': 'http://swf.adtchrome.com/pps_20140420.swf'
+                },
+                '17173_in':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFile(Customer)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_in_20150522.swf"
+                },
+                '17173_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFileFirstpage\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_out_20150522.swf"
+                },
+                '17173_live':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream(_firstpage)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_stream_20150522.swf"
+                },
+                '17173_live_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream_(custom)?Out\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173.out.Live.swf"
+                }
+            },
+            _done: null,
+            get done() {
+                if(!this._done) {
+                    this._done = new Array();
+                }
+                return this._done;
+            },
+            addAnimations: function() {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = 'object,embed{\
+                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;\
+                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;\
+                -o-animation-duration:.001s;-o-animation-name:playerInserted;\
+                animation-duration:.001s;animation-name:playerInserted;}\
+                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            },
+            animationsHandler: function(e) {
+                if(e.animationName === 'playerInserted') {
+                    this.replace(e.target);
+                }
+            },
+            replace: function(elem) {
+                if (/http:\/\/v.youku.com\/v_show\/.*/.test(window.location.href)){
+                    var tag = document.getElementById("playerBox").getAttribute("player")
+                    if (tag == "adt"){
+                        console.log("adt adv")
+                        return;
+                    }
+                }
+                if(this.done.indexOf(elem) != -1) return;
+                this.done.push(elem);
+                var player = elem.data || elem.src;
+                if(!player) return;
+                var i, find, replace = false;
+                for(i in this.rules) {
+                    find = this.rules[i]['find'];
+                    if(find.test(player)) {
+                        replace = this.rules[i]['replace'];
+                        if('function' === typeof this.rules[i]['preHandle']) {
+                            this.rules[i]['preHandle'].bind(this, elem, find, replace, player)();
+                        }else{
+                            this.reallyReplace.bind(this, elem, find, replace)();
+                        }
+                        break;
+                    }
+                }
+            },
+            reallyReplace: function(elem, find, replace) {
+                elem.data && (elem.data = elem.data.replace(find, replace)) || elem.src && ((elem.src = elem.src.replace(find, replace)) && (elem.style.display = 'block'));
+                var b = elem.querySelector("param[name='movie']");
+                this.reloadPlugin(elem);
+            },
+            reloadPlugin: function(elem) {
+                var nextSibling = elem.nextSibling;
+                var parentNode = elem.parentNode;
+                parentNode.removeChild(elem);
+                var newElem = elem.cloneNode(true);
+                this.done.push(newElem);
+                if(nextSibling) {
+                    parentNode.insertBefore(newElem, nextSibling);
+                } else {
+                    parentNode.appendChild(newElem);
+                }
+            },
+            init: function() {
+                var handler = this.animationsHandler.bind(this);
+                document.body.addEventListener('webkitAnimationStart', handler, false);
+                document.body.addEventListener('msAnimationStart', handler, false);
+                document.body.addEventListener('oAnimationStart', handler, false);
+                document.body.addEventListener('animationstart', handler, false);
+                this.addAnimations();
+            }
+        };
+        new A().init();
+    })();
+}
+// 20140730
+(function cnbeta() {
+    if (document.URL.indexOf('cnbeta.com') >= 0) {
+        var elms = document.body.querySelectorAll("p>embed");
+        Array.prototype.forEach.call(elms, function(elm) {
+            elm.style.marginLeft = "0px";
+        });
+    }
+})();
+//baidu
+//display: inline !important; visibility: visible !important;
+//display:block !important;visibility:visible !important; display:block !important;visibility:visible !important
+if(document.URL.indexOf('www.baidu.com') >= 0){
+    if(document && document.getElementsByTagName && document.getElementById && document.body){
+        var aa = function(){
+            var all = document.body.querySelectorAll("#content_left div,#content_left table");
+            for(var i = 0; i < all.length; i++){
+                if(/display:\s?(table|block)\s!important/.test(all[i].getAttribute("style"))){all[i].style.display= "none";all[i].style.visibility='hidden';}
+            }
+        }
+        aa();
+        document.getElementById('wrapper_wrapper').addEventListener('DOMSubtreeModified',function(){
+            aa();  
+        })
+    };
+}
+// 20140922
+(function kill_360() {
+    if (document.URL.indexOf('so.com') >= 0) {
+        document.getElementById("e_idea_pp").style.display = none;
+    }
+})();
+//解决腾讯视频列表点击无效
+if(document.URL.indexOf("v.qq.com") >= 0){
+    if (document.getElementById("mod_videolist")){
+        var listBox = document.getElementById("mod_videolist")
+        var list = listBox.getElementsByClassName("list_item")
+        for (i = 0;i < list.length;i++){
+            list[i].addEventListener("click", function() {
+                var url = this.getElementsByTagName("a")[0]
+                url = url.getAttribute("href")
+                var host = window.location.href
+                url = host.replace(/cover\/.*/,url)
+                window.location.href = url
+            })
+        }
+    }
+}
+if (document.URL.indexOf("tv.sohu.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+if (document.URL.indexOf("56.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+</script><style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head>
+ 
+
+ <body>
+ <div class="nav-wrap">
+	<ul class="group" id="example-one">
+		<li class="current_page_item"><strong><a href="http://www.sqlsec.com/">博客首页</a></strong></li>
+		<li><strong><a href="http://www.sqlsec.com/member/">成员墙</a></strong></li>
+		<li>
+		
+	<li id="magic-line" style="width: 48px; left: 215.641px; overflow: hidden;"></li></ul>
+</div>
+ 
+ <div id="div1">
+ <div id="divimg1">
+  <a href="http://www.sqlsec.com/tags/国光/">
+    <img src="http://image.3001.net/images/20170929/15066688735308.jpg">
+  </a>
+  
+  <div class="1" style="width:230px;height:162px;">
+    <font color="white">
+    姓名:<strong>国光</strong><br>
+    擅长:Web安全、Kali等<br>
+    渴望CTF获奖的白帽子<br>
+    </font>
+  </div>
+</div>
+
+  <font color="white">
+
+  <div id="divimg2">
+    <a href="http://www.sqlsec.com/tags/sky/">
+      <img src="http://image.3001.net/images/20170930/1506740967831.jpg">
+    </a>
+    <div class="2" style="width:230px;height:162px;">
+      姓名:<strong>sky star</strong><br>
+      擅长:杂项,PWN等<br>
+      处女座强迫症患者
+    </div>
+  </div>
+
+  <div id="divimg3">
+    <a href="http://www.sqlsec.com/tags/Heathen/">
+      <img src="http://image.3001.net/images/20171012/15077786045974.jpg">
+    </a>
+    <div class="3" style="width:230px;height:162px;">
+      姓名:<strong>Heathen</strong><br>
+      擅长:Java，系统安全等<br>
+      拥有6块腹肌的男人
+    </div>
+  </div>
+  
+  <div id="divimg4">
+    <a href="http://www.sqlsec.com/tags/IDLER/">
+      <img src="http://image.3001.net/images/20171011/15077299341452.jpg">
+    </a>
+    <div class="4" style="width:230px;height:162px;">
+      姓名:<strong>IDLER</strong><br>
+      擅长:逆向,PWN<br>
+      被轻蔑的时候能平静的一笑，这是一种自信。
+    </div>
+  </div>
+  
+  <div id="divimg5">
+    <a href="http://www.sqlsec.com/tags/柠檬/">
+      <img src="http://image.3001.net/images/20171012/15077788024937.jpg">
+    </a>
+    <div class="5" style="width:230px;height:162px;">
+      姓名:&nbsp; <strong>柠檬</strong><br>
+      擅长:网络安全等<br>
+      你必须非常努力，才能看起来毫不费力
+    </div>
+  </div>
+
+  <div id="divimg6">
+    <a href="#">
+      <img src="http://p1.qhmsg.com/dm/150_150_100/t01303d63daee25f8c2.jpg">
+    </a>
+    <div class="6" style="width:230px;height:162px;">
+      网名:&nbsp; <strong>待加入</strong><br>
+      擅长:xxxxxxxxx等<br>
+    </div>
+  </div>
+
+
+  <div id="divimg6">
+    <a href="#">
+      <img src="http://p1.qhmsg.com/dm/150_150_100/t01303d63daee25f8c2.jpg">
+    </a>
+    <div class="6" style="width:230px;height:162px;">
+      网名:&nbsp; <strong>待加入</strong><br>
+      擅长:xxxxxxxxx等<br>
+    </div>
+  </div>
+
+
+  <div id="divimg6">
+    <a href="#">
+      <img src="http://p1.qhmsg.com/dm/150_150_100/t01303d63daee25f8c2.jpg">
+    </a>
+    <div class="6" style="width:230px;height:162px;">
+      网名:&nbsp; <strong>待加入</strong><br>
+      擅长:xxxxxxxxx等<br>
+    </div>
+  </div>
+
+</font>
+</div>
+</body>
+</html>

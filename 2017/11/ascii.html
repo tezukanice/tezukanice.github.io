@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.cat.net//css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="国光,密码学,编码," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="国光" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://image.3001.net/images/20171012/15077801618158.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="编码的故事，科普了一些ASCII码，Unicode编码，GBK编码等由来的历史。">
+<meta name="keywords" content="国光,密码学,编码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编码的故事">
+<meta property="og:url" content="http://www.sqlsec.com/2017/11/ascii.html">
+<meta property="og:site_name" content="国光">
+<meta property="og:description" content="编码的故事，科普了一些ASCII码，Unicode编码，GBK编码等由来的历史。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.3001.net/images/20171104/1509787607662.png">
+<meta property="og:updated_time" content="2017-11-04T09:27:04.186Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编码的故事">
+<meta name="twitter:description" content="编码的故事，科普了一些ASCII码，Unicode编码，GBK编码等由来的历史。">
+<meta name="twitter:image" content="http://image.3001.net/images/20171104/1509787607662.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.sqlsec.com/2017/11/ascii.html"/>
+
+
+
+
+
+  <title>编码的故事 | 国光</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">国光</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">安安静静写博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-hacker">
+          <a href="/categories/hacker/" rel="section">
+            
+            黑客
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-c">
+          <a href="/C" rel="section">
+            
+            C
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-android">
+          <a href="/categories/Android" rel="section">
+            
+            Android
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-python">
+          <a href="/categories/Python" rel="section">
+            
+            Python
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ctf">
+          <a href="/categories/CTF" rel="section">
+            
+            CTF
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-reverse">
+          <a href="/categories/Reverse" rel="section">
+            
+            逆向
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-others">
+          <a href="/categories/others/" rel="section">
+            
+            其他
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/categories/life" rel="section">
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-member">
+          <a href="/member" rel="section">
+            
+            作者墙
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.sqlsec.com/2017/11/ascii.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="国光">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://image.3001.net/images/20170929/15066688735308.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国光">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">编码的故事</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-04T10:35:27+08:00">
+                2017-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CTF/" itemprop="url" rel="index">
+                    <span itemprop="name">CTF</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye">浏览数</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://image.3001.net/images/20171104/1509787607662.png" alt=""><br>编码的故事，科普了一些<code>ASCII</code>码，<code>Unicode</code>编码，<code>GBK</code>编码等由来的历史。<br><a id="more"></a></p>
+<h1 id="计算机用来组合字节"><a href="#计算机用来组合字节" class="headerlink" title="计算机用来组合字节"></a>计算机用来组合字节</h1><p>很久很久以前，有一群人，他们决定用<code>8</code>个可以开合的晶体管来组合成不同的状态，以表示世界上的万物。他们看到<code>8</code>个开关状态是好的，于是他们把这称为”<code>字节</code>“。 再后来，他们又做了一些可以处理这些<code>字节</code>的机器，机器开动了，可以用字节来组合出很多状态，状态开始变来变去。他们看到这样是好的，于是它们就这机器称为”计算机”。</p>
+<h1 id="控制码是用于特殊用途的字节"><a href="#控制码是用于特殊用途的字节" class="headerlink" title="控制码是用于特殊用途的字节"></a>控制码是用于特殊用途的字节</h1><p>开始计算机只在美国用。八位的字节一共可以组合出<code>256</code>(2的8次方)种不同的状态。 他们把其中的编号从0开始的32种状态分别规定了特殊的用途，一但终端、打印机遇上约定好的这些字节被传过来时，就要做一些约定的动作。遇上<code>00x10</code>, 终端就换行，遇上<code>0x07</code>, 终端就向人们嘟嘟叫，例好遇上<code>0x1b</code>, 打印机就打印反白的字，或者终端就用彩色显示字母。他们看到这样很好，于是就把这些<code>0x20</code>以下的字节状态称为”<code>控制码</code>“。  </p>
+<h1 id="ASCII码的由来"><a href="#ASCII码的由来" class="headerlink" title="ASCII码的由来"></a>ASCII码的由来</h1><p> 他们又把所有的<code>空格</code>、<code>标点符号</code>、<code>数字</code>、<code>大小写字母</code>分别用<code>连续的字节状态</code>表示，一直编到了第<code>127</code>号，这样计算机就可以用不同字节来存储英语的文字了。大家看到这样，都感觉很好，于是大家都把这个方案叫做 <code>ANSI</code> 的”<code>Ascii</code>“编码（American Standard Code for Information Interchange，美国信息互换标准代码）。当时世界上所有的计算机都用同样的ASCII方案来保存英文文字。  </p>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ANSI == Ascii</div><div class="line">ASCII = American Standard Code for Information Interchange</div><div class="line">        美国      标准      代码       信息         互换</div></pre></td></tr></table></figure>
+<h1 id="扩展字符集的由来"><a href="#扩展字符集的由来" class="headerlink" title="扩展字符集的由来"></a>扩展字符集的由来</h1><p>后来，就像建造巴比伦塔一样，世界各地的都开始使用计算机，但是很多国家用的不是英文，他们的字母里有许多是<code>ASCII</code>里没有的，为了可以在计算机保存他们的文字，他们决定采用<code>127</code>号之后的空位来表示这些新的字母、符号，还加入了很多画表格时需要用下到的<code>横线</code>、<code>竖线</code>、<code>交叉</code>等形状，一直把序号编到了最后一个状态<code>255</code>。从<code>128</code>到<code>255</code>这一页的字符集被称<code>&quot;扩展字符集&quot;</code>。从此之后，贪婪的人类再没有新的状态可以用了，美帝国主义可能没有想到还有第三世界国家的人们也希望可以用到计算机吧！</p>
+<h1 id="GB2312编码"><a href="#GB2312编码" class="headerlink" title="GB2312编码"></a>GB2312编码</h1><p>等中国人们得到计算机时，已经没有可以利用的字节状态来表示汉字，况且有<code>6000</code>多个常用汉字需要保存呢。但是这难不倒智慧的中国人民，我们不客气地把那些<code>127</code>号之后的奇异符号们直接取消掉, 规定：一个小于<code>127</code>的字符的意义与原来相同，但<code>两个</code>大于<code>127</code>的字符连在一起时，就表示一个<code>汉字</code>，前面的一个<code>字节</code>（他称之为<code>高字节</code>）从<code>0xA1</code>用到<code>0xF7</code>，后面一个字节（<code>低字节</code>）从<code>0xA1</code>到<code>0xFE</code>，这样我们就可以组合出大约<code>7000</code>多个简体汉字了。在这些编码里，我们还把数学符号、罗马希腊的字母、日文的假名们都编进去了，连在 <code>ASCII</code> 里本来就有的数字、标点、字母都统统重新编了两个字节长的编码，这就是常说的”全角”字符，而原来在<code>127</code>号以下的那些就叫<code>&quot;半角&quot;</code>字符了。  中国人民看到这样很不错，于是就把这种汉字方案叫做 <code>&quot;GB2312&quot;</code>。GB2312 是对 <code>ASCII</code> 的<code>中文扩展</code>。</p>
+<h1 id="GBK编码"><a href="#GBK编码" class="headerlink" title="GBK编码"></a>GBK编码</h1><p>但是中国的<code>汉字太多</code>了，我们很快就就发现有许多人的人名没有办法在这里打出来，特别是某些很会麻烦别人的国家领导人。于是我们不得不继续把 <code>GB2312</code> 没有用到的码位找出来老实不客气地用上。 后来还是不够用，于是干脆不再要求低字节一定是127号之后的内码，<code>只要第一个字节是大于127</code>就固定表示这是一个汉字的开始，不管后面跟的是不是扩展字符集里的内容。结果扩展之后的编码方案被称为 <code>GBK</code> 标准，<code>GBK</code> 包括了 <code>GB2312</code> 的<code>所有内容</code>，同时又增加了近<code>20000</code>个新的汉字（包括繁体字）和符号。</p>
+<h1 id="GB18030编码"><a href="#GB18030编码" class="headerlink" title="GB18030编码"></a>GB18030编码</h1><p>后来少数民族也要用电脑了，于是我们再扩展，又加了几千个新的少数民族的字，<code>GBK</code> 扩成了 <code>GB18030</code>。从此之后，中华民族的文化就可以在计算机时代中传承了。</p>
+<h1 id="Unicode编码"><a href="#Unicode编码" class="headerlink" title="Unicode编码"></a>Unicode编码</h1><p>各个国家使用各个国家自己的编码有没有很繁琐？于是大家很期盼有一种统一的编码形式出现。<code>Unicode</code>编码出现了。<code>Unicode</code>使用的通用的字符集叫做<code>UCS</code>。这个字符集就是一个大的字符空间，每个语种都在这个字符空间内划分一段领域。现在应用的UCS是UCS-2，意思就是不管是英文中文，统一使用两个字节（<code>16</code>bit）来进行字符分配。<code>UCS-2</code>字符集可以表示<code>216</code>（即65536）个字符。已经基本满足世界上所有语言了。如果不够怎么办？已经有预定方案<code>UCS-4</code>（用4个字节表示一个字符。</p>
+<h1 id="UTF-16"><a href="#UTF-16" class="headerlink" title="UTF-16"></a>UTF-16</h1><p><strong><code>UTFXX</code>是<code>Unicode</code>的具体实现方式</strong><br><code>UTF-16</code>是<code>Unicode</code>最基本的实现。<code>Unicode</code>使用<code>16bit</code>表示一个字符，<code>UTF-16</code>就是直接将字符集的映射搬过来而已。</p>
+<h1 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h1><p>本来这样就已经很美好了，但是美国人又不干了。凭什么每个英语字符要占用<code>2</code>个字节？凭什么占用了我们的带宽和CPU？于是一帮英语体系的外国人讨论出了<code>UTF-8</code>这种字符编码。</p>
+<p><code>UTF-8</code>这种编码是怎么回事呢？<br>英文字符，和<code>ASCII</code>码一样，占用一个字节<br>其他语种，每种语种分配一个模板，这个模板有<code>16</code>bit，<code>24</code>bit，甚至还有<code>32</code>bit的。各个语种根据这个模板，将自己的语言转化成模板要求的编码（UTF-8）</p>
+<p>这里演示一个中文字“<code>汉</code>”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">比如中文分到的模板是1110xxxx 10yyyyyy 10zzzzzz</div><div class="line">汉字的Unicode编码是0x6C49，二进制是0110 1100 0100 1001</div><div class="line">将这个二进制按照模板的x，y，z顺序插入</div><div class="line">得到11100110 10110001 10001001 就是E6 B1 89</div></pre></td></tr></table></figure></p>
+<p>好了…大家看出这个对中文有什么不好的吗？原先一个中文使用<code>UTF-16</code>只需要两个字节，但是使用<code>UTF-8</code>却需要3个字节，如果一个网页有<code>1w</code>个中文字，那么我们就需要多传输<code>1w</code>个字节，带宽啊！！ 现在就明白了，为什么国内一些网站，比如sina，它的编码规则是使用<code>GBK</code>了吧！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://image.3001.net/images/20171103/15097023327128.png" alt="国光 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>听说打赏我的人，都挖到了0day。</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/国光/" rel="tag"># 国光</a>
+          
+            <a href="/tags/密码学/" rel="tag"># 密码学</a>
+          
+            <a href="/tags/编码/" rel="tag"># 编码</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/bitwise.html" rel="next" title="国光的第一个逆向题">
+                <i class="fa fa-chevron-left"></i> 国光的第一个逆向题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/pe.html" rel="prev" title="PE文件格式">
+                PE文件格式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTU5Ny82MTY1"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://image.3001.net/images/20170929/15066688735308.jpg"
+               alt="国光" />
+          <p class="site-author-name" itemprop="name">国光</p>
+           
+              <p class="site-description motion-element" itemprop="description">宁静致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5728586656" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.github.com/tezukanice/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/guo-guang-94/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-tags"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ggsec.cn/" title="Demon" target="_blank">Demon</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://secretwiki.org/" title="Secretwiki" target="_blank">Secretwiki</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://bestwing.me/" title="SWing" target="_blank">SWing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn" title="Szrzvdny|墨是人性" target="_blank">Szrzvdny|墨是人性</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机用来组合字节"><span class="nav-number">1.</span> <span class="nav-text">计算机用来组合字节</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#控制码是用于特殊用途的字节"><span class="nav-number">2.</span> <span class="nav-text">控制码是用于特殊用途的字节</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ASCII码的由来"><span class="nav-number">3.</span> <span class="nav-text">ASCII码的由来</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#笔记"><span class="nav-number">3.1.</span> <span class="nav-text">笔记</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扩展字符集的由来"><span class="nav-number">4.</span> <span class="nav-text">扩展字符集的由来</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GB2312编码"><span class="nav-number">5.</span> <span class="nav-text">GB2312编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GBK编码"><span class="nav-number">6.</span> <span class="nav-text">GBK编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GB18030编码"><span class="nav-number">7.</span> <span class="nav-text">GB18030编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unicode编码"><span class="nav-number">8.</span> <span class="nav-text">Unicode编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UTF-16"><span class="nav-number">9.</span> <span class="nav-text">UTF-16</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UTF-8"><span class="nav-number">10.</span> <span class="nav-text">UTF-8</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">国光</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">阅读数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="//oxhwlgrce.bkt.clouddn.com/jquery2.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

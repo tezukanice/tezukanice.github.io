@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.cat.net//css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="国光,逆向,Python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="国光" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://image.3001.net/images/20171012/15077801618158.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="PW给的一道CTF题，由于实验吧把这一道题目归类于逆向，那么这个就是我国光做出来的第一道”逆向”题目啦">
+<meta name="keywords" content="国光,逆向,Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="国光的第一个逆向题">
+<meta property="og:url" content="http://www.sqlsec.com/2017/11/bitwise.html">
+<meta property="og:site_name" content="国光">
+<meta property="og:description" content="PW给的一道CTF题，由于实验吧把这一道题目归类于逆向，那么这个就是我国光做出来的第一道”逆向”题目啦">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.3001.net/images/20171103/15097032546681.png">
+<meta property="og:image" content="http://image.3001.net/images/20171102/15096099186144.png">
+<meta property="og:image" content="http://image.3001.net/images/20171102/15096112555346.png">
+<meta property="og:image" content="http://image.3001.net/images/20171103/15097013857671.png">
+<meta property="og:updated_time" content="2017-11-03T10:01:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="国光的第一个逆向题">
+<meta name="twitter:description" content="PW给的一道CTF题，由于实验吧把这一道题目归类于逆向，那么这个就是我国光做出来的第一道”逆向”题目啦">
+<meta name="twitter:image" content="http://image.3001.net/images/20171103/15097032546681.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.sqlsec.com/2017/11/bitwise.html"/>
+
+
+
+
+
+  <title>国光的第一个逆向题 | 国光</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">国光</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">安安静静写博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-hacker">
+          <a href="/categories/hacker/" rel="section">
+            
+            黑客
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-c">
+          <a href="/C" rel="section">
+            
+            C
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-android">
+          <a href="/categories/Android" rel="section">
+            
+            Android
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-python">
+          <a href="/categories/Python" rel="section">
+            
+            Python
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ctf">
+          <a href="/categories/CTF" rel="section">
+            
+            CTF
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-reverse">
+          <a href="/categories/Reverse" rel="section">
+            
+            逆向
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-others">
+          <a href="/categories/others/" rel="section">
+            
+            其他
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/categories/life" rel="section">
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-member">
+          <a href="/member" rel="section">
+            
+            作者墙
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.sqlsec.com/2017/11/bitwise.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="国光">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://image.3001.net/images/20170929/15066688735308.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国光">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">国光的第一个逆向题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T10:35:27+08:00">
+                2017-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Reverse/" itemprop="url" rel="index">
+                    <span itemprop="name">Reverse</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye">浏览数</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://image.3001.net/images/20171103/15097032546681.png" alt=""><br><a href="http://www.sqlsec.com/tags/sky/">PW</a>给的一道CTF题，由于实验吧把这一道题目归类于逆向，那么这个就是我国光做出来的第一道”逆向”题目啦<br><a id="more"></a></p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>You see the doors to the loading bay of the hangar, but they are locked. However, you are able to extract the password verification program from the control panel… Can you find the password to gain access to the loading bay?<br><strong>翻译</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">你可以看到机库的装货门，但是它们被锁上了。但是，您可以从控制面板中提取密码验证程序…你能找到进入装货港的密码吗？</div></pre></td></tr></table></figure></p>
+<h1 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h1><p><strong>bitwise.py</strong><br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line">user_submitted = raw_input(<span class="string">"Enter Password: "</span>)</div><div class="line"></div><div class="line"><span class="keyword">if</span> len(user_submitted) != <span class="number">10</span>:</div><div class="line">  <span class="keyword">print</span> <span class="string">"Wrong"</span></div><div class="line">  exit()</div><div class="line"></div><div class="line"></div><div class="line">verify_arr = [<span class="number">193</span>, <span class="number">35</span>, <span class="number">9</span>, <span class="number">33</span>, <span class="number">1</span>, <span class="number">9</span>, <span class="number">3</span>, <span class="number">33</span>, <span class="number">9</span>, <span class="number">225</span>]</div><div class="line">user_arr = []</div><div class="line"><span class="keyword">for</span> char <span class="keyword">in</span> user_submitted:</div><div class="line">  <span class="comment"># '&lt;&lt;' is left bit shift</span></div><div class="line">  <span class="comment"># '&gt;&gt;' is right bit shift</span></div><div class="line">  <span class="comment"># '|' is bit-wise or</span></div><div class="line">  <span class="comment"># '^' is bit-wise xor</span></div><div class="line">  <span class="comment"># '&amp;' is bit-wise and</span></div><div class="line">  user_arr.append( (((ord(char) &lt;&lt; <span class="number">5</span>) | (ord(char) &gt;&gt; <span class="number">3</span>)) ^ <span class="number">111</span>) &amp; <span class="number">255</span> )</div><div class="line"></div><div class="line"><span class="keyword">if</span> (user_arr == verify_arr):</div><div class="line">  <span class="keyword">print</span> <span class="string">"Success"</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">  <span class="keyword">print</span> <span class="string">"Wrong"</span></div></pre></td></tr></table></figure></p>
+<p><strong>bitwise.java</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        System.out.print(<span class="string">"Enter Password: "</span>);</div><div class="line">        Scanner s = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">        String user_key = s.next();</div><div class="line">        <span class="keyword">if</span> (user_key.length() == <span class="number">10</span>) &#123;</div><div class="line">            System.out.println(<span class="string">"Wrong"</span>);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">char</span>[] verify_arr = &#123;<span class="number">193</span>, <span class="number">35</span>, <span class="number">9</span>, <span class="number">33</span>, <span class="number">1</span>, <span class="number">9</span>, <span class="number">3</span>, <span class="number">33</span>, <span class="number">9</span>, <span class="number">225</span>&#125;;</div><div class="line"></div><div class="line">        ArrayList&lt;Character&gt; user_arr = <span class="keyword">new</span> ArrayList&lt;Character&gt;();</div><div class="line">        <span class="keyword">char</span>[] user_submitted_arr = user_key.toCharArray();</div><div class="line">        System.out.println(user_submitted_arr.length);</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> ch : user_submitted_arr) &#123;</div><div class="line">            user_arr.add((<span class="keyword">char</span>)((((ch &lt;&lt; <span class="number">5</span>) | (ch &gt;&gt; <span class="number">3</span>)) ^ <span class="number">111</span>) &amp; <span class="number">255</span>));</div><div class="line">            System.out.println(user_arr);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> i;</div><div class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (!user_arr.get(i).equals((<span class="keyword">char</span>)verify_arr[i])) &#123;</div><div class="line">                System.out.println(<span class="string">"Wrong"</span>);</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        System.out.println(<span class="string">"Success"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>由于本人<code>Java</code>水平一般般这里就不去解读<code>Java</code>代码了,所以来直接阅读<code>Python</code>代码。 </p>
+<h2 id="简单分析代码"><a href="#简单分析代码" class="headerlink" title="简单分析代码"></a>简单分析代码</h2><p>这里我在源代码基础上 直接加上注释吧，方便阅读<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line">user_submitted = raw_input(<span class="string">"Enter Password: "</span>) </div><div class="line"><span class="comment"># 提示输入密码并记录此刻用户的输入值  用户输入的密码值 存入 user_submitted 变量中</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> len(user_submitted) != <span class="number">10</span>:</div><div class="line">  <span class="keyword">print</span> <span class="string">"Wrong"</span></div><div class="line">  exit()</div><div class="line"><span class="comment"># 如果用户输入的密码长度不是10位 输出 Wrong 并结束程序</span></div><div class="line"></div><div class="line">verify_arr = [<span class="number">193</span>, <span class="number">35</span>, <span class="number">9</span>, <span class="number">33</span>, <span class="number">1</span>, <span class="number">9</span>, <span class="number">3</span>, <span class="number">33</span>, <span class="number">9</span>, <span class="number">225</span>]</div><div class="line"><span class="comment"># 定义一个数组 verify_arr 用来验证作用</span></div><div class="line">user_arr = []</div><div class="line"><span class="comment"># 定义并初始化一个 user_arr 数组变量</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> char <span class="keyword">in</span> user_submitted:</div><div class="line"><span class="comment"># 循环提取user_submitted变量中的字符 </span></div><div class="line">  <span class="comment"># '&lt;&lt;' is left bit shift</span></div><div class="line">  <span class="comment"># '&gt;&gt;' is right bit shift</span></div><div class="line">  <span class="comment"># '|' is bit-wise or</span></div><div class="line">  <span class="comment"># '^' is bit-wise xor</span></div><div class="line">  <span class="comment"># '&amp;' is bit-wise and</span></div><div class="line">  user_arr.append( (((ord(char) &lt;&lt; <span class="number">5</span>) | (ord(char) &gt;&gt; <span class="number">3</span>)) ^ <span class="number">111</span>) &amp; <span class="number">255</span> )</div><div class="line"><span class="comment"># 对这个字符进行 加密处理 这里是核心加密代码，加密后的代码放入user_arr这个变量里面</span></div><div class="line"><span class="keyword">if</span> (user_arr == verify_arr):</div><div class="line"><span class="comment"># 拿user_arr与验证数组verify_arr 来做判断 输入正确或者错误</span></div><div class="line">  <span class="keyword">print</span> <span class="string">"Success"</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">  <span class="keyword">print</span> <span class="string">"Wrong"</span></div></pre></td></tr></table></figure></p>
+<h2 id="突破"><a href="#突破" class="headerlink" title="突破"></a>突破</h2><p>这一题目的代码很容易理解，从代码中可以看出这一题想让我们写出正确的密码，flag 就是密码值。<br>一次性还原出<code>10</code>位数密码有点难度，这里我的思路是<code>1</code>位<code>1</code>位的去还原。</p>
+<h1 id="POC代码第一版"><a href="#POC代码第一版" class="headerlink" title="POC代码第一版"></a>POC代码第一版</h1><p>第一版代码比较繁琐，手工输入字典，然后手工一位一位的来破解，效率不是很高，虽然最后也可以解出密码来。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line">zidian =[<span class="string">'&#123;'</span>,<span class="string">'&#125;'</span>,<span class="string">'['</span>,<span class="string">']'</span>,<span class="string">'\''</span>,<span class="string">'|'</span>,<span class="string">';'</span>,<span class="string">':'</span>,<span class="string">'"'</span>,<span class="string">','</span>,<span class="string">'&lt;'</span>,<span class="string">'&gt;'</span>,<span class="string">'.'</span>,<span class="string">'/'</span>,<span class="string">'?'</span>,<span class="string">'0'</span>,<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'3'</span>,<span class="string">'4'</span>,<span class="string">'5'</span>,<span class="string">'6'</span>,<span class="string">'7'</span>,<span class="string">'8'</span>,<span class="string">'9'</span>,<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>,<span class="string">'e'</span>,<span class="string">'f'</span>,<span class="string">'g'</span>,<span class="string">'h'</span>,<span class="string">'i'</span>,<span class="string">'j'</span>,<span class="string">'k'</span>,<span class="string">'l'</span>,<span class="string">'m'</span>,<span class="string">'n'</span>,<span class="string">'o'</span>,<span class="string">'p'</span>,<span class="string">'q'</span>,<span class="string">'r'</span>,<span class="string">'s'</span>,<span class="string">'t'</span>,<span class="string">'u'</span>,<span class="string">'v'</span>,<span class="string">'w'</span>,<span class="string">'x'</span>,<span class="string">'y'</span>,<span class="string">'z'</span>,<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>,<span class="string">'E'</span>,<span class="string">'F'</span>,<span class="string">'G'</span>,<span class="string">'H'</span>,<span class="string">'I'</span>,<span class="string">'J'</span>,<span class="string">'K'</span>,<span class="string">'L'</span>,<span class="string">'M'</span>,<span class="string">'N'</span>,<span class="string">'O'</span>,<span class="string">'P'</span>,<span class="string">'Q'</span>,<span class="string">'R'</span>,<span class="string">'S'</span>,<span class="string">'T'</span>,<span class="string">'U'</span>,<span class="string">'V'</span>,<span class="string">'W'</span>,<span class="string">'X'</span>,<span class="string">'Y'</span>,<span class="string">'Z'</span>,<span class="string">'!'</span>,<span class="string">'!'</span>,<span class="string">'@'</span>,<span class="string">'#'</span>,<span class="string">'$'</span>,<span class="string">'^'</span>,<span class="string">'&amp;'</span>,<span class="string">'*'</span>,<span class="string">'('</span>,<span class="string">')'</span>,<span class="string">'-'</span>,<span class="string">'+'</span>]</div><div class="line">jiami = (int)(input(<span class="string">"请输入被加密后的密文:"</span>))</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,(len(zidian)<span class="number">-1</span>)):</div><div class="line">  g = ( (((ord(zidian[i]) &lt;&lt; <span class="number">5</span>) | (ord(zidian[i]) &gt;&gt; <span class="number">3</span>)) ^ <span class="number">111</span>) &amp; <span class="number">255</span> )</div><div class="line">  <span class="keyword">if</span> (g == jiami):</div><div class="line">      print(<span class="string">"密码原文是"</span>)</div><div class="line">      <span class="keyword">print</span> (zidian[i])</div></pre></td></tr></table></figure></p>
+<p><strong>效果演示</strong><br><img src="http://image.3001.net/images/20171102/15096099186144.png" alt="">  </p>
+<h1 id="POC代码第二版"><a href="#POC代码第二版" class="headerlink" title="POC代码第二版"></a>POC代码第二版</h1><p>我们每次破解还原1位密码还得重新来运行这个脚本，现在思考能不能一直循环的来运行呢？<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line">zidian =[<span class="string">'&#123;'</span>,<span class="string">'&#125;'</span>,<span class="string">'['</span>,<span class="string">']'</span>,<span class="string">'\''</span>,<span class="string">'|'</span>,<span class="string">';'</span>,<span class="string">':'</span>,<span class="string">'"'</span>,<span class="string">','</span>,<span class="string">'&lt;'</span>,<span class="string">'&gt;'</span>,<span class="string">'.'</span>,<span class="string">'/'</span>,<span class="string">'?'</span>,<span class="string">'0'</span>,<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'3'</span>,<span class="string">'4'</span>,<span class="string">'5'</span>,<span class="string">'6'</span>,<span class="string">'7'</span>,<span class="string">'8'</span>,<span class="string">'9'</span>,<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>,<span class="string">'e'</span>,<span class="string">'f'</span>,<span class="string">'g'</span>,<span class="string">'h'</span>,<span class="string">'i'</span>,<span class="string">'j'</span>,<span class="string">'k'</span>,<span class="string">'l'</span>,<span class="string">'m'</span>,<span class="string">'n'</span>,<span class="string">'o'</span>,<span class="string">'p'</span>,<span class="string">'q'</span>,<span class="string">'r'</span>,<span class="string">'s'</span>,<span class="string">'t'</span>,<span class="string">'u'</span>,<span class="string">'v'</span>,<span class="string">'w'</span>,<span class="string">'x'</span>,<span class="string">'y'</span>,<span class="string">'z'</span>,<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>,<span class="string">'E'</span>,<span class="string">'F'</span>,<span class="string">'G'</span>,<span class="string">'H'</span>,<span class="string">'I'</span>,<span class="string">'J'</span>,<span class="string">'K'</span>,<span class="string">'L'</span>,<span class="string">'M'</span>,<span class="string">'N'</span>,<span class="string">'O'</span>,<span class="string">'P'</span>,<span class="string">'Q'</span>,<span class="string">'R'</span>,<span class="string">'S'</span>,<span class="string">'T'</span>,<span class="string">'U'</span>,<span class="string">'V'</span>,<span class="string">'W'</span>,<span class="string">'X'</span>,<span class="string">'Y'</span>,<span class="string">'Z'</span>,<span class="string">'!'</span>,<span class="string">'!'</span>,<span class="string">'@'</span>,<span class="string">'#'</span>,<span class="string">'$'</span>,<span class="string">'^'</span>,<span class="string">'&amp;'</span>,<span class="string">'*'</span>,<span class="string">'('</span>,<span class="string">')'</span>,<span class="string">'-'</span>,<span class="string">'+'</span>]</div><div class="line"><span class="keyword">while</span>(<span class="number">1</span>):</div><div class="line">    jiami = (int)(input(<span class="string">"请输入被加密后的密文:"</span>))</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,(len(zidian)<span class="number">-1</span>)):</div><div class="line">        g = ( (((ord(zidian[i]) &lt;&lt; <span class="number">5</span>) | (ord(zidian[i]) &gt;&gt; <span class="number">3</span>)) ^ <span class="number">111</span>) &amp; <span class="number">255</span> )</div><div class="line">        <span class="keyword">if</span> (g == jiami):</div><div class="line">            print(<span class="string">"密码原文是"</span>)</div><div class="line">            print(zidian[i])</div><div class="line">            panduan = raw_input(<span class="string">"是否继续输入？[Y/N]"</span>)</div><div class="line">            <span class="keyword">if</span>(panduan == <span class="string">'N'</span> <span class="keyword">or</span> panduan ==<span class="string">'n'</span>):</div><div class="line">                print(<span class="string">"Bye Bye~"</span>)</div><div class="line">                exit()</div></pre></td></tr></table></figure></p>
+<p><strong>效果演示</strong><br><img src="http://image.3001.net/images/20171102/15096112555346.png" alt=""><br>可以看到效率提高了很多，尤其是在密码位数比较多的情况下就会显示出差距了。</p>
+<h1 id="POC代码第三版"><a href="#POC代码第三版" class="headerlink" title="POC代码第三版"></a>POC代码第三版</h1><p>这个脚本用起来还不够方便，因为是一位一位去破解的，而且最后为了拿到密码值，我们还得一位一位的拼接起来，现在思考能不能最后把密码值完全拼接好再<code>print</code>出来呢？<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line">zidian =[<span class="string">'&#123;'</span>,<span class="string">'&#125;'</span>,<span class="string">'['</span>,<span class="string">']'</span>,<span class="string">'\''</span>,<span class="string">'|'</span>,<span class="string">';'</span>,<span class="string">':'</span>,<span class="string">'"'</span>,<span class="string">','</span>,<span class="string">'&lt;'</span>,<span class="string">'&gt;'</span>,<span class="string">'.'</span>,<span class="string">'/'</span>,<span class="string">'?'</span>,<span class="string">'0'</span>,<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'3'</span>,<span class="string">'4'</span>,<span class="string">'5'</span>,<span class="string">'6'</span>,<span class="string">'7'</span>,<span class="string">'8'</span>,<span class="string">'9'</span>,<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>,<span class="string">'e'</span>,<span class="string">'f'</span>,<span class="string">'g'</span>,<span class="string">'h'</span>,<span class="string">'i'</span>,<span class="string">'j'</span>,<span class="string">'k'</span>,<span class="string">'l'</span>,<span class="string">'m'</span>,<span class="string">'n'</span>,<span class="string">'o'</span>,<span class="string">'p'</span>,<span class="string">'q'</span>,<span class="string">'r'</span>,<span class="string">'s'</span>,<span class="string">'t'</span>,<span class="string">'u'</span>,<span class="string">'v'</span>,<span class="string">'w'</span>,<span class="string">'x'</span>,<span class="string">'y'</span>,<span class="string">'z'</span>,<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>,<span class="string">'E'</span>,<span class="string">'F'</span>,<span class="string">'G'</span>,<span class="string">'H'</span>,<span class="string">'I'</span>,<span class="string">'J'</span>,<span class="string">'K'</span>,<span class="string">'L'</span>,<span class="string">'M'</span>,<span class="string">'N'</span>,<span class="string">'O'</span>,<span class="string">'P'</span>,<span class="string">'Q'</span>,<span class="string">'R'</span>,<span class="string">'S'</span>,<span class="string">'T'</span>,<span class="string">'U'</span>,<span class="string">'V'</span>,<span class="string">'W'</span>,<span class="string">'X'</span>,<span class="string">'Y'</span>,<span class="string">'Z'</span>,<span class="string">'!'</span>,<span class="string">'!'</span>,<span class="string">'@'</span>,<span class="string">'#'</span>,<span class="string">'$'</span>,<span class="string">'^'</span>,<span class="string">'&amp;'</span>,<span class="string">'*'</span>,<span class="string">'('</span>,<span class="string">')'</span>,<span class="string">'-'</span>,<span class="string">'+'</span>]</div><div class="line">jieguo = []</div><div class="line"><span class="keyword">while</span>(<span class="number">1</span>):</div><div class="line">    jiami = (int)(input(<span class="string">"请输入被加密后的密文:"</span>))</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,(len(zidian)<span class="number">-1</span>)):</div><div class="line">        g = ( (((ord(zidian[i]) &lt;&lt; <span class="number">5</span>) | (ord(zidian[i]) &gt;&gt; <span class="number">3</span>)) ^ <span class="number">111</span>) &amp; <span class="number">255</span> )</div><div class="line">        <span class="keyword">if</span> (g == jiami):</div><div class="line">            print(<span class="string">"密码原文是"</span>)</div><div class="line">            print(zidian[i])</div><div class="line">            jieguo.append(zidian[i])</div><div class="line">            panduan = raw_input(<span class="string">"是否继续输入？[Y/N]"</span>)</div><div class="line">            <span class="keyword">if</span>(panduan == <span class="string">'N'</span> <span class="keyword">or</span> panduan ==<span class="string">'n'</span>):</div><div class="line">                print(<span class="string">"Bye Bye~"</span>)</div><div class="line">                print(<span class="string">"最后的密码是:"</span>)</div><div class="line">                print(jieguo)</div><div class="line">                exit()</div></pre></td></tr></table></figure></p>
+<p><strong>效果演示</strong><br><img src="http://image.3001.net/images/20171103/15097013857671.png" alt="">  </p>
+<h1 id="关于第N个版本"><a href="#关于第N个版本" class="headerlink" title="关于第N个版本"></a>关于第N个版本</h1><p>当然目前来看这个POC验证代码在用户体验上还不是那么友好而且代码中<code>zidian</code>这个在代码中显得过于臃肿。后期肯定还是可以再完善这个代码的。后期的改进方向:</p>
+<ul>
+<li>从文件中加载字典</li>
+<li>1次性输入全部密码 然后解密</li>
+<li>图形化界面</li>
+<li>WEB界面</li>
+<li>添加修改算法规则，灵活破解‘</li>
+</ul>
+<p>当然真正要全部实现这些功能的话，在<code>Python</code>代码上面还得多多的下功夫才可以。↖(^ω^)↗加油</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://image.3001.net/images/20171103/15097023327128.png" alt="国光 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>听说打赏我的人，都挖到了0day。</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/国光/" rel="tag"># 国光</a>
+          
+            <a href="/tags/逆向/" rel="tag"># 逆向</a>
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/resetpass.html" rel="next" title="用户密码重置找回10种常见姿势">
+                <i class="fa fa-chevron-left"></i> 用户密码重置找回10种常见姿势
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/ascii.html" rel="prev" title="编码的故事">
+                编码的故事 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTU5Ny82MTY1"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://image.3001.net/images/20170929/15066688735308.jpg"
+               alt="国光" />
+          <p class="site-author-name" itemprop="name">国光</p>
+           
+              <p class="site-description motion-element" itemprop="description">宁静致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5728586656" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.github.com/tezukanice/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/guo-guang-94/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-tags"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ggsec.cn/" title="Demon" target="_blank">Demon</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://secretwiki.org/" title="Secretwiki" target="_blank">Secretwiki</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://bestwing.me/" title="SWing" target="_blank">SWing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn" title="Szrzvdny|墨是人性" target="_blank">Szrzvdny|墨是人性</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附件"><span class="nav-number">2.</span> <span class="nav-text">附件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">3.</span> <span class="nav-text">思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单分析代码"><span class="nav-number">3.1.</span> <span class="nav-text">简单分析代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#突破"><span class="nav-number">3.2.</span> <span class="nav-text">突破</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POC代码第一版"><span class="nav-number">4.</span> <span class="nav-text">POC代码第一版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POC代码第二版"><span class="nav-number">5.</span> <span class="nav-text">POC代码第二版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POC代码第三版"><span class="nav-number">6.</span> <span class="nav-text">POC代码第三版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于第N个版本"><span class="nav-number">7.</span> <span class="nav-text">关于第N个版本</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">国光</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">阅读数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="//oxhwlgrce.bkt.clouddn.com/jquery2.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

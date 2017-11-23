@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.cat.net//css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="国光,Python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="国光" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://image.3001.net/images/20171012/15077801618158.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="记录了Python的random的一些知识点，尝试着用Python写猜拳小游戏脚本">
+<meta name="keywords" content="国光,Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python模块学习之random">
+<meta property="og:url" content="http://www.sqlsec.com/2017/09/pyrandom.html">
+<meta property="og:site_name" content="国光">
+<meta property="og:description" content="记录了Python的random的一些知识点，尝试着用Python写猜拳小游戏脚本">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.3001.net/images/20170929/15066760165132.png">
+<meta property="og:updated_time" content="2017-09-30T03:53:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python模块学习之random">
+<meta name="twitter:description" content="记录了Python的random的一些知识点，尝试着用Python写猜拳小游戏脚本">
+<meta name="twitter:image" content="http://image.3001.net/images/20170929/15066760165132.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.sqlsec.com/2017/09/pyrandom.html"/>
+
+
+
+
+
+  <title>Python模块学习之random | 国光</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">国光</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">安安静静写博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-hacker">
+          <a href="/categories/hacker/" rel="section">
+            
+            黑客
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-c">
+          <a href="/C" rel="section">
+            
+            C
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-android">
+          <a href="/categories/Android" rel="section">
+            
+            Android
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-python">
+          <a href="/categories/Python" rel="section">
+            
+            Python
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ctf">
+          <a href="/categories/CTF" rel="section">
+            
+            CTF
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-reverse">
+          <a href="/categories/Reverse" rel="section">
+            
+            逆向
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-others">
+          <a href="/categories/others/" rel="section">
+            
+            其他
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/categories/life" rel="section">
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-member">
+          <a href="/member" rel="section">
+            
+            作者墙
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.sqlsec.com/2017/09/pyrandom.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="国光">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://image.3001.net/images/20170929/15066688735308.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国光">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python模块学习之random</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-29T15:35:27+08:00">
+                2017-09-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye">浏览数</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://image.3001.net/images/20170929/15066760165132.png" alt=""><br>记录了Python的random的一些知识点，尝试着用Python写猜拳小游戏脚本<br><a id="more"></a></p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><code>random</code>是用于生成随机数的，我们可以利用它随机生成<code>数字</code>或者<code>选择字符串</code>。</p>
+<h1 id="random-random"><a href="#random-random" class="headerlink" title="random.random()"></a>random.random()</h1><p>用于生成一个随机浮点数：<code>range[0.0,1.0)</code><br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> random</div><div class="line">a = random.random()</div><div class="line">print(a)</div></pre></td></tr></table></figure></p>
+<p><strong>运行结果</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0.487110087493</div></pre></td></tr></table></figure></p>
+<h1 id="random-uniform-a-b"><a href="#random-uniform-a-b" class="headerlink" title="random.uniform(a,b)"></a>random.uniform(a,b)</h1><p>用于生成一个指定范围内的随机浮点数，<code>a,b</code>为上下限，<code>a!=b</code>,就会生成介于两者之间的一个浮点数<br><code>a=b</code>，则生成的浮点数就是<code>a</code><br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> random</div><div class="line">a = random.uniform(<span class="number">10</span>,<span class="number">20</span>)</div><div class="line">b = random.uniform(<span class="number">20</span>,<span class="number">10</span>) </div><div class="line">c = random.uniform(<span class="number">10</span>,<span class="number">10</span>)</div><div class="line"><span class="keyword">print</span> (a)</div><div class="line"><span class="keyword">print</span> (b)</div><div class="line"><span class="keyword">print</span> (c)</div></pre></td></tr></table></figure></p>
+<p><strong>运行结果</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">13.1155389339</div><div class="line">11.1683532034</div><div class="line">10.0</div></pre></td></tr></table></figure></p>
+<h1 id="random-randint-a-b"><a href="#random-randint-a-b" class="headerlink" title="random.randint(a,b)"></a>random.randint(a,b)</h1><p>用于生成一个指定范围内的整数，<code>a</code>为下限，<code>b</code>为上限，生成的随机整数<code>a&lt;=n&lt;=b</code>;<br>若<code>a=b</code>，则<code>n=a</code><br>若<code>a&gt;b</code>，报错<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> random</div><div class="line">random.randint(<span class="number">10</span>,<span class="number">20</span>) <span class="comment">#输出 12</span></div><div class="line">random.randint(<span class="number">10</span>,<span class="number">10</span>) <span class="comment">#输出 10</span></div><div class="line">random.randint(<span class="number">20</span>,<span class="number">10</span>) <span class="comment">#Error</span></div></pre></td></tr></table></figure></p>
+<h1 id="random-randrange-x-y-step"><a href="#random-randrange-x-y-step" class="headerlink" title="random.randrange(x, y, step)"></a>random.randrange(x, y, step)</h1><p>从指定范围内，按指定基数递增的集合中获取一个随机数，基数缺省值为<code>1</code><br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> random</div><div class="line">random.randrange(<span class="number">10</span>,<span class="number">100</span>) <span class="comment">#输出为10到100间的任意数</span></div><div class="line">random.randrange(<span class="number">10</span>,<span class="number">100</span>,<span class="number">4</span>) <span class="comment">#输出为10到100内以4递增的序列[10,14,18,22...]</span></div><div class="line">random.choice(range(<span class="number">10</span>,<span class="number">100</span>,<span class="number">4</span>)) <span class="comment">#输出在结果上与上一条等效</span></div></pre></td></tr></table></figure></p>
+<h1 id="random-choice-sequence"><a href="#random-choice-sequence" class="headerlink" title="random.choice(sequence)"></a>random.choice(sequence)</h1><p>从序列中获取一个随机元素，参数<code>sequence</code>表示一个有序类型，并不是一种特定类型，泛指<code>list，tuple</code>，<code>字符串</code>等<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> random</div><div class="line">random.choice(range(<span class="number">10</span>)) <span class="comment">#输出0到10内随机整数</span></div><div class="line">random.choice(range(<span class="number">10</span>,<span class="number">100</span>,<span class="number">2</span>)) <span class="comment">#输出随机值[10,12,14,16...]</span></div><div class="line">random.choice(<span class="string">"I love python"</span>) <span class="comment">#输出随机字符I,o,v,p,y...</span></div><div class="line">random.choice((<span class="string">"I love python"</span>)) <span class="comment">#同上</span></div><div class="line">random.choice([<span class="string">"I love python"</span>]) <span class="comment">#输出“I love python”</span></div><div class="line">random.choice(<span class="string">"I"</span>,<span class="string">"love"</span>,<span class="string">"python"</span>) <span class="comment">#Error</span></div><div class="line">random.choice((<span class="string">"I"</span>,<span class="string">"love"</span>,<span class="string">"python"</span>)) <span class="comment">#输出随机字符串“I”，“love”，“python”</span></div><div class="line">random.choice([<span class="string">"I"</span>,<span class="string">"love"</span>,<span class="string">"python"</span>]) <span class="comment">#输出随机字符串“I”，“love”，“python”</span></div></pre></td></tr></table></figure></p>
+<h1 id="random-shuffle-x-random"><a href="#random-shuffle-x-random" class="headerlink" title="random.shuffle(x[,random])"></a>random.shuffle(x[,random])</h1><p>用于将一个列表中的元素<code>打乱</code><br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> random</div><div class="line">list=[<span class="string">'I'</span>,<span class="string">'love'</span>,<span class="string">'python'</span>,<span class="string">'very'</span>,<span class="string">'much'</span>]</div><div class="line">random.shuffle(list)</div><div class="line"><span class="keyword">print</span> list     <span class="comment">#输出乱序list</span></div></pre></td></tr></table></figure></p>
+<h1 id="random-sample-sequence-k"><a href="#random-sample-sequence-k" class="headerlink" title="random.sample(sequence,k)"></a>random.sample(sequence,k)</h1><p>从指定序列中随机获取k个元素作为一个片段返回，`sample函数不会修改原有序列<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> random</div><div class="line">a=<span class="string">'123456789'</span></div><div class="line">b=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]</div><div class="line">c=[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>,<span class="string">'e'</span>]</div><div class="line">aa = random.sample(a,<span class="number">3</span>)</div><div class="line">bb = random.sample(b,<span class="number">3</span>)</div><div class="line">cc = random.sample(c,<span class="number">3</span>)</div><div class="line">print(aa)</div><div class="line">print(bb)</div></pre></td></tr></table></figure></p>
+<p><strong>运行结果</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[&apos;9&apos;, &apos;2&apos;, &apos;5&apos;]</div><div class="line">[5, 9, 3]</div><div class="line">[&apos;c&apos;, &apos;e&apos;, &apos;a&apos;]</div></pre></td></tr></table></figure></p>
+<h1 id="猜拳游戏的实际运用"><a href="#猜拳游戏的实际运用" class="headerlink" title="猜拳游戏的实际运用"></a>猜拳游戏的实际运用</h1><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> random</div><div class="line"></div><div class="line"><span class="keyword">while</span>(<span class="number">1</span>):</div><div class="line">    <span class="keyword">print</span> (<span class="string">"欢迎进入国光的石头剪刀布小游戏"</span>)</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                            _ooOoo_  "</span>                    )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                           o8888888o  "</span>                   )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                           88  .  88  "</span>                   )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                           (| -_- |)  "</span>                   )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                            O\\ = /O  "</span>                   )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                        ____/`---'\\____  "</span>               )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                      .   ' \\| |// `.  "</span>                 )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                       / \\||| : |||// \\  "</span>              )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                     / _||||| -:- |||||- \\  "</span>            )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                       | | \\\\\\ - /// | |  "</span>            )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                     | \\_| ''\\---/'' | |  "</span>             )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                      \\ .-\\__ `-` ___/-. /  "</span>           )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                   ___`. .' /--.--\\ `. . __  "</span>           )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                ."</span><span class="string">" '&lt; `.___\\_&lt;|&gt;_/___.' &gt;'"</span><span class="string">".  "</span>        )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"               | | : `- \\`.;`\\ _ /`;.`/ - ` : | |  "</span>    )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                 \\ \\ `-. \\_ __\\ /__ _/ .-` / /  "</span>     )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"         ======`-.____`-.___\\_____/___.-`____.-'======  "</span>)</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                            `=---='  "</span>                    )</div><div class="line">    <span class="keyword">print</span> (<span class="string">"                                                         "</span>)</div><div class="line">    <span class="keyword">print</span> (<span class="string">"         .............................................  "</span> )</div><div class="line">    player = (int)(input(<span class="string">"选项:\n0-剪刀 1-石头 2-布\n请输入:"</span>))</div><div class="line">    pc = random.randint(<span class="number">0</span>,<span class="number">2</span>)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">list</span><span class="params">(x)</span>:</span></div><div class="line">        <span class="keyword">if</span>(x == <span class="number">0</span>):</div><div class="line">            <span class="keyword">return</span> (<span class="string">"剪刀"</span>)</div><div class="line">        <span class="keyword">elif</span>(x == <span class="number">1</span>):</div><div class="line">            <span class="keyword">return</span> (<span class="string">"石头"</span>)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">return</span> (<span class="string">"布"</span>)</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">gg</span><span class="params">()</span>:</span></div><div class="line">        <span class="keyword">print</span> (<span class="string">"电脑:%s"</span> % list(pc))</div><div class="line">        <span class="keyword">print</span> (<span class="string">"你:%s"</span> % list(player))</div><div class="line"></div><div class="line">    <span class="keyword">if</span> ((player == <span class="number">0</span>) <span class="keyword">and</span> ((pc == <span class="number">1</span>)) <span class="keyword">or</span> (player == <span class="number">1</span>) <span class="keyword">and</span> (pc == <span class="number">2</span>) <span class="keyword">or</span> (player == <span class="number">2</span>) <span class="keyword">and</span> (pc == <span class="number">0</span>) ):</div><div class="line">        gg()</div><div class="line">        print(<span class="string">"好可惜 输给了电脑了"</span>)</div><div class="line">    <span class="keyword">elif</span> player == pc:</div><div class="line">        gg()</div><div class="line">        print(<span class="string">"平局"</span>)</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        gg()</div><div class="line">        <span class="keyword">print</span> (<span class="string">"恭喜 你赢了"</span>)</div><div class="line">    flag = raw_input(<span class="string">"想再继续玩一把吗？[Y/N]"</span>)</div><div class="line">    print(flag)</div><div class="line">    <span class="keyword">if</span>(flag == <span class="string">'N'</span> <span class="keyword">or</span> flag ==<span class="string">'n'</span>):</div><div class="line">        <span class="keyword">print</span> (<span class="string">"Bye Bye ~"</span>)</div><div class="line">        <span class="keyword">break</span></div></pre></td></tr></table></figure>
+<p><strong>运行结果</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">欢迎进入国光的石头剪刀布小游戏</div><div class="line">                            _ooOoo_  </div><div class="line">                           o8888888o  </div><div class="line">                           88  .  88  </div><div class="line">                           (| -_- |)  </div><div class="line">                            O\ = /O  </div><div class="line">                        ____/`---&apos;\____  </div><div class="line">                      .   &apos; \| |// `.  </div><div class="line">                       / \||| : |||// \  </div><div class="line">                     / _||||| -:- |||||- \  </div><div class="line">                       | | \\\ - /// | |  </div><div class="line">                     | \_| &apos;&apos;\---/&apos;&apos; | |  </div><div class="line">                      \ .-\__ `-` ___/-. /  </div><div class="line">                   ___`. .&apos; /--.--\ `. . __  </div><div class="line">                . &apos;&lt; `.___\_&lt;|&gt;_/___.&apos; &gt;&apos;.  </div><div class="line">               | | : `- \`.;`\ _ /`;.`/ - ` : | |  </div><div class="line">                 \ \ `-. \_ __\ /__ _/ .-` / /  </div><div class="line">         ======`-.____`-.___\_____/___.-`____.-&apos;======  </div><div class="line">                            `=---=&apos;  </div><div class="line">                                                         </div><div class="line">         .............................................  </div><div class="line">选项:</div><div class="line">0-剪刀 1-石头 2-布</div><div class="line">请输入:2</div><div class="line">电脑:剪刀</div><div class="line">你:布</div><div class="line">好可惜 输给了电脑了</div><div class="line">想再继续玩一把吗？[Y/N]y</div><div class="line">y</div><div class="line">欢迎进入国光的石头剪刀布小游戏</div><div class="line">                            _ooOoo_  </div><div class="line">                           o8888888o  </div><div class="line">                           88  .  88  </div><div class="line">                           (| -_- |)  </div><div class="line">                            O\ = /O  </div><div class="line">                        ____/`---&apos;\____  </div><div class="line">                      .   &apos; \| |// `.  </div><div class="line">                       / \||| : |||// \  </div><div class="line">                     / _||||| -:- |||||- \  </div><div class="line">                       | | \\\ - /// | |  </div><div class="line">                     | \_| &apos;&apos;\---/&apos;&apos; | |  </div><div class="line">                      \ .-\__ `-` ___/-. /  </div><div class="line">                   ___`. .&apos; /--.--\ `. . __  </div><div class="line">                . &apos;&lt; `.___\_&lt;|&gt;_/___.&apos; &gt;&apos;.  </div><div class="line">               | | : `- \`.;`\ _ /`;.`/ - ` : | |  </div><div class="line">                 \ \ `-. \_ __\ /__ _/ .-` / /  </div><div class="line">         ======`-.____`-.___\_____/___.-`____.-&apos;======  </div><div class="line">                            `=---=&apos;  </div><div class="line">                                                         </div><div class="line">         .............................................  </div><div class="line">选项:</div><div class="line">0-剪刀 1-石头 2-布</div><div class="line">请输入:0</div><div class="line">电脑:剪刀</div><div class="line">你:剪刀</div><div class="line">平局</div><div class="line">想再继续玩一把吗？[Y/N]n</div><div class="line">n</div><div class="line">Bye Bye ~</div><div class="line"></div><div class="line">Process finished with exit code 0</div></pre></td></tr></table></figure></p>
+<h2 id="自我总结"><a href="#自我总结" class="headerlink" title="自我总结"></a>自我总结</h2><h3 id="程序一直循环"><a href="#程序一直循环" class="headerlink" title="程序一直循环"></a>程序一直循环</h3><p><strong>核心代码</strong><br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span>(<span class="number">1</span>):</div><div class="line">******代码主体******</div><div class="line">flag = raw_input(<span class="string">"想再继续玩一把吗？[Y/N]"</span>)</div><div class="line">    print(flag)</div><div class="line">    <span class="keyword">if</span>(flag == <span class="string">'N'</span> <span class="keyword">or</span> flag ==<span class="string">'n'</span>):</div><div class="line">        <span class="keyword">print</span> (<span class="string">"Bye Bye ~"</span>)</div><div class="line">        <span class="keyword">break</span></div></pre></td></tr></table></figure></p>
+<h3 id="结果显示"><a href="#结果显示" class="headerlink" title="结果显示"></a>结果显示</h3><p><strong>核心代码</strong><br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">list</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="keyword">if</span>(x == <span class="number">0</span>):</div><div class="line">        <span class="keyword">return</span> (<span class="string">"剪刀"</span>)</div><div class="line">    <span class="keyword">elif</span>(x == <span class="number">1</span>):</div><div class="line">        <span class="keyword">return</span> (<span class="string">"石头"</span>)</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">return</span> (<span class="string">"布"</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">gg</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">print</span> (<span class="string">"电脑:%s"</span> % list(pc))</div><div class="line">    <span class="keyword">print</span> (<span class="string">"你:%s"</span> % list(player))</div><div class="line"></div><div class="line"><span class="keyword">if</span> ((player == <span class="number">0</span>) <span class="keyword">and</span> ((pc == <span class="number">1</span>)) <span class="keyword">or</span> (player == <span class="number">1</span>) <span class="keyword">and</span> (pc == <span class="number">2</span>) <span class="keyword">or</span> (player == <span class="number">2</span>) <span class="keyword">and</span> (pc == <span class="number">0</span>) ):</div><div class="line">    gg()</div><div class="line">    print(<span class="string">"好可惜 输给了电脑了"</span>)</div><div class="line"><span class="keyword">elif</span> player == pc:</div><div class="line">    gg()</div><div class="line">    print(<span class="string">"平局"</span>)</div><div class="line"><span class="keyword">else</span>:</div><div class="line">    gg()</div><div class="line">    <span class="keyword">print</span> (<span class="string">"恭喜 你赢了"</span>)</div></pre></td></tr></table></figure></p>
+<p>首先封装了一个<code>list()</code>函数用于显示 结果详情，为了减少操作，又把冗余信息封装在了一个<code>gg()</code>函数里面 这样使用的时候直接调用即可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://image.3001.net/images/20171103/15097023327128.png" alt="国光 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>听说打赏我的人，都挖到了0day。</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/国光/" rel="tag"># 国光</a>
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/android4.html" rel="next" title="Android学习之 fragment">
+                <i class="fa fa-chevron-left"></i> Android学习之 fragment
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/CTFinfo.html" rel="prev" title="CTF新手指南">
+                CTF新手指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTU5Ny82MTY1"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://image.3001.net/images/20170929/15066688735308.jpg"
+               alt="国光" />
+          <p class="site-author-name" itemprop="name">国光</p>
+           
+              <p class="site-description motion-element" itemprop="description">宁静致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5728586656" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.github.com/tezukanice/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/guo-guang-94/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-tags"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ggsec.cn/" title="Demon" target="_blank">Demon</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://secretwiki.org/" title="Secretwiki" target="_blank">Secretwiki</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://bestwing.me/" title="SWing" target="_blank">SWing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn" title="Szrzvdny|墨是人性" target="_blank">Szrzvdny|墨是人性</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#random-random"><span class="nav-number">2.</span> <span class="nav-text">random.random()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#random-uniform-a-b"><span class="nav-number">3.</span> <span class="nav-text">random.uniform(a,b)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#random-randint-a-b"><span class="nav-number">4.</span> <span class="nav-text">random.randint(a,b)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#random-randrange-x-y-step"><span class="nav-number">5.</span> <span class="nav-text">random.randrange(x, y, step)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#random-choice-sequence"><span class="nav-number">6.</span> <span class="nav-text">random.choice(sequence)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#random-shuffle-x-random"><span class="nav-number">7.</span> <span class="nav-text">random.shuffle(x[,random])</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#random-sample-sequence-k"><span class="nav-number">8.</span> <span class="nav-text">random.sample(sequence,k)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#猜拳游戏的实际运用"><span class="nav-number">9.</span> <span class="nav-text">猜拳游戏的实际运用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自我总结"><span class="nav-number">9.1.</span> <span class="nav-text">自我总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#程序一直循环"><span class="nav-number">9.1.1.</span> <span class="nav-text">程序一直循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果显示"><span class="nav-number">9.1.2.</span> <span class="nav-text">结果显示</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">国光</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">阅读数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="//oxhwlgrce.bkt.clouddn.com/jquery2.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

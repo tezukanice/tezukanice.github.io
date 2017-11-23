@@ -1,0 +1,257 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>欣儿 我爱你</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8">
+	<meta name="keywords" content="欣儿,王叔叔,爱情纪念">
+    <script type="text/javascript">
+    //原理是在微信易信执行Ready之前，先注册事件，所以放在所有请求的最前面
+    document.addEventListener("WeixinJSBridgeReady", function () {
+        audioAutoPlay('bgaudio');//给个全局函数
+    }, false);
+    document.addEventListener('YixinJSBridgeReady', function() {
+        audioAutoPlay('bgaudio');//给个全局函数
+    }, false);
+    </script>
+	<link rel="stylesheet" href="http://oxhwlgrce.bkt.clouddn.com/xed.css" type="text/css"></link>
+	<link rel="stylesheet" href="http://oxhwlgrce.bkt.clouddn.com/style.css"></link>
+	<style type="text/css">
+		.STYLE1 {
+			color: #666666
+		}
+		#code {
+			color: #FF2B2B;
+			font-size: 14px;
+		}
+	</style>
+
+  </head>
+  <body style="background-color: #FFACFF">
+    <audio src="http://oxhwlgrce.bkt.clouddn.com/gbqq.mp3" autoplay="autoplay">
+</audio>
+<div style="display:none">
+    
+    	
+    
+</div>
+<input type="hidden" id = "loveDate" value='2017-09-25 00:00:00' >
+<div id="main">
+  <div id="error">亲爱的，你的浏览器无法显示HTML5的内容哦，请换成谷歌或火狐等浏览器</div>
+  <div id="wrap">
+    <div id="text">
+      <div id="code">
+      	<span class="space">欣儿：</span><br>
+        <span class="space"></span><br>
+        <span class="space">自从遇见你的那一刻起</span><br>
+        <span class="space"></span><br>
+        <span class="space">就被你深深的吸引了</span><br>
+        <span class="space"></span><br>
+        <span class="space">好想一直一直陪在欣儿身边啊</span><br>
+        <span class="space"></span><br>
+        <span class="space">牵着你的手</span><br>
+        <span class="space"></span><br>
+        <span class="space">去看一看这个世界</span><br>
+        <span class="space"></span><br>
+        <span class="space">冷的时候</span><br>
+        <span class="space"></span><br>
+        <span class="space">紧紧的抱着你</span><br>
+        <span class="space"></span><br>
+        <span class="space">每个孤独的夜晚</span><br>
+        <span class="space"></span><br>
+        <span class="space">都会想起欣儿那可爱美丽的身影</span><br>
+        <span class="space"></span><br>
+        <span class="space">想要陪你一起走过这世间的风雨</span><br>
+        <span class="space"></span><br>
+        <span class="space">欣儿～</span><br>
+        <span class="space"></span><br>
+        <span class="space">我爱你</span><br>
+        <span class="space">	      </span><br>
+        <span class="space">	      </span><br>
+        <span class="space"><span class="ml150"></span>-- 一直爱你的王叔叔 </span><br>
+      </div>
+    </div>
+    
+    <div id="clock-box"> <span class="STYLE1"></span><font color="yellow">记录我们相爱的日子</font></span>
+      <div id="clock"></div>
+    </div>
+    <canvas id="canvas" width="1100" height="680"></canvas>
+  </div>
+	
+		
+			
+				<div class="watermark">
+					<a href="#" target="_blank">王叔叔 - 欣儿 </a>
+				</div>
+			
+		
+	
+</div>
+<script type="text/javascript" src="http://oxhwlgrce.bkt.clouddn.com/jquery.min.js"></script>
+<script type="text/javascript" src="http://oxhwlgrce.bkt.clouddn.com/autoplay.js"></script>
+<script type="text/javascript" src="http://oxhwlgrce.bkt.clouddn.com/jscex.min.js"></script>
+<script type="text/javascript" src="http://oxhwlgrce.bkt.clouddn.com/jscex-parser.js"></script>
+<script type="text/javascript" src="http://oxhwlgrce.bkt.clouddn.com/jscex-jit.js"></script>
+<script type="text/javascript" src="http://oxhwlgrce.bkt.clouddn.com/jscex-builderbase.min.js"></script>
+<script type="text/javascript" src="http://oxhwlgrce.bkt.clouddn.com/jscex-async.min.js"></script>
+<script type="text/javascript" src="http://oxhwlgrce.bkt.clouddn.com/jscex-async-powerpack.min.js"></script>
+<script type="text/javascript" src="http://oxhwlgrce.bkt.clouddn.com/functions.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://oxhwlgrce.bkt.clouddn.com/love.js" charset="utf-8"></script>
+<script>
+    (function () {
+        var canvas = $('#canvas');
+
+        if (!canvas[0].getContext) {
+            $("#error").show();
+            return false;
+        }
+
+        var width = canvas.width();
+        var height = canvas.height();
+        canvas.attr("width", width);
+        canvas.attr("height", height);
+        var opts = {
+            seed: {
+                x: width / 2 - 20,
+                color: "rgb(190, 26, 37)",
+                scale: 2
+            },
+            branch: [
+                [535, 680, 570, 250, 500, 200, 30, 100, [
+                    [540, 500, 455, 417, 340, 400, 13, 100, [
+                        [450, 435, 434, 430, 394, 395, 2, 40]
+                    ]],
+                    [550, 445, 600, 356, 680, 345, 12, 100, [
+                        [578, 400, 648, 409, 661, 426, 3, 80]
+                    ]],
+                    [539, 281, 537, 248, 534, 217, 3, 40],
+                    [546, 397, 413, 247, 328, 244, 9, 80, [
+                        [427, 286, 383, 253, 371, 205, 2, 40],
+                        [498, 345, 435, 315, 395, 330, 4, 60]
+                    ]],
+                    [546, 357, 608, 252, 678, 221, 6, 100, [
+                        [590, 293, 646, 277, 648, 271, 2, 80]
+                    ]]
+                ]]
+            ],
+            bloom: {
+                num: 700,
+                width: 1080,
+                height: 650,
+            },
+            footer: {
+                width: 1200,
+                height: 5,
+                speed: 10,
+            }
+        }
+
+        var tree = new Tree(canvas[0], width, height, opts);
+        var seed = tree.seed;
+        var foot = tree.footer;
+        var hold = 1;
+
+        canvas.click(function (e) {
+            var offset = canvas.offset(), x, y;
+            x = e.pageX - offset.left;
+            y = e.pageY - offset.top;
+            if (seed.hover(x, y)) {
+                hold = 0;
+                canvas.unbind("click");
+                canvas.unbind("mousemove");
+                canvas.removeClass('hand');
+            }
+        }).mousemove(function (e) {
+            var offset = canvas.offset(), x, y;
+            x = e.pageX - offset.left;
+            y = e.pageY - offset.top;
+            canvas.toggleClass('hand', seed.hover(x, y));
+        });
+
+        var seedAnimate = eval(Jscex.compile("async", function () {
+            seed.draw();
+            while (hold) {
+                $await(Jscex.Async.sleep(10));
+            }
+            while (seed.canScale()) {
+                seed.scale(0.95);
+                $await(Jscex.Async.sleep(10));
+            }
+            while (seed.canMove()) {
+                seed.move(0, 2);
+                foot.draw();
+                $await(Jscex.Async.sleep(10));
+            }
+        }));
+
+        var growAnimate = eval(Jscex.compile("async", function () {
+            do {
+                tree.grow();
+                $await(Jscex.Async.sleep(10));
+            } while (tree.canGrow());
+        }));
+
+        var flowAnimate = eval(Jscex.compile("async", function () {
+            do {
+                tree.flower(2);
+                $await(Jscex.Async.sleep(10));
+            } while (tree.canFlower());
+        }));
+
+        var moveAnimate = eval(Jscex.compile("async", function () {
+            tree.snapshot("p1", 240, 0, 610, 680);
+            while (tree.move("p1", 500, 0)) {
+                foot.draw();
+                $await(Jscex.Async.sleep(10));
+            }
+            foot.draw();
+            tree.snapshot("p2", 500, 0, 610, 680);
+
+            canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+            canvas.css("background", "#ffe");
+            $await(Jscex.Async.sleep(300));
+            canvas.css("background", "none");
+        }));
+
+        var jumpAnimate = eval(Jscex.compile("async", function () {
+            var ctx = tree.ctx;
+            while (true) {
+                tree.ctx.clearRect(0, 0, width, height);
+                tree.jump();
+                foot.draw();
+                $await(Jscex.Async.sleep(25));
+            }
+        }));
+
+        var textAnimate = eval(Jscex.compile("async", function () {
+            var together = new Date(Date.parse("Mon Sep 25 00:00:00 CST 2017".replace(/-/g,  "/"))); 
+            $("#code").show().typewriter();
+            $("#clock-box").fadeIn(500);
+            while (true) {
+                timeElapse(together);
+                $await(Jscex.Async.sleep(1000));
+            }
+        }));
+
+        var runAsync = eval(Jscex.compile("async", function () {
+            $await(seedAnimate());
+            $await(growAnimate());
+            $await(flowAnimate());
+            $await(moveAnimate());
+
+            textAnimate().start();
+
+            $await(jumpAnimate());
+        }));
+
+        runAsync().start();
+    })();
+    </script>
+    <div style="display: none">
+</div>
+</body>
+</html>

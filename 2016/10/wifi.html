@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.cat.net//css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="国光,Kali Linux,wifi破解,无线安全," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="国光" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://image.3001.net/images/20171012/15077801618158.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="由于古老的ＷPE加密的WiFi已经几乎没有了，所以这里我就不去细说如何破解WPE加密的ＷiFi了。今天就来聊聊　如何来使用Kali Linux来破解Wpa/Wpa2加密的WiFi。本次破解WiFi使用的是Kali Linux下经典的aircrack-ng">
+<meta name="keywords" content="国光,Kali Linux,wifi破解,无线安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="无线安全之破解WPA&#x2F;WPA2 加密ＷiFi">
+<meta property="og:url" content="http://www.sqlsec.com/2016/10/wifi.html">
+<meta property="og:site_name" content="国光">
+<meta property="og:description" content="由于古老的ＷPE加密的WiFi已经几乎没有了，所以这里我就不去细说如何破解WPE加密的ＷiFi了。今天就来聊聊　如何来使用Kali Linux来破解Wpa/Wpa2加密的WiFi。本次破解WiFi使用的是Kali Linux下经典的aircrack-ng">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ombgvjpli.bkt.clouddn.com/wifisec.png">
+<meta property="og:image" content="http://ombgvjpli.bkt.clouddn.com/ifconfig.png">
+<meta property="og:image" content="http://ombgvjpli.bkt.clouddn.com/wiffiinfo.png">
+<meta property="og:image" content="http://ombgvjpli.bkt.clouddn.com/zhuabao.png">
+<meta property="og:image" content="http://ombgvjpli.bkt.clouddn.com/aireplay.png">
+<meta property="og:image" content="http://ombgvjpli.bkt.clouddn.com/chuangkou.png">
+<meta property="og:image" content="http://ombgvjpli.bkt.clouddn.com/wifibao.png">
+<meta property="og:image" content="http://ombgvjpli.bkt.clouddn.com/wenjianjaibao.png">
+<meta property="og:image" content="http://ombgvjpli.bkt.clouddn.com/5W.png">
+<meta property="og:image" content="http://ombgvjpli.bkt.clouddn.com/testgouxuan.png">
+<meta property="og:image" content="http://ombgvjpli.bkt.clouddn.com/wifi.gif">
+<meta property="og:updated_time" content="2017-09-30T03:59:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="无线安全之破解WPA&#x2F;WPA2 加密ＷiFi">
+<meta name="twitter:description" content="由于古老的ＷPE加密的WiFi已经几乎没有了，所以这里我就不去细说如何破解WPE加密的ＷiFi了。今天就来聊聊　如何来使用Kali Linux来破解Wpa/Wpa2加密的WiFi。本次破解WiFi使用的是Kali Linux下经典的aircrack-ng">
+<meta name="twitter:image" content="http://ombgvjpli.bkt.clouddn.com/wifisec.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.sqlsec.com/2016/10/wifi.html"/>
+
+
+
+
+
+  <title>无线安全之破解WPA/WPA2 加密ＷiFi | 国光</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">国光</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">安安静静写博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-hacker">
+          <a href="/categories/hacker/" rel="section">
+            
+            黑客
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-c">
+          <a href="/C" rel="section">
+            
+            C
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-android">
+          <a href="/categories/Android" rel="section">
+            
+            Android
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-python">
+          <a href="/categories/Python" rel="section">
+            
+            Python
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ctf">
+          <a href="/categories/CTF" rel="section">
+            
+            CTF
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-reverse">
+          <a href="/categories/Reverse" rel="section">
+            
+            逆向
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-others">
+          <a href="/categories/others/" rel="section">
+            
+            其他
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/categories/life" rel="section">
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-member">
+          <a href="/member" rel="section">
+            
+            作者墙
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.sqlsec.com/2016/10/wifi.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="国光">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://image.3001.net/images/20170929/15066688735308.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国光">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">无线安全之破解WPA/WPA2 加密ＷiFi</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-14T17:19:40+08:00">
+                2016-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hacker/" itemprop="url" rel="index">
+                    <span itemprop="name">hacker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye">浏览数</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><img src="http://ombgvjpli.bkt.clouddn.com/wifisec.png" alt="image"></center><br>由于古老的ＷPE加密的WiFi已经几乎没有了，所以这里我就不去细说如何破解WPE加密的ＷiFi了。今天就来聊聊　如何来使用Kali Linux来破解Wpa/Wpa2加密的WiFi。本次破解WiFi使用的是Kali Linux下经典的<code>aircrack-ng</code><br><a id="more"></a></p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>可以使用无线网络的Kali Linux<br>由于古老的ＷPE加密的WiFi已经几乎没有了，所以这里我就不去细说如何破解WPE加密的ＷiFi了。今天就来聊聊　如何来使用Kali Linux来破解Wpa/Wpa2加密的WiFi。</p>
+<p>本次破解WiFi使用的是Kali Linux下经典的<code>aircrack-ng</code>   </p>
+<h1 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h1><p>首先查看 自己的 无线设备的网卡，我这里 无线设备就是  ：<code>wlan0</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ifconfig</div></pre></td></tr></table></figure></p>
+<p><img src="http://ombgvjpli.bkt.clouddn.com/ifconfig.png" alt="image"><br>然后查看周围无线网络<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">airodump-ng wlan0</div></pre></td></tr></table></figure></p>
+<p>如果报错：<code>ioctl(SIOCSIWMODE) failed: Device or resource busy</code> 的话，<br>那么是因为网卡没有启用监听模式<br>这个时候 卸载设备，设置monitor模式，重新启用网卡即可<br>命令如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ifconfig wlan0 down</div><div class="line">iwconfig wlan0 mode monitor</div><div class="line">ifconfig wlan0 up</div></pre></td></tr></table></figure></p>
+<p>运行 airodump-ng wlan0 查看的无线信息如下：<br><img src="http://ombgvjpli.bkt.clouddn.com/wiffiinfo.png" alt="image"><br>这里简单解释下一些基本的参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">BSSID--无线AP（路由器）的MAC地址，如果你想PJ哪个路由器的密码就把这个信息记下来备用。</div><div class="line">PWR--这个值的大小反应信号的强弱，越大越好。很重要！！！</div><div class="line">Beacons--准确的含义忘记了，大致就是反应客户端和AP的数据交换情况，通常此值不断变化。</div><div class="line">#Data--这个值非常重要，直接影响到密码破解的时间长短，如果有用户正在下载文件或看电影等大量数据传输的话，此值增长较快。 </div><div class="line">CH--工作频道。</div><div class="line">MB--连接速度</div><div class="line">ENC--编码方式。通常有WEP、WPA、TKIP等方式，本文所介绍的方法在WEP下测试100%成功，其余方式本人 并未验证。</div><div class="line">ESSID--可以简单的理解为局域网的名称，就是通常我们在搜索无线网络时看到的列表里面的各个网络的名称。</div></pre></td></tr></table></figure></p>
+<p>接下来开始抓我们想要抓的WiFi的包，这里以ESSID名称为 Cisco的为例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">airodump-ng -w Ciscotest -c 1 --bssid D8:24:BD:2F:C5:50 wlan0</div></pre></td></tr></table></figure></p>
+<p>解释一下：用 <code>wlan0</code> 这个无线设备来抓取 <code>bssid</code>为   <code>D8:24:BD:2F:C5:50</code>，在<code>Channel</code>(频道1)上的WiFi的包，并保持在本地<code>home</code>文件夹下，保持的包名称为：<code>Ciscotest</code><br><code>-w</code> 后面填写 自定义的握手包的名称  <code>-c</code> 后面填写 目标WiFi的频道 <code>--bssid</code> 后面填写 目标WiFi的<code>bssid</code> 最后 填写你的wifi设备<br>这个时候就开始抓包了效果如下：<br><img src="http://ombgvjpli.bkt.clouddn.com/zhuabao.png" alt="image"><br>现在右上角的状态是：<code>fixed channel wlan0</code> 表示正在抓包<br>为了加速握手包的获取，我们可以使用aireplay来给AP发送断开包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">aireplay-ng -0 0 -a D8:24:BD:2F:C5:50 wlan0</div></pre></td></tr></table></figure></p>
+<p>解释：<code>-0</code>为模式中的一种：冲突攻击模式，后面跟发送次数（设置为0，则为循环攻击，不停的断开连接，客户端无法正常上网，<code>-a</code> 指定无线AP的mac地址，即为该无线网的bssid值,<code>wlan0</code> 你的无线设备<br><img src="http://ombgvjpli.bkt.clouddn.com/aireplay.png" alt="image"><br>这里如果 冲突攻击模式 一次执行不成功的话，那么就再来几次，直至 抓到包为止，本图中，我就执行了2次冲突攻击模式才 成功。<br>执行WiFi攻击的时候，我们一般调用3个窗口：<br><img src="http://ombgvjpli.bkt.clouddn.com/chuangkou.png" alt="image"><br>左上角 是 扫描 周围的WiFi<br>右上角 是 抓取目标WiFi的握手包<br>最下面 是 执行冲突攻击模式 用来加快握手包的获取<br>通过观察 抓包窗口的右上角 可以判断 是否 获取到握手包<br><img src="http://ombgvjpli.bkt.clouddn.com/wifibao.png" alt="image"><br>此刻 右上角显示为 : <code>WPA handshake:D8:24:BD:2F:C5:50</code><br>这表示已经获取到了握手包了。<br>找到文件夹下的握手包<br><img src="http://ombgvjpli.bkt.clouddn.com/wenjianjaibao.png" alt="image"><br>这里的 <code>.cap</code> 文件 就是 我们要得到的握手包<br>这样就成功了一大半了，剩下的就是 用 工具来跑 这个握手包了。  </p>
+<h1 id="Kali-Linux下使用aircrack-ng来跑包"><a href="#Kali-Linux下使用aircrack-ng来跑包" class="headerlink" title="Kali Linux下使用aircrack-ng来跑包"></a>Kali Linux下使用aircrack-ng来跑包</h1><p>跑包很关键，成功与否在于WiFi密码的复杂程度和字典的质量，当然与你的CPU的速度也息息相关。<br>在 i5 3470 CPU的台式机 跑字典速度 大概是10000 个/秒<br>在 i7 4710MQ CPU的笔记本上 跑字典速度 大概是 40000   个/秒（这个时候温度会很高） 鲁大师 节能模式下跑 速度大概是 30000   个/秒，而且温度不会飚高  。</p>
+<p>下面来在Kali下使用自带的aircrack-ng来跑包：<br>格式是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">aircrack-ng 握手包 -w 字典</div></pre></td></tr></table></figure></p>
+<p>跑包示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">aircrack-ng &apos;/home/kali/Ciscotest-01.cap&apos; -w &apos;/media/kali/iso/life/图片/零散/图片马/HTML/弱口令集合/弱口令集合/5万密码.txt&apos;</div></pre></td></tr></table></figure></p>
+<p>我这里用的一个5万密码字典，密码在最后一行：<br><img src="http://ombgvjpli.bkt.clouddn.com/5W.png" alt="image">   </p>
+<h1 id="Windows下使用EWSA来跑包"><a href="#Windows下使用EWSA来跑包" class="headerlink" title="Windows下使用EWSA来跑包"></a>Windows下使用EWSA来跑包</h1><p>EWSA 是目前来说公认跑包最快的软件了，因为它支持 CPU和GPU一起跑包，这样就大大提高了跑包的速率了  。<br>用由于这款软件是收费的，这里我就上传一下本人使用的 5.9EWSA破解版本(自行百度)<br>EWSA是图形化操作的，所以使用起来几乎没有什么门槛。<br>首先导入包，然后选中字典，最后爆破。就是这么简单。<br>这里要注意的就是,EWSA 默认开启密码突变选项，如果这里不取消勾选的话，破解速度就会慢很多。<br><img src="http://ombgvjpli.bkt.clouddn.com/testgouxuan.png" alt="image"><br>下面来演示下，windows下使用eswa来跑字典包(速度比kali下要快很多)：<br><img src="http://ombgvjpli.bkt.clouddn.com/wifi.gif" alt="image"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://image.3001.net/images/20171103/15097023327128.png" alt="国光 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>听说打赏我的人，都挖到了0day。</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/国光/" rel="tag"># 国光</a>
+          
+            <a href="/tags/Kali-Linux/" rel="tag"># Kali Linux</a>
+          
+            <a href="/tags/wifi破解/" rel="tag"># wifi破解</a>
+          
+            <a href="/tags/无线安全/" rel="tag"># 无线安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/web.html" rel="next" title="信息收集之网站镜像克隆">
+                <i class="fa fa-chevron-left"></i> 信息收集之网站镜像克隆
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/pentestbox.html" rel="prev" title="PentestBox简明使用教程">
+                PentestBox简明使用教程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTU5Ny82MTY1"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://image.3001.net/images/20170929/15066688735308.jpg"
+               alt="国光" />
+          <p class="site-author-name" itemprop="name">国光</p>
+           
+              <p class="site-description motion-element" itemprop="description">宁静致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5728586656" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.github.com/tezukanice/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/guo-guang-94/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-tags"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ggsec.cn/" title="Demon" target="_blank">Demon</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://secretwiki.org/" title="Secretwiki" target="_blank">Secretwiki</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://bestwing.me/" title="SWing" target="_blank">SWing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn" title="Szrzvdny|墨是人性" target="_blank">Szrzvdny|墨是人性</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抓包"><span class="nav-number">2.</span> <span class="nav-text">抓包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kali-Linux下使用aircrack-ng来跑包"><span class="nav-number">3.</span> <span class="nav-text">Kali Linux下使用aircrack-ng来跑包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows下使用EWSA来跑包"><span class="nav-number">4.</span> <span class="nav-text">Windows下使用EWSA来跑包</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">国光</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">阅读数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="//oxhwlgrce.bkt.clouddn.com/jquery2.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
