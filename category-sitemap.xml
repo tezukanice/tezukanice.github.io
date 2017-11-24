@@ -36,21 +36,21 @@
 
     <url>
         <loc>http://www.sqlsec.com/categories/CTF/</loc>
-        <lastmod>2017-11-04T09:27:04.186Z</lastmod>
+        <lastmod>2017-11-04T09:27:04.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://www.sqlsec.com/categories/Reverse/</loc>
-        <lastmod>2017-11-04T10:11:01.595Z</lastmod>
+        <lastmod>2017-11-04T10:11:01.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://www.sqlsec.com/categories/hacker/</loc>
-        <lastmod>2017-11-24T02:14:39.207Z</lastmod>
+        <lastmod>2017-11-24T02:14:39.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
