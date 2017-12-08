@@ -9,8 +9,8 @@
       </categories>
       <tags>
         <tag>国光</tag>
-        <tag>渗透测试</tag>
         <tag>逻辑漏洞</tag>
+        <tag>渗透测试</tag>
       </tags>
   </entry>
   <entry>
@@ -23,19 +23,6 @@
       <tags>
         <tag>sky</tag>
         <tag>逆向</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[编码的故事]]></title>
-    <url>%2F2017%2F11%2Fascii.html</url>
-    <content type="text"><![CDATA[编码的故事，科普了一些ASCII码，Unicode编码，GBK编码等由来的历史。 计算机用来组合字节很久很久以前，有一群人，他们决定用8个可以开合的晶体管来组合成不同的状态，以表示世界上的万物。他们看到8个开关状态是好的，于是他们把这称为”字节“。 再后来，他们又做了一些可以处理这些字节的机器，机器开动了，可以用字节来组合出很多状态，状态开始变来变去。他们看到这样是好的，于是它们就这机器称为”计算机”。 控制码是用于特殊用途的字节开始计算机只在美国用。八位的字节一共可以组合出256(2的8次方)种不同的状态。 他们把其中的编号从0开始的32种状态分别规定了特殊的用途，一但终端、打印机遇上约定好的这些字节被传过来时，就要做一些约定的动作。遇上00x10, 终端就换行，遇上0x07, 终端就向人们嘟嘟叫，例好遇上0x1b, 打印机就打印反白的字，或者终端就用彩色显示字母。他们看到这样很好，于是就把这些0x20以下的字节状态称为”控制码“。 ASCII码的由来 他们又把所有的空格、标点符号、数字、大小写字母分别用连续的字节状态表示，一直编到了第127号，这样计算机就可以用不同字节来存储英语的文字了。大家看到这样，都感觉很好，于是大家都把这个方案叫做 ANSI 的”Ascii“编码（American Standard Code for Information Interchange，美国信息互换标准代码）。当时世界上所有的计算机都用同样的ASCII方案来保存英文文字。 笔记123ANSI == AsciiASCII = American Standard Code for Information Interchange 美国 标准 代码 信息 互换 扩展字符集的由来后来，就像建造巴比伦塔一样，世界各地的都开始使用计算机，但是很多国家用的不是英文，他们的字母里有许多是ASCII里没有的，为了可以在计算机保存他们的文字，他们决定采用127号之后的空位来表示这些新的字母、符号，还加入了很多画表格时需要用下到的横线、竖线、交叉等形状，一直把序号编到了最后一个状态255。从128到255这一页的字符集被称&quot;扩展字符集&quot;。从此之后，贪婪的人类再没有新的状态可以用了，美帝国主义可能没有想到还有第三世界国家的人们也希望可以用到计算机吧！ GB2312编码等中国人们得到计算机时，已经没有可以利用的字节状态来表示汉字，况且有6000多个常用汉字需要保存呢。但是这难不倒智慧的中国人民，我们不客气地把那些127号之后的奇异符号们直接取消掉, 规定：一个小于127的字符的意义与原来相同，但两个大于127的字符连在一起时，就表示一个汉字，前面的一个字节（他称之为高字节）从0xA1用到0xF7，后面一个字节（低字节）从0xA1到0xFE，这样我们就可以组合出大约7000多个简体汉字了。在这些编码里，我们还把数学符号、罗马希腊的字母、日文的假名们都编进去了，连在 ASCII 里本来就有的数字、标点、字母都统统重新编了两个字节长的编码，这就是常说的”全角”字符，而原来在127号以下的那些就叫&quot;半角&quot;字符了。 中国人民看到这样很不错，于是就把这种汉字方案叫做 &quot;GB2312&quot;。GB2312 是对 ASCII 的中文扩展。 GBK编码但是中国的汉字太多了，我们很快就就发现有许多人的人名没有办法在这里打出来，特别是某些很会麻烦别人的国家领导人。于是我们不得不继续把 GB2312 没有用到的码位找出来老实不客气地用上。 后来还是不够用，于是干脆不再要求低字节一定是127号之后的内码，只要第一个字节是大于127就固定表示这是一个汉字的开始，不管后面跟的是不是扩展字符集里的内容。结果扩展之后的编码方案被称为 GBK 标准，GBK 包括了 GB2312 的所有内容，同时又增加了近20000个新的汉字（包括繁体字）和符号。 GB18030编码后来少数民族也要用电脑了，于是我们再扩展，又加了几千个新的少数民族的字，GBK 扩成了 GB18030。从此之后，中华民族的文化就可以在计算机时代中传承了。 Unicode编码各个国家使用各个国家自己的编码有没有很繁琐？于是大家很期盼有一种统一的编码形式出现。Unicode编码出现了。Unicode使用的通用的字符集叫做UCS。这个字符集就是一个大的字符空间，每个语种都在这个字符空间内划分一段领域。现在应用的UCS是UCS-2，意思就是不管是英文中文，统一使用两个字节（16bit）来进行字符分配。UCS-2字符集可以表示216（即65536）个字符。已经基本满足世界上所有语言了。如果不够怎么办？已经有预定方案UCS-4（用4个字节表示一个字符。 UTF-16UTFXX是Unicode的具体实现方式UTF-16是Unicode最基本的实现。Unicode使用16bit表示一个字符，UTF-16就是直接将字符集的映射搬过来而已。 UTF-8本来这样就已经很美好了，但是美国人又不干了。凭什么每个英语字符要占用2个字节？凭什么占用了我们的带宽和CPU？于是一帮英语体系的外国人讨论出了UTF-8这种字符编码。 UTF-8这种编码是怎么回事呢？英文字符，和ASCII码一样，占用一个字节其他语种，每种语种分配一个模板，这个模板有16bit，24bit，甚至还有32bit的。各个语种根据这个模板，将自己的语言转化成模板要求的编码（UTF-8） 这里演示一个中文字“汉”1234比如中文分到的模板是1110xxxx 10yyyyyy 10zzzzzz汉字的Unicode编码是0x6C49，二进制是0110 1100 0100 1001将这个二进制按照模板的x，y，z顺序插入得到11100110 10110001 10001001 就是E6 B1 89 好了…大家看出这个对中文有什么不好的吗？原先一个中文使用UTF-16只需要两个字节，但是使用UTF-8却需要3个字节，如果一个网页有1w个中文字，那么我们就需要多传输1w个字节，带宽啊！！ 现在就明白了，为什么国内一些网站，比如sina，它的编码规则是使用GBK了吧！]]></content>
-      <categories>
-        <category>CTF</category>
-      </categories>
-      <tags>
-        <tag>国光</tag>
-        <tag>密码学</tag>
-        <tag>编码</tag>
       </tags>
   </entry>
   <entry>
@@ -85,42 +72,6 @@
       <tags>
         <tag>Android</tag>
         <tag>国光</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[网络基础知识]]></title>
-    <url>%2F2017%2F10%2Fnetwork1.html</url>
-    <content type="text"><![CDATA[IDLER的8086汇编学习笔记 寄存器 存储单元 地址总线 控制总线 数据总线 网络基础知识 会话层使用netstat -nb查看木马程序。这个命令是查看端口的，有时候不一定可以看到木马程序。 传输协议TCP先建立链接在传输数据，数据包不需要携带目的地址，保证传输数据的可靠性。可靠传输，流量控制。 UDP不需要建立连接，直接发数据，每个报文都有完整的目的地址，但是不可靠，例如看视频时有一小片段没出现，就是使用了UDP传输的。也就是不可靠传输。qq聊天内容一个数据包即可发送。 网络层如何规划 数据链路层帧的开始和结束的选择，查看校验，属于透明传输 物理层物理设备。路由器，交换机。接口标准。 OSI七层模型。 本地封装过程 数据链路层数据链路层将网络层发送来的tcp数据和ip地址封装成具有头和尾还有校验值的数据帧，（头和尾还有校验值负责在数据链路层进行传输，如果值不正确，那么接收方就不会接受当数据帧的ip数据包中出现头和尾时，会使用一个esc 转义字符。就会让接受端可以识别头和尾。然后看图就懂了。 MAC地址和DNS作用当客户端输入一个网址时，会去往该客户端所设定的DNS服务器解析出ip地址，此时开始发送数据包，路线中有很多路由器，每到一个节点，mac地址都会进行修改，dns解析的ip地址告诉终点是那个服务器，mac地址每到一个路由器，都会将mac地址进行修改，将源mac地址改为该路由器mac地址，在将目标mac地址改为下一个路由器的mac地址。到达目标服务器时，服务器发送网页数据，在网慢的时候会发现，网页时一部分一部分出现的，是数据太大，最大（1500个字节）分开传输，一部分一部分请求传输。 使用osi排查网络错误物理层查看接收的和发送的数据包，如果没有接收包，说明网线有问题。数据链路层 1.mac地址冲突 2.adsl欠费，数据链路层断开导致网路层断开。 3。客户机网速100兆和交换网速设定的不可改变的1000兆不相符，导致。网络层配置错误的ip地址（网段不同）、子网掩码、配置错误的网关（没有出口）路由器没有配置到达目标ip的去由。应用层、会话层、表示层故障应用程序配置错误，例如 ie使用不存在的代理，不能打开网址。 深度理解TCP/IP 和OSI原型 计算机网络性能带宽12IEEE 802.3 有线的局域网IEEE 802.11 vpn和代理服务器浅谈vpn自己在上网时，使用另外一台电脑作为跳板访问网络，且隐藏自己的实际ip。可以在windows server 2003 种设置一个vpn服务器，在使用xp系统链接该服务器达到使用vpn的作用，在设置vpn服务器时，可以将权限设置给权限很低的访客用户组。这样在肉鸡(这种敏感词少用比较好)上不易发现？ 代理服务器跟VPN有同样的功能，访问网站时，使用代理服务器的ip，同样隐藏了自己的ip。ccproxy是一款可以将一台电脑设置为代理服务器的简单方便软件。下载好后，在虚拟机中使用另外一台设备将其ip设为代理服务器，便可以达到该效果。 具体内容在日后用到时，将会做详细补充。]]></content>
-      <categories>
-        <category>hacker</category>
-      </categories>
-      <tags>
-        <tag>网络协议</tag>
-        <tag>Heathen</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[8086寄存器CPU工作原理02]]></title>
-    <url>%2F2017%2F10%2F80862.html</url>
-    <content type="text"><![CDATA[IDLER的8086汇编学习笔记 寄存器 字 几条汇编指令读程序题 物理寻址的方法 寄存器8086 CPU有14个寄存器：1AX BX CX DX DI SP BP IP CS SS DS ES PSW 8086 CPU所有的寄存器都是16位的，可以存放两个字节。1AX BX CX DX 通常用来存放一般性数据被称为通用寄存器。 AX的低8位（0位~7位）构成了AL寄存器，高8位（8位~15位）构成了AH寄存器。 AH和AL寄存器可以独立使用的8位寄存器。 字12word = 2B B = 8b 一个字16位 Bin 二进制 几条汇编指令 汇编指令不区分大小写！！ 特别注意 AL和AX的区别 检测点 没有通过检测点请不要向下学习！只能使用目前学过的汇编指令，最多使用四条指令，编程计算2的4次方。 我的思路：222*2=2+2+4+8123456原AX的值：0000H 运行的值↓ mov ax,0002H ax=2 add ax,ax ax=ax+ax=4 add ax,ax ax=ax+ax=8 add ax,ax ax=ax+ax=16 16位结构的CPU概括的讲，16位结构描述了一个CPU具有以下特征： 01.运算一次最多可以处理16位的数据。 02.寄存器的最大宽度为16位。 03.寄存器和运算器之间的通路是16位的。 8086CPU给出物理地址的方法8086 外部 有 20 位地址总线，可传送 20 位地址，寻址能力为1M。8086 内部 为 16 位结构，他只能传送 16 位的地址表现出的寻址能力却只有64K。 8086 CPU采用一种在内部用两个16位地址合成的方法来形成一个20位的物理地址如图：公式 地址加法器合成物理地址的方法：1物理地址 = 段地址 * 16 + 偏移地址]]></content>
-      <categories>
-        <category>Reverse</category>
-      </categories>
-      <tags>
-        <tag>汇编</tag>
-        <tag>IDLER</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[8086寄存器CPU工作原理01]]></title>
-    <url>%2F2017%2F10%2F80861.html</url>
-    <content type="text"><![CDATA[IDLER的8086汇编学习笔记 寄存器 存储单元 地址总线 控制总线 数据总线 操作：寄存器 BX的内容送到AX中12机器指令：1000100111011000 汇编指令：mov ax,bx 寄存器是CPU中可以存储数据的器件，一个CPU中可以有多个寄存器 工作过程 汇编语言的组成： 1.汇编指令（机器码的助记符） 2.伪指令 （由编译器执行） 3.其他符号（由编译器识别） 汇编语言的核心是汇编指令，它决定了汇编语言的特性。 存储单元存储器被划分为若干个存储单元，每个存储单元从0开始顺序编号，如下图： 存储单位：123451 byte = 8 bit 1 KB = 1024 B 1 MB = 1024 KB 1 GB = 1024 MB 1 TB = 1024 GB CPU对存储单元的读写CPU想要进行数据的读写，必须和外部器件（标准说法是芯片）进行三类信息的交互。 1.存储单元的地址（地址信息）/地址总线 2.器件的选择，读或写命令（控制信息）/控制总线 3.读或写的数据（数据信息）/数据总线 地址总线CPU是通过地址总线来指定存储单元的。地址总线上能传送多少个不同的信息，CPU就可以对多少个存储单元进行寻址。 一个CPU有n根地址总线，则可以说这个CPU的地址总线的宽度为n。这样的CPU最多可以寻找2的n次方个内存单元。 数据总线CPU与内存或其他器件之间的数据传送是通过数据总线来进行的。数据总线的宽度决定了CPU和外界的数据传送速度。 写入数据89D8时8088CPU数据总线的数据传送情况：8086CPU数据总线的数据传输情况： 控制总线控制总线是一些不同控制总线的集合。有多少根控制总线，就意味着CPU提供了对外部器件的多少种控制。所以，控制总线的宽度决定了CPU对外部器件的控制能力。]]></content>
-      <categories>
-        <category>Reverse</category>
-      </categories>
-      <tags>
-        <tag>汇编</tag>
-        <tag>IDLER</tag>
       </tags>
   </entry>
   <entry>
@@ -355,8 +306,8 @@
         <category>hacker</category>
       </categories>
       <tags>
-        <tag>PentestBox</tag>
         <tag>渗透测试</tag>
+        <tag>PentestBox</tag>
       </tags>
   </entry>
   <entry>
@@ -374,19 +325,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[开启你的kali linux DIY之旅(基于kali linux2016.2)]]></title>
-    <url>%2F2016%2F10%2Fdiykali.html</url>
-    <content type="text"><![CDATA[这些都是我当初折腾kali linux总结出的经验，曾经绕了很多弯路，付出了很多，有时候可能一天都在安装系统，而且坏了一个32GB的固态硬盘。。。总之一路上不是那么顺利，如今我以过来人的身份写下这篇kali diy文章，只为了可以让后人可以少走弯路，真正的发挥kali的优点，发现kali linux之美。 更新源首先 是kali2016.2更新源的问题，网上找了好久，都不是很满意。后来把kali 2016.2安装到实体机中才发现，里面自带了更新源。下面我把这个官方自带更新源分享出来(速度蛮快的)12deb http://http.kali.org/kali kali-rolling main contrib non-freedeb-src http://http.kali.org/kali kali-rolling main contrib non-free 很多人拿到更新源就按照百度上面介绍的那样,得执行好几个命令。其实不必这样费时费力的,拿到kali 更新源其实很简单 只执行一条命令即可1apt-get update 就是这么简单，剩下的想安装什么软件的话，只需要执行：1apt-get install 软件名 对就是这么简单。这里的难点在于，软件名 我们并不知道，不知道到底有哪些软件可以安装。别急 下面我来慢慢说来。 添加用户首先你得添加个用户，这是为什么呢？因为 kali 下有不少软件要求 必须在 非root用户下才可以运行的。比如网易云音乐在kali 2016.2下就无法运行，就是因为是root用户的缘故。在 设置-用户 里面 添加用户效果图如下:这里注意几点:1.语言设置 汉语2.登录密码 得满足复杂度要求3.勾选自动登录 软件安装软件安装这里是重头戏了，很多人都是卡在了不知道kali如何安装软件所以kali就半途而废了。如果你的kali日常必备软件都是有的话，就会慢慢喜欢上kali的。这里我推荐kali不要安装在虚拟机中，因为实体机和虚拟机的效果是天差地别的。本人建议把kali linux安装到U盘上，这样既方便又减少了处理引导问题的麻烦。总之，kali是个很优秀的系统，个人觉得 比 windws 要酷炫好用。 gdebi我们安装的第一个软件是:gdebi这个是辅助安装软件工具，有了gdebi 这样安装其他软件时，可以节省好多时间。直接可以图形化安装 deb 的安装包。终端安装输入：1apt-get install gdebi 注:安装软件得切换到 ==root用户==才可以安装安装gdebi后的效果图： 汉化火狐浏览器终端直接输入:1apt-get install iceweasel-l10n-zh-cn kali 2016.2汉化火狐浏览器的效果图： 搜狗输入法kali 2016.2安装搜狗输入法 这里得借助前面安装的 gdebi 程序来安装首先官网下载 deb安装包：http://pinyin.sogou.com/linux/?r=pinyin然后 右键 deb包 选择 gdebi打开 即可安装 TeamviewerTeamviewer是一款功能强悍、跨平台的远端控制软件。安装也不算很难。官网下载deb安装包：https://www.teamviewer.com/zhcn/download/linux/用gdebi 辅助安装工具右键安装，提示报错：这是因为64位的系统安装32的版本会提示缺少 32位运行库Kali Llinux2016.2安装32运行库方法如下:以root身份登录1234su rootdpkg --add-architecture i386apt-get updateapt-get install libc6:i386 执行完这4个命令后，再用gdebi 来安装teamviewer就可以成功安装了。期间如果报错的话，就按照提示在终端下输入命令修复一下即可：以root身份登录，终端下输入：1apt-get install -f Kali Linux安装Teamviewer12.0的效果图如下: Virtual boxkali 2016.2安装 virtual box其实很简单，只需要一条命令即可：1apt-get install virtualbox kali下的virtualbox的安装还是很有必要的，毕竟有时候我们不得不用windows系统来处理一些事情：kali2016.2安装完virtualbox效果图： 安装chrome内核浏览器这里我不直接推荐 chrome浏览器，个人觉得 其他基于chrome内核开发的浏览器也是蛮不错的 Opera浏览器kali安装Opera浏览器的话，直接去官网下载deb安装包，然后用 gdebi 安装即可：kali安装opera浏览器效果图： Vivaldi浏览器Vivaldi浏览器也是个蛮个性的浏览器，基于chrome内核，速度很快，外观美观个性。也是下载 deb 包，然后使用 gdebi安装由于官网经常奔溃掉，这里我提供vivaldi linux的安装链接：点击下载 vivaldi for linux 64位deb版效果图: DIY你的chrome内核浏览器chrome浏览器下有很多优秀的插件，安装插件只要把插件拖动到 浏览器的扩展管理即可安装。这里我就简单推荐几个:广告终结者 ：直接去掉 优酷 广告哦 很强大SwitchyOmega ：burp代理神器，配合xx-net还可以科学上网哦Infinity新标签页 ： vokoscreenlinux下的屏幕录像软件，小巧实用。终端输入命令直接安装：1apt-get install vokoscreen kali下屏幕录像软件vokoscreen安装完效果图： remminalinux下远程桌面管理软件，小巧强大，支持 RDP、SFTP、SSH、VNC协议，足够我们日常使用了终端输入命令直接安装：1apt-get install remmina kali下远程桌面、VNC、SSH、SFTP客户端安装完效果图： 网易云音乐官网下载 deepin 版本的deb安装包，然后用 gdebi安装，用==非root用户==打开官网下载： http://music.163.com/#/download博客迁移，以前的图失效了，就去贴吧找了张 wine下的图 凑个数吧 =，= Audacious本地音乐播放器,其运行在POSIX兼容系统上，如Linux、Audacious使用Plugin机制来实现各种功能。在大部分的系统上，Audacious已默认安装好一套已默认安装好一套Plugin，提供播放一些音乐格式的能力，如MP3、Ogg Vorbis、FLAC等网易云需要有网络的时候才可以使用，离线的话，不妨安装Audacious吧，是linux下一款不错的音乐播放器。安装很简单，终端下输入：1apt-get install audacious kali安装完audacious本地音乐播放器效果图： VLCVLC多媒体播放器（最初为VideoLAN Client，是VideoLAN计划的开放源代码多媒体播放器。）几乎能播放你所有的视频文件。安装很简单，终端下输入：1apt-get install vlc kali安装vlc视频播放器效果图: 笔记软件TomboyTomboy是小巧实用的桌面便签软件,很方便我们记录一些零散的东西。Tomboy安装后的中文名称是:啊贴便签安装也很简单，终端下安装输入:1apt-get install tomboy Leanote（蚂蚁笔记）蚂蚁笔记是用go编写的web云笔记，支持linux客户端，代码高亮，公开为博客。非常强大。官网下载：http://app.leanote.com安装使用很简单，直接解压，点击 Leanote 运行即可 ZIM桌面维基zim桌面维基是Kali Linux下自带的笔记软件，功能也挺强大的，界面蛮漂亮的。 代码编辑器kali下代码编辑器推荐当今主流的3种visualcode atom sublime text3 (自行百度下载)安装很简单，直接下载deb安装包，使用 gdebi安装即可. 文档管理器Kali下的文档管理器是原生的PDF阅读器，和Mac OS下是同款阅读器。把文档管理器固定在 收藏夹下 还会有惊喜。 小结这些都是我当初折腾kali linux总结出的经验，曾经绕了很多弯路，付出了很多，有时候可能一天都在安装系统，而且坏了一个32GB的固态硬盘。。。总之一路上不是那么顺利，如今我以过来人的身份写下这篇kali diy文章，只为了可以让后人可以少走弯路，真正的发挥kali的优点，发现kali linux之美。]]></content>
-      <categories>
-        <category>hacker</category>
-      </categories>
-      <tags>
-        <tag>国光</tag>
-        <tag>diy</tag>
-        <tag>Kali Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[信息收集之网站镜像克隆]]></title>
     <url>%2F2016%2F10%2Fweb.html</url>
     <content type="text"><![CDATA[一个成功的渗透测试人员，在进行一次成功的渗透测试之前，必须能够获得尽可能多的信息。有时候复制组织的整个网站进行离线评估更有效。这可以使用自动化工具设定搜索条件，或者仅对当前站点改变的敏感信息进行镜像复制。当离线时，拥有 一份镜像进行持续观察很有效。 前言一个成功的渗透测试人员，在进行一次成功的渗透测试之前，必须能够获得尽可能多的信息。有时候复制组织的整个网站进行离线评估更有效。这可以使用自动化工具设定搜索条件，或者仅对当前站点改变的敏感信息进行镜像复制。当离线时，拥有 一份镜像进行持续观察很有效。Wooyun被封杀，现在网上还有很多Wooyun镜像站来继续发挥Wooyun的预热那样。镜像网站不会复制动态内容，也不会复制网站的中间件，比如:数据库等，因此，这并不是对所有渗透测试环境都适用。我个人一般都是用这些工具来 “盗取” 炫酷的html5网站（嘘 ~~~），有时候用它离线存储一些网站，总之挺实用的。 使用wget复制克隆网站介绍Kali linux默认按照了wget工具，它简单使用，Pentest Box中也集成了wget。只要在终端下敲几个命令，就可以下载整个网站的html文件。wget不能复制服务器的程序页面，例如PHP脚本页面。 使用方法终端下输入:1wget -m -p -E -k -K -np -v http://www.baidu.com 这样就会把百度的首页复制下来，就是这么简单粗暴。这里使用了一连串的参数，可以使用man命令来查看 wget的手册：1man wget wget的主要参数如下:12345m:镜像，选择该选项适用于Web站点 p页面获先决条件，该选项确保 包含了请求的 图片和css脚本文件被下载(这样可以更好的复制 html5的站点) E:适用扩展，这可以在本地另存为一个html文件 k:转换链接，确保文件被转换，用于本地浏览 K:转换备份文件，将会以orig为后缀作为原始文件 从组织的Web服务器传送的文件将会存储在复制的网站名称命名的文件夹中。复制网站时，可能会发生错误，尤其是在复制动态脚本页面的时候，这是因为生成页面的大部分代码是有动态脚本创建的，大部分站点的应用程序是不能访问到的。 注：文件一旦被下载，切忌不可以让其他人浏览和重新发布站点，这回违反版权法。 实战克隆下面来 实战用wget来克隆 小米官方HTML5引导页： 使用HTTrack复制克隆网站介绍HTTrack是一款免费的离线浏览器工具，和wget克隆复制镜像差不多，从服务器抓取HTML文件、图片、以及其他css文件并存储到你的计算机上。Kali 2.0起默认预装了 HTTrack。 使用方法终端下输入:1httrack 如果没有安装这个工具的话，那就现场安装一下吧，只需要2个命令:12apt-get updateapt-get install httrack 这里提示要输入项目名称、存放网站的路径（默认为 /root/website） 和要克隆的目标站 我们这里以 搜狗浏览器官网为例我们自定义输入test 然后 按下 回车1sougou 然后默认路径 回车12```输入想要克隆的网站 http://ie.sougou.com`` 下面HTTrack提供了一些选项，我们一般选择第二本选项Mirror Web Site(s) with Wizard（具有向导递归层级的镜像网站） 输入:2`回车 回车 回车 后面的一些基本设置 一般一直回车下去 直到网站开始克隆为止，HTTrack 就开始进行网站克隆了。 小结个人认为：wget操作简单方便，但是克隆效果不及 HTTrack；HTTrack虽然比wget稍微繁琐了一点，但是在爬一个大型网站上面完整性要优于wget。 对了，最后再提醒一下：注意版权。]]></content>
@@ -398,6 +336,19 @@
         <tag>Kali Linux</tag>
         <tag>渗透测试</tag>
         <tag>信息收集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[开启你的kali linux DIY之旅(基于kali linux2016.2)]]></title>
+    <url>%2F2016%2F10%2Fdiykali.html</url>
+    <content type="text"><![CDATA[这些都是我当初折腾kali linux总结出的经验，曾经绕了很多弯路，付出了很多，有时候可能一天都在安装系统，而且坏了一个32GB的固态硬盘。。。总之一路上不是那么顺利，如今我以过来人的身份写下这篇kali diy文章，只为了可以让后人可以少走弯路，真正的发挥kali的优点，发现kali linux之美。 更新源首先 是kali2016.2更新源的问题，网上找了好久，都不是很满意。后来把kali 2016.2安装到实体机中才发现，里面自带了更新源。下面我把这个官方自带更新源分享出来(速度蛮快的)12deb http://http.kali.org/kali kali-rolling main contrib non-freedeb-src http://http.kali.org/kali kali-rolling main contrib non-free 很多人拿到更新源就按照百度上面介绍的那样,得执行好几个命令。其实不必这样费时费力的,拿到kali 更新源其实很简单 只执行一条命令即可1apt-get update 就是这么简单，剩下的想安装什么软件的话，只需要执行：1apt-get install 软件名 对就是这么简单。这里的难点在于，软件名 我们并不知道，不知道到底有哪些软件可以安装。别急 下面我来慢慢说来。 添加用户首先你得添加个用户，这是为什么呢？因为 kali 下有不少软件要求 必须在 非root用户下才可以运行的。比如网易云音乐在kali 2016.2下就无法运行，就是因为是root用户的缘故。在 设置-用户 里面 添加用户效果图如下:这里注意几点:1.语言设置 汉语2.登录密码 得满足复杂度要求3.勾选自动登录 软件安装软件安装这里是重头戏了，很多人都是卡在了不知道kali如何安装软件所以kali就半途而废了。如果你的kali日常必备软件都是有的话，就会慢慢喜欢上kali的。这里我推荐kali不要安装在虚拟机中，因为实体机和虚拟机的效果是天差地别的。本人建议把kali linux安装到U盘上，这样既方便又减少了处理引导问题的麻烦。总之，kali是个很优秀的系统，个人觉得 比 windws 要酷炫好用。 gdebi我们安装的第一个软件是:gdebi这个是辅助安装软件工具，有了gdebi 这样安装其他软件时，可以节省好多时间。直接可以图形化安装 deb 的安装包。终端安装输入：1apt-get install gdebi 注:安装软件得切换到 ==root用户==才可以安装安装gdebi后的效果图： 汉化火狐浏览器终端直接输入:1apt-get install iceweasel-l10n-zh-cn kali 2016.2汉化火狐浏览器的效果图： 搜狗输入法kali 2016.2安装搜狗输入法 这里得借助前面安装的 gdebi 程序来安装首先官网下载 deb安装包：http://pinyin.sogou.com/linux/?r=pinyin然后 右键 deb包 选择 gdebi打开 即可安装 TeamviewerTeamviewer是一款功能强悍、跨平台的远端控制软件。安装也不算很难。官网下载deb安装包：https://www.teamviewer.com/zhcn/download/linux/用gdebi 辅助安装工具右键安装，提示报错：这是因为64位的系统安装32的版本会提示缺少 32位运行库Kali Llinux2016.2安装32运行库方法如下:以root身份登录1234su rootdpkg --add-architecture i386apt-get updateapt-get install libc6:i386 执行完这4个命令后，再用gdebi 来安装teamviewer就可以成功安装了。期间如果报错的话，就按照提示在终端下输入命令修复一下即可：以root身份登录，终端下输入：1apt-get install -f Kali Linux安装Teamviewer12.0的效果图如下: Virtual boxkali 2016.2安装 virtual box其实很简单，只需要一条命令即可：1apt-get install virtualbox kali下的virtualbox的安装还是很有必要的，毕竟有时候我们不得不用windows系统来处理一些事情：kali2016.2安装完virtualbox效果图： 安装chrome内核浏览器这里我不直接推荐 chrome浏览器，个人觉得 其他基于chrome内核开发的浏览器也是蛮不错的 Opera浏览器kali安装Opera浏览器的话，直接去官网下载deb安装包，然后用 gdebi 安装即可：kali安装opera浏览器效果图： Vivaldi浏览器Vivaldi浏览器也是个蛮个性的浏览器，基于chrome内核，速度很快，外观美观个性。也是下载 deb 包，然后使用 gdebi安装由于官网经常奔溃掉，这里我提供vivaldi linux的安装链接：点击下载 vivaldi for linux 64位deb版效果图: DIY你的chrome内核浏览器chrome浏览器下有很多优秀的插件，安装插件只要把插件拖动到 浏览器的扩展管理即可安装。这里我就简单推荐几个:广告终结者 ：直接去掉 优酷 广告哦 很强大SwitchyOmega ：burp代理神器，配合xx-net还可以科学上网哦Infinity新标签页 ： vokoscreenlinux下的屏幕录像软件，小巧实用。终端输入命令直接安装：1apt-get install vokoscreen kali下屏幕录像软件vokoscreen安装完效果图： remminalinux下远程桌面管理软件，小巧强大，支持 RDP、SFTP、SSH、VNC协议，足够我们日常使用了终端输入命令直接安装：1apt-get install remmina kali下远程桌面、VNC、SSH、SFTP客户端安装完效果图： 网易云音乐官网下载 deepin 版本的deb安装包，然后用 gdebi安装，用==非root用户==打开官网下载： http://music.163.com/#/download博客迁移，以前的图失效了，就去贴吧找了张 wine下的图 凑个数吧 =，= Audacious本地音乐播放器,其运行在POSIX兼容系统上，如Linux、Audacious使用Plugin机制来实现各种功能。在大部分的系统上，Audacious已默认安装好一套已默认安装好一套Plugin，提供播放一些音乐格式的能力，如MP3、Ogg Vorbis、FLAC等网易云需要有网络的时候才可以使用，离线的话，不妨安装Audacious吧，是linux下一款不错的音乐播放器。安装很简单，终端下输入：1apt-get install audacious kali安装完audacious本地音乐播放器效果图： VLCVLC多媒体播放器（最初为VideoLAN Client，是VideoLAN计划的开放源代码多媒体播放器。）几乎能播放你所有的视频文件。安装很简单，终端下输入：1apt-get install vlc kali安装vlc视频播放器效果图: 笔记软件TomboyTomboy是小巧实用的桌面便签软件,很方便我们记录一些零散的东西。Tomboy安装后的中文名称是:啊贴便签安装也很简单，终端下安装输入:1apt-get install tomboy Leanote（蚂蚁笔记）蚂蚁笔记是用go编写的web云笔记，支持linux客户端，代码高亮，公开为博客。非常强大。官网下载：http://app.leanote.com安装使用很简单，直接解压，点击 Leanote 运行即可 ZIM桌面维基zim桌面维基是Kali Linux下自带的笔记软件，功能也挺强大的，界面蛮漂亮的。 代码编辑器kali下代码编辑器推荐当今主流的3种visualcode atom sublime text3 (自行百度下载)安装很简单，直接下载deb安装包，使用 gdebi安装即可. 文档管理器Kali下的文档管理器是原生的PDF阅读器，和Mac OS下是同款阅读器。把文档管理器固定在 收藏夹下 还会有惊喜。 小结这些都是我当初折腾kali linux总结出的经验，曾经绕了很多弯路，付出了很多，有时候可能一天都在安装系统，而且坏了一个32GB的固态硬盘。。。总之一路上不是那么顺利，如今我以过来人的身份写下这篇kali diy文章，只为了可以让后人可以少走弯路，真正的发挥kali的优点，发现kali linux之美。]]></content>
+      <categories>
+        <category>hacker</category>
+      </categories>
+      <tags>
+        <tag>国光</tag>
+        <tag>diy</tag>
+        <tag>Kali Linux</tag>
       </tags>
   </entry>
   <entry>

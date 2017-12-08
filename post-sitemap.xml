@@ -8,7 +8,7 @@
 
     <url>
         <loc>http://www.sqlsec.com/2017/11/nnuwifi.html</loc>
-        <lastmod>2017-11-24T02:14:39.000Z</lastmod>
+        <lastmod>2017-11-24T02:14:39.207Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -16,15 +16,7 @@
 
     <url>
         <loc>http://www.sqlsec.com/2017/11/pe.html</loc>
-        <lastmod>2017-11-04T10:11:01.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://www.sqlsec.com/2017/11/ascii.html</loc>
-        <lastmod>2017-11-04T09:27:04.000Z</lastmod>
+        <lastmod>2017-11-04T10:11:01.595Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -40,7 +32,7 @@
 
     <url>
         <loc>http://www.sqlsec.com/2017/10/resetpass.html</loc>
-        <lastmod>2017-10-27T02:49:49.000Z</lastmod>
+        <lastmod>2017-10-27T02:49:49.478Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -57,30 +49,6 @@
     <url>
         <loc>http://www.sqlsec.com/2017/10/android5.html</loc>
         <lastmod>2017-10-12T07:25:16.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://www.sqlsec.com/2017/10/network1.html</loc>
-        <lastmod>2017-10-11T22:41:02.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://www.sqlsec.com/2017/10/80862.html</loc>
-        <lastmod>2017-10-11T22:00:41.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://www.sqlsec.com/2017/10/80861.html</loc>
-        <lastmod>2017-10-11T21:59:14.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
