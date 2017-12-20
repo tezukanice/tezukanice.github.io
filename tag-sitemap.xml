@@ -177,14 +177,14 @@
     </url>
 
     <url>
-        <loc>http://www.sqlsec.com/tags/diy/</loc>
+        <loc>http://www.sqlsec.com/tags/Kali-Linux/</loc>
         <lastmod>2017-09-30T03:59:30.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://www.sqlsec.com/tags/Kali-Linux/</loc>
+        <loc>http://www.sqlsec.com/tags/diy/</loc>
         <lastmod>2017-09-30T03:59:30.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -199,7 +199,7 @@
 
     <url>
         <loc>http://www.sqlsec.com/tags/%E5%AF%86%E7%A0%81%E6%89%BE%E5%9B%9E/</loc>
-        <lastmod>2017-10-27T02:49:49.478Z</lastmod>
+        <lastmod>2017-10-27T02:49:49.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -212,36 +212,43 @@
     </url>
 
     <url>
-        <loc>http://www.sqlsec.com/tags/sky/</loc>
-        <lastmod>2017-11-04T10:11:01.595Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://www.sqlsec.com/tags/%E9%80%86%E5%90%91/</loc>
-        <lastmod>2017-11-04T10:11:01.595Z</lastmod>
+        <lastmod>2017-11-04T10:11:01.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://www.sqlsec.com/tags/%E5%9B%BD%E5%85%89/</loc>
-        <lastmod>2017-11-24T02:14:39.207Z</lastmod>
+        <loc>http://www.sqlsec.com/tags/sky/</loc>
+        <lastmod>2017-11-04T10:11:01.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://www.sqlsec.com/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/</loc>
-        <lastmod>2017-11-24T02:14:39.207Z</lastmod>
+        <lastmod>2017-11-24T02:14:39.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://www.sqlsec.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</loc>
-        <lastmod>2017-11-24T02:14:39.207Z</lastmod>
+        <lastmod>2017-11-24T02:14:39.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/tags/%E5%9B%BD%E5%85%89/</loc>
+        <lastmod>2017-12-20T11:57:01.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://www.sqlsec.com/tags/SQL/</loc>
+        <lastmod>2017-12-20T11:57:01.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

