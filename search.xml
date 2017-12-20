@@ -33,8 +33,8 @@
         <category>Reverse</category>
       </categories>
       <tags>
-        <tag>逆向</tag>
         <tag>sky</tag>
+        <tag>逆向</tag>
       </tags>
   </entry>
   <entry>
@@ -94,8 +94,8 @@
         <category>CTF</category>
       </categories>
       <tags>
-        <tag>sky</tag>
         <tag>CTF</tag>
+        <tag>sky</tag>
       </tags>
   </entry>
   <entry>
@@ -337,6 +337,19 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[开启你的kali linux DIY之旅(基于kali linux2016.2)]]></title>
+    <url>%2F2016%2F10%2Fdiykali.html</url>
+    <content type="text"><![CDATA[这些都是我当初折腾kali linux总结出的经验，曾经绕了很多弯路，付出了很多，有时候可能一天都在安装系统，而且坏了一个32GB的固态硬盘。。。总之一路上不是那么顺利，如今我以过来人的身份写下这篇kali diy文章，只为了可以让后人可以少走弯路，真正的发挥kali的优点，发现kali linux之美。 更新源首先 是kali2016.2更新源的问题，网上找了好久，都不是很满意。后来把kali 2016.2安装到实体机中才发现，里面自带了更新源。下面我把这个官方自带更新源分享出来(速度蛮快的)12deb http://http.kali.org/kali kali-rolling main contrib non-freedeb-src http://http.kali.org/kali kali-rolling main contrib non-free 很多人拿到更新源就按照百度上面介绍的那样,得执行好几个命令。其实不必这样费时费力的,拿到kali 更新源其实很简单 只执行一条命令即可1apt-get update 就是这么简单，剩下的想安装什么软件的话，只需要执行：1apt-get install 软件名 对就是这么简单。这里的难点在于，软件名 我们并不知道，不知道到底有哪些软件可以安装。别急 下面我来慢慢说来。 添加用户首先你得添加个用户，这是为什么呢？因为 kali 下有不少软件要求 必须在 非root用户下才可以运行的。比如网易云音乐在kali 2016.2下就无法运行，就是因为是root用户的缘故。在 设置-用户 里面 添加用户效果图如下:这里注意几点:1.语言设置 汉语2.登录密码 得满足复杂度要求3.勾选自动登录 软件安装软件安装这里是重头戏了，很多人都是卡在了不知道kali如何安装软件所以kali就半途而废了。如果你的kali日常必备软件都是有的话，就会慢慢喜欢上kali的。这里我推荐kali不要安装在虚拟机中，因为实体机和虚拟机的效果是天差地别的。本人建议把kali linux安装到U盘上，这样既方便又减少了处理引导问题的麻烦。总之，kali是个很优秀的系统，个人觉得 比 windws 要酷炫好用。 gdebi我们安装的第一个软件是:gdebi这个是辅助安装软件工具，有了gdebi 这样安装其他软件时，可以节省好多时间。直接可以图形化安装 deb 的安装包。终端安装输入：1apt-get install gdebi 注:安装软件得切换到 ==root用户==才可以安装安装gdebi后的效果图： 汉化火狐浏览器终端直接输入:1apt-get install iceweasel-l10n-zh-cn kali 2016.2汉化火狐浏览器的效果图： 搜狗输入法kali 2016.2安装搜狗输入法 这里得借助前面安装的 gdebi 程序来安装首先官网下载 deb安装包：http://pinyin.sogou.com/linux/?r=pinyin然后 右键 deb包 选择 gdebi打开 即可安装 TeamviewerTeamviewer是一款功能强悍、跨平台的远端控制软件。安装也不算很难。官网下载deb安装包：https://www.teamviewer.com/zhcn/download/linux/用gdebi 辅助安装工具右键安装，提示报错：这是因为64位的系统安装32的版本会提示缺少 32位运行库Kali Llinux2016.2安装32运行库方法如下:以root身份登录1234su rootdpkg --add-architecture i386apt-get updateapt-get install libc6:i386 执行完这4个命令后，再用gdebi 来安装teamviewer就可以成功安装了。期间如果报错的话，就按照提示在终端下输入命令修复一下即可：以root身份登录，终端下输入：1apt-get install -f Kali Linux安装Teamviewer12.0的效果图如下: Virtual boxkali 2016.2安装 virtual box其实很简单，只需要一条命令即可：1apt-get install virtualbox kali下的virtualbox的安装还是很有必要的，毕竟有时候我们不得不用windows系统来处理一些事情：kali2016.2安装完virtualbox效果图： 安装chrome内核浏览器这里我不直接推荐 chrome浏览器，个人觉得 其他基于chrome内核开发的浏览器也是蛮不错的 Opera浏览器kali安装Opera浏览器的话，直接去官网下载deb安装包，然后用 gdebi 安装即可：kali安装opera浏览器效果图： Vivaldi浏览器Vivaldi浏览器也是个蛮个性的浏览器，基于chrome内核，速度很快，外观美观个性。也是下载 deb 包，然后使用 gdebi安装由于官网经常奔溃掉，这里我提供vivaldi linux的安装链接：点击下载 vivaldi for linux 64位deb版效果图: DIY你的chrome内核浏览器chrome浏览器下有很多优秀的插件，安装插件只要把插件拖动到 浏览器的扩展管理即可安装。这里我就简单推荐几个:广告终结者 ：直接去掉 优酷 广告哦 很强大SwitchyOmega ：burp代理神器，配合xx-net还可以科学上网哦Infinity新标签页 ： vokoscreenlinux下的屏幕录像软件，小巧实用。终端输入命令直接安装：1apt-get install vokoscreen kali下屏幕录像软件vokoscreen安装完效果图： remminalinux下远程桌面管理软件，小巧强大，支持 RDP、SFTP、SSH、VNC协议，足够我们日常使用了终端输入命令直接安装：1apt-get install remmina kali下远程桌面、VNC、SSH、SFTP客户端安装完效果图： 网易云音乐官网下载 deepin 版本的deb安装包，然后用 gdebi安装，用==非root用户==打开官网下载： http://music.163.com/#/download博客迁移，以前的图失效了，就去贴吧找了张 wine下的图 凑个数吧 =，= Audacious本地音乐播放器,其运行在POSIX兼容系统上，如Linux、Audacious使用Plugin机制来实现各种功能。在大部分的系统上，Audacious已默认安装好一套已默认安装好一套Plugin，提供播放一些音乐格式的能力，如MP3、Ogg Vorbis、FLAC等网易云需要有网络的时候才可以使用，离线的话，不妨安装Audacious吧，是linux下一款不错的音乐播放器。安装很简单，终端下输入：1apt-get install audacious kali安装完audacious本地音乐播放器效果图： VLCVLC多媒体播放器（最初为VideoLAN Client，是VideoLAN计划的开放源代码多媒体播放器。）几乎能播放你所有的视频文件。安装很简单，终端下输入：1apt-get install vlc kali安装vlc视频播放器效果图: 笔记软件TomboyTomboy是小巧实用的桌面便签软件,很方便我们记录一些零散的东西。Tomboy安装后的中文名称是:啊贴便签安装也很简单，终端下安装输入:1apt-get install tomboy Leanote（蚂蚁笔记）蚂蚁笔记是用go编写的web云笔记，支持linux客户端，代码高亮，公开为博客。非常强大。官网下载：http://app.leanote.com安装使用很简单，直接解压，点击 Leanote 运行即可 ZIM桌面维基zim桌面维基是Kali Linux下自带的笔记软件，功能也挺强大的，界面蛮漂亮的。 代码编辑器kali下代码编辑器推荐当今主流的3种visualcode atom sublime text3 (自行百度下载)安装很简单，直接下载deb安装包，使用 gdebi安装即可. 文档管理器Kali下的文档管理器是原生的PDF阅读器，和Mac OS下是同款阅读器。把文档管理器固定在 收藏夹下 还会有惊喜。 小结这些都是我当初折腾kali linux总结出的经验，曾经绕了很多弯路，付出了很多，有时候可能一天都在安装系统，而且坏了一个32GB的固态硬盘。。。总之一路上不是那么顺利，如今我以过来人的身份写下这篇kali diy文章，只为了可以让后人可以少走弯路，真正的发挥kali的优点，发现kali linux之美。]]></content>
+      <categories>
+        <category>hacker</category>
+      </categories>
+      <tags>
+        <tag>国光</tag>
+        <tag>Kali Linux</tag>
+        <tag>diy</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[信息收集之网站镜像克隆]]></title>
     <url>%2F2016%2F10%2Fweb.html</url>
     <content type="text"><![CDATA[一个成功的渗透测试人员，在进行一次成功的渗透测试之前，必须能够获得尽可能多的信息。有时候复制组织的整个网站进行离线评估更有效。这可以使用自动化工具设定搜索条件，或者仅对当前站点改变的敏感信息进行镜像复制。当离线时，拥有 一份镜像进行持续观察很有效。 前言一个成功的渗透测试人员，在进行一次成功的渗透测试之前，必须能够获得尽可能多的信息。有时候复制组织的整个网站进行离线评估更有效。这可以使用自动化工具设定搜索条件，或者仅对当前站点改变的敏感信息进行镜像复制。当离线时，拥有 一份镜像进行持续观察很有效。Wooyun被封杀，现在网上还有很多Wooyun镜像站来继续发挥Wooyun的预热那样。镜像网站不会复制动态内容，也不会复制网站的中间件，比如:数据库等，因此，这并不是对所有渗透测试环境都适用。我个人一般都是用这些工具来 “盗取” 炫酷的html5网站（嘘 ~~~），有时候用它离线存储一些网站，总之挺实用的。 使用wget复制克隆网站介绍Kali linux默认按照了wget工具，它简单使用，Pentest Box中也集成了wget。只要在终端下敲几个命令，就可以下载整个网站的html文件。wget不能复制服务器的程序页面，例如PHP脚本页面。 使用方法终端下输入:1wget -m -p -E -k -K -np -v http://www.baidu.com 这样就会把百度的首页复制下来，就是这么简单粗暴。这里使用了一连串的参数，可以使用man命令来查看 wget的手册：1man wget wget的主要参数如下:12345m:镜像，选择该选项适用于Web站点 p页面获先决条件，该选项确保 包含了请求的 图片和css脚本文件被下载(这样可以更好的复制 html5的站点) E:适用扩展，这可以在本地另存为一个html文件 k:转换链接，确保文件被转换，用于本地浏览 K:转换备份文件，将会以orig为后缀作为原始文件 从组织的Web服务器传送的文件将会存储在复制的网站名称命名的文件夹中。复制网站时，可能会发生错误，尤其是在复制动态脚本页面的时候，这是因为生成页面的大部分代码是有动态脚本创建的，大部分站点的应用程序是不能访问到的。 注：文件一旦被下载，切忌不可以让其他人浏览和重新发布站点，这回违反版权法。 实战克隆下面来 实战用wget来克隆 小米官方HTML5引导页： 使用HTTrack复制克隆网站介绍HTTrack是一款免费的离线浏览器工具，和wget克隆复制镜像差不多，从服务器抓取HTML文件、图片、以及其他css文件并存储到你的计算机上。Kali 2.0起默认预装了 HTTrack。 使用方法终端下输入:1httrack 如果没有安装这个工具的话，那就现场安装一下吧，只需要2个命令:12apt-get updateapt-get install httrack 这里提示要输入项目名称、存放网站的路径（默认为 /root/website） 和要克隆的目标站 我们这里以 搜狗浏览器官网为例我们自定义输入test 然后 按下 回车1sougou 然后默认路径 回车12```输入想要克隆的网站 http://ie.sougou.com`` 下面HTTrack提供了一些选项，我们一般选择第二本选项Mirror Web Site(s) with Wizard（具有向导递归层级的镜像网站） 输入:2`回车 回车 回车 后面的一些基本设置 一般一直回车下去 直到网站开始克隆为止，HTTrack 就开始进行网站克隆了。 小结个人认为：wget操作简单方便，但是克隆效果不及 HTTrack；HTTrack虽然比wget稍微繁琐了一点，但是在爬一个大型网站上面完整性要优于wget。 对了，最后再提醒一下：注意版权。]]></content>
@@ -348,19 +361,6 @@
         <tag>Kali Linux</tag>
         <tag>渗透测试</tag>
         <tag>信息收集</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[开启你的kali linux DIY之旅(基于kali linux2016.2)]]></title>
-    <url>%2F2016%2F10%2Fdiykali.html</url>
-    <content type="text"><![CDATA[这些都是我当初折腾kali linux总结出的经验，曾经绕了很多弯路，付出了很多，有时候可能一天都在安装系统，而且坏了一个32GB的固态硬盘。。。总之一路上不是那么顺利，如今我以过来人的身份写下这篇kali diy文章，只为了可以让后人可以少走弯路，真正的发挥kali的优点，发现kali linux之美。 更新源首先 是kali2016.2更新源的问题，网上找了好久，都不是很满意。后来把kali 2016.2安装到实体机中才发现，里面自带了更新源。下面我把这个官方自带更新源分享出来(速度蛮快的)12deb http://http.kali.org/kali kali-rolling main contrib non-freedeb-src http://http.kali.org/kali kali-rolling main contrib non-free 很多人拿到更新源就按照百度上面介绍的那样,得执行好几个命令。其实不必这样费时费力的,拿到kali 更新源其实很简单 只执行一条命令即可1apt-get update 就是这么简单，剩下的想安装什么软件的话，只需要执行：1apt-get install 软件名 对就是这么简单。这里的难点在于，软件名 我们并不知道，不知道到底有哪些软件可以安装。别急 下面我来慢慢说来。 添加用户首先你得添加个用户，这是为什么呢？因为 kali 下有不少软件要求 必须在 非root用户下才可以运行的。比如网易云音乐在kali 2016.2下就无法运行，就是因为是root用户的缘故。在 设置-用户 里面 添加用户效果图如下:这里注意几点:1.语言设置 汉语2.登录密码 得满足复杂度要求3.勾选自动登录 软件安装软件安装这里是重头戏了，很多人都是卡在了不知道kali如何安装软件所以kali就半途而废了。如果你的kali日常必备软件都是有的话，就会慢慢喜欢上kali的。这里我推荐kali不要安装在虚拟机中，因为实体机和虚拟机的效果是天差地别的。本人建议把kali linux安装到U盘上，这样既方便又减少了处理引导问题的麻烦。总之，kali是个很优秀的系统，个人觉得 比 windws 要酷炫好用。 gdebi我们安装的第一个软件是:gdebi这个是辅助安装软件工具，有了gdebi 这样安装其他软件时，可以节省好多时间。直接可以图形化安装 deb 的安装包。终端安装输入：1apt-get install gdebi 注:安装软件得切换到 ==root用户==才可以安装安装gdebi后的效果图： 汉化火狐浏览器终端直接输入:1apt-get install iceweasel-l10n-zh-cn kali 2016.2汉化火狐浏览器的效果图： 搜狗输入法kali 2016.2安装搜狗输入法 这里得借助前面安装的 gdebi 程序来安装首先官网下载 deb安装包：http://pinyin.sogou.com/linux/?r=pinyin然后 右键 deb包 选择 gdebi打开 即可安装 TeamviewerTeamviewer是一款功能强悍、跨平台的远端控制软件。安装也不算很难。官网下载deb安装包：https://www.teamviewer.com/zhcn/download/linux/用gdebi 辅助安装工具右键安装，提示报错：这是因为64位的系统安装32的版本会提示缺少 32位运行库Kali Llinux2016.2安装32运行库方法如下:以root身份登录1234su rootdpkg --add-architecture i386apt-get updateapt-get install libc6:i386 执行完这4个命令后，再用gdebi 来安装teamviewer就可以成功安装了。期间如果报错的话，就按照提示在终端下输入命令修复一下即可：以root身份登录，终端下输入：1apt-get install -f Kali Linux安装Teamviewer12.0的效果图如下: Virtual boxkali 2016.2安装 virtual box其实很简单，只需要一条命令即可：1apt-get install virtualbox kali下的virtualbox的安装还是很有必要的，毕竟有时候我们不得不用windows系统来处理一些事情：kali2016.2安装完virtualbox效果图： 安装chrome内核浏览器这里我不直接推荐 chrome浏览器，个人觉得 其他基于chrome内核开发的浏览器也是蛮不错的 Opera浏览器kali安装Opera浏览器的话，直接去官网下载deb安装包，然后用 gdebi 安装即可：kali安装opera浏览器效果图： Vivaldi浏览器Vivaldi浏览器也是个蛮个性的浏览器，基于chrome内核，速度很快，外观美观个性。也是下载 deb 包，然后使用 gdebi安装由于官网经常奔溃掉，这里我提供vivaldi linux的安装链接：点击下载 vivaldi for linux 64位deb版效果图: DIY你的chrome内核浏览器chrome浏览器下有很多优秀的插件，安装插件只要把插件拖动到 浏览器的扩展管理即可安装。这里我就简单推荐几个:广告终结者 ：直接去掉 优酷 广告哦 很强大SwitchyOmega ：burp代理神器，配合xx-net还可以科学上网哦Infinity新标签页 ： vokoscreenlinux下的屏幕录像软件，小巧实用。终端输入命令直接安装：1apt-get install vokoscreen kali下屏幕录像软件vokoscreen安装完效果图： remminalinux下远程桌面管理软件，小巧强大，支持 RDP、SFTP、SSH、VNC协议，足够我们日常使用了终端输入命令直接安装：1apt-get install remmina kali下远程桌面、VNC、SSH、SFTP客户端安装完效果图： 网易云音乐官网下载 deepin 版本的deb安装包，然后用 gdebi安装，用==非root用户==打开官网下载： http://music.163.com/#/download博客迁移，以前的图失效了，就去贴吧找了张 wine下的图 凑个数吧 =，= Audacious本地音乐播放器,其运行在POSIX兼容系统上，如Linux、Audacious使用Plugin机制来实现各种功能。在大部分的系统上，Audacious已默认安装好一套已默认安装好一套Plugin，提供播放一些音乐格式的能力，如MP3、Ogg Vorbis、FLAC等网易云需要有网络的时候才可以使用，离线的话，不妨安装Audacious吧，是linux下一款不错的音乐播放器。安装很简单，终端下输入：1apt-get install audacious kali安装完audacious本地音乐播放器效果图： VLCVLC多媒体播放器（最初为VideoLAN Client，是VideoLAN计划的开放源代码多媒体播放器。）几乎能播放你所有的视频文件。安装很简单，终端下输入：1apt-get install vlc kali安装vlc视频播放器效果图: 笔记软件TomboyTomboy是小巧实用的桌面便签软件,很方便我们记录一些零散的东西。Tomboy安装后的中文名称是:啊贴便签安装也很简单，终端下安装输入:1apt-get install tomboy Leanote（蚂蚁笔记）蚂蚁笔记是用go编写的web云笔记，支持linux客户端，代码高亮，公开为博客。非常强大。官网下载：http://app.leanote.com安装使用很简单，直接解压，点击 Leanote 运行即可 ZIM桌面维基zim桌面维基是Kali Linux下自带的笔记软件，功能也挺强大的，界面蛮漂亮的。 代码编辑器kali下代码编辑器推荐当今主流的3种visualcode atom sublime text3 (自行百度下载)安装很简单，直接下载deb安装包，使用 gdebi安装即可. 文档管理器Kali下的文档管理器是原生的PDF阅读器，和Mac OS下是同款阅读器。把文档管理器固定在 收藏夹下 还会有惊喜。 小结这些都是我当初折腾kali linux总结出的经验，曾经绕了很多弯路，付出了很多，有时候可能一天都在安装系统，而且坏了一个32GB的固态硬盘。。。总之一路上不是那么顺利，如今我以过来人的身份写下这篇kali diy文章，只为了可以让后人可以少走弯路，真正的发挥kali的优点，发现kali linux之美。]]></content>
-      <categories>
-        <category>hacker</category>
-      </categories>
-      <tags>
-        <tag>国光</tag>
-        <tag>Kali Linux</tag>
-        <tag>diy</tag>
       </tags>
   </entry>
   <entry>
